@@ -36,6 +36,7 @@ if(isset($_POST['login']))
         elseif($row['role'] == 'customer')
         {
             session_start();
+            $_SESSION["lid"]=$row["login_id"];
             $_SESSION["email"]=$row["email"];
             header("Location:sidebar-01/..//first.html");
         }       

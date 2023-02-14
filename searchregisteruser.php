@@ -32,13 +32,11 @@ include "../session.php";
                 <a href="#" class="img logo rounded-circle mb-5" style="background-image: url(adminavatar.jpg);"></a>
                 <ul class="list-unstyled components mb-5">
                     <li class="active">
-                        <a href="admin.php" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">USERS</a>
+                        <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">USERS</a>
                         <ul class="collapse list-unstyled" id="homeSubmenu">
                         </ul>
                         </li>
-                        <li>
-                         <a href="admin.php">admin</a>
-                        </li>
+
                             <li>
                                 <a href="registeruser.php">Registered Users</a>
                             </li>
@@ -59,12 +57,6 @@ include "../session.php";
                           </li>
                              <li>
                            <a href="pro.php">Add Product</a>
-                          </li>
-                          <li>
-                           <a href="jobentering.php">Enter jobs</a>
-                          </li>
-                          <li>
-                           <a href="bill.php">Generate bill</a>
                           </li>
                           <li>
                          <a href="\sample\bb\cat.php">insert categories</a>
@@ -205,7 +197,15 @@ if ($conn->connect_error) {
 
                         </tr>
                         <?php
-                        $sql = "SELECT * from tbluser_registration where status!='1'";
+                        
+if (isset($_POST['search'])) {
+    $search = $_POST['search'];
+
+    $result = mysqli_query($conn, "SELECT * FROM tbluser_registration WHERE name LIKE '%$search%' AND where status!='1'");
+
+
+
+                       
                         $result = $conn->query($sql);
                         $count=1;
                 if ($result->num_rows > 0) {
@@ -239,7 +239,10 @@ if ($conn->connect_error) {
                             
                             <?php
  }
- }
+ }else{
+    echo '<p style="color:white;font-size:15px;margin:15px">No user found</p>';
+  }
+  } 
     ?>
 
                     </table>

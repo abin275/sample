@@ -45,6 +45,19 @@
 
 
 
+
+                          <li>
+                           <a href="\sample\sidebar-01\outlet_insert.php"><i class="fa fa-home"></i>Add outlets</a>
+                          </li>
+                          <li>
+                           <a href="\sample\sidebar-01\jobentering.php"><i class="fa fa-home"></i>Enter jobs</a>
+                          </li>
+                          <li>
+                           <a href="\sample\sidebar-01\bill.php"><i class="fa fa-home"></i>Generate bill</a>
+                          </li>
+
+
+
                           <li>
                            <a href="cat.php"><i class="fa fa-home"></i>Add category</a>
                           </li>

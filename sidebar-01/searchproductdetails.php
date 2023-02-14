@@ -1,5 +1,17 @@
 <?php
-include "../session.php";
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname="project";
+// Create connection
+$conn = mysqli_connect($servername, $username, $password, $dbname);
+
+// Check connection
+    if (!$conn) 
+    {
+        echo "Connection failed: ";
+    }
+
 ?>
 <html lang="en">
 
@@ -7,12 +19,10 @@ include "../session.php";
     <title>Users list </title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
     <!-- <link rel="stylesheet" href="table.css"> -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://kit.fontawesome.com/7b14733c8d.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <style>
@@ -35,11 +45,11 @@ include "../session.php";
                         <a href="admin.php" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">USERS</a>
                         <ul class="collapse list-unstyled" id="homeSubmenu">
                         </ul>
-                        </li>
-                        <li>
-                         <a href="admin.php">admin</a>
-                        </li>
-                            <li>
+                    </li>
+                    <li>
+                    <a href="admin.php">admin</a>
+                    </li>
+                    <li>
                                 <a href="registeruser.php">Registered Users</a>
                             </li>
                             <!-- <li>
@@ -81,9 +91,7 @@ include "../session.php";
                          <li>
                          <a href="\sample\bb\qu.php">insert quantity</a>
                          </li>
-                        
-                        
-                    
+
                     <li>
                         <a href="#">About</a>
                     </li>
@@ -136,7 +144,7 @@ include "../session.php";
                                 <a class="nav-link" href="admin.php">HOME</a>
                             </li>
                             <li class="nav-item active">
-                            <a class="nav-link" href="../logout.php">LOGOUT</a>
+                                <a class="nav-link" href="../logout.php">LOGOUT</a>
                             </li>
 
                             <li class="nav-item">
@@ -154,105 +162,177 @@ include "../session.php";
 
 
 
-
-            <!-- <a href="admin_dashboard.php"><button class="button-54">Dashboard</button></a> -->
-           
-
-                <?php
-$servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "project";
- 
- // Create connection
-$conn = new mysqli($servername,
-    $username, $password, $dbname);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: "
-        . $conn->connect_error);
-}
- ?>
-                    
-
-    <div class="card bg-secondary mt-3">
+        <div class="card bg-secondary mt-3">
         <div class="card-header">
-            <h1 id="h1">Users Detail</h1>
+            <h1 id="h1">Product Details</h1>
         </div>
         <div class="card-body">
-        <div class="container">
-    <br/>
-
-    <form action="searchregisteruser.php" method="post">
+            <!-- <a href="admin_dashboard.php"><button class="button-54">Dashboard</button></a> -->
+            
+            <form action="searchregisteruser.php" method="post">
                                         <input type="text" name="search" placeholder="Search" style="width:200px;height:30px;border-radius:10px;">
                                         <button type="submit"><i class="fa fa-search"></i></button>
                                     </form>
-                     
-                        <!--end of col-->
-                    </div>
-</div>
-                    <table  class="table table-bordered  border-dark table-danger">
+                        
 
-                        <tr class="table">
-                            <th>NAME</th>
-                            <th>ADDRESS</th>
-                            <th>GENDER</th>
-                            <th>EMAIL</th>
-                            <th>PHONE</th>
-                            <th>ACTION</th>
+            <table class="table table-bordered table-hover table-info">
+                <thead>
+                    <tr>
+                        <th>ACCESSORIES ID</th>    
+                        <th>CATEGORY ID</th>
+                        <th>SECOND ID</th>
+                        <th>NAME</th>
+                        <th>DESCRIPTION</th>
+                        <th>SPECIFICATION</th>
+                        <th>QUANTITY</th>
+                        <th>PRICE</th>
+                        <th>COLOUR</th>
+                        <th>COMPANY</th>
+                        <th>IMAGE</th>
+
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <?php
+                    if (isset($_POST['search'])) {
+                     $search = $_POST['search'];
+
+    $result = mysqli_query($conn, "SELECT * FROM `tbl_accessories` WHERE name LIKE '%$search%'");
 
 
+                       
+                        
+                        $count=1;
+                        if ($result-> num_rows > 0){
+                            while($row = $result-> fetch_assoc()){ 
+ ?>
+                   
+                        <tr>
+                        <td>
+                                <?php echo $row['accessories_id'] ?>
+                            </td>
+                        <td>
+                                <?php echo $row['category_id'] ?>
+                            </td>
+                            <td>
+                                <?php echo $row['second_id'] ?>
+                            </td>
+                            <td>
+                                <?php echo $row['name'] ?>
+                            </td>
+                            <td>
+                                <?php echo $row['description'] ?>
+                            </td>
+                            <td>
+                                <?php echo $row['specification'] ?>
+                            </td>
+                            <td>
+                                <?php echo $row['quantity'] ?>
+                            </td>
+                            <td>
+                                <?php echo $row['price'] ?>
+                            </td>
+                            <td>
+                                <?php echo $row['color'] ?>
+                            </td>
+                            <td>
+                                <?php echo $row['company'] ?>
+                            </td>
+                            <td>
+                                <?php echo $row['image'] ?>
+                            </td>
+                            
+                            <!-- <button class="btn btn-danger"  name="d_btn" value="<?=$row['basic_id']?>" style="height:40px">Delete</button>
+                            <td><button class="btn btn-danger"  name="d_btn" value="<?=$row['basic_id']?>" style="height:40px">Delete</button></a></td>  -->
                         </tr>
                         <?php
-                        $sql = "SELECT * from tbluser_registration where status!='1'";
-                        $result = $conn->query($sql);
-                        $count=1;
-                if ($result->num_rows > 0) {
-  // output data of each row
-  while($row = $result->fetch_assoc()) {
- ?>
-                            <tr>
-                                <td>
-                                    <?php echo $row['name'] ?>
-                                </td>
-                                <td>
-                                    <?php echo $row['address'] ?>
-                                </td>
-                                <td>
-                                    <?php echo $row['gender'] ?>
-                                </td>
-                                <td>
-                                    <?php echo $row['email'] ?>
-                                </td>
-                                <td>
-                                    <?php echo $row['phone'] ?>
-                                </td>
-                                <td>
-                <form action="code.php" method="POST">
-                  <!-- <input type="hidden" name="delete_id" value="">
-                  <button type="submit" name="delete_btn" class="btn btn-danger"> DELETE</button> -->
-				  <button class="btn btn-danger"  name="d_btn" value="<?=$row['registration_id']?>" style="height:40px">Delete</button>
-                </form>
-            </td>
-                            </tr>
-                            
-                            <?php
- }
- }
-    ?>
+                 }
+                 }
+                }else{
+                    echo '<p style="color:white;font-size:15px;margin:15px">No user found</p>';
+                  }
+                    ?>
+                </tbody>
+            </table>
+                </div>
+                </div>
+                </div>
 
-                    </table>
+            <br> <br> <br>
+            <!-- <style>
+                html {
+                    box-sizing: border-box;
+                }
+                
+                *,
+                *:before,
+                *:after {
+                    box-sizing: inherit;
+                }
+                
+                .column {
+                    float: left;
+                    width: relative;
+                    margin-bottom: 8px;
+                    padding: 0 8px;
+                    width: 350px;
+                    height: 550px;
+                }
+                
+                @media screen and (max-width: 650px) {
+                    .column {
+                        display: block;
+                    }
+                }
+                
+                .card {
+                    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+                    height: 350px;
+                    width: 300px;
+                }
+                
+                .container {
+                    padding: 0 16px;
+                }
+                
+                .container::after,
+                .row::after {
+                    content: "";
+                    clear: both;
+                    display: table;
+                }
+                
+                .title {
+                    color: grey;
+                }
+                
+                .button {
+                    border: none;
+                    outline: 0;
+                    display: inline-block;
+                    padding: 8px;
+                    color: white;
+                    background-color: #000;
+                    text-align: center;
+                    cursor: pointer;
+                    width: 100%;
+                }
+                
+                .button:hover {
+                    background-color: #555;
+                }
+            </style> -->
+            </head>
 
-            </div>
-</div>
+            <body>
+                <br>
 
-                    <?php mysqli_close($conn);  // close connection ?>
-                    <br><br>
-                    
+            </body>
 
+</html>
 
-</body>
 </div>
 </div>
 

@@ -50,7 +50,7 @@ include('connection.php');
                         <div class="full">
                             <div class="center-desk">
                                 <div class="logo">
-                                    <a href="index.html"><img src="images/logo.png" alt="#" /></a>
+                                    <a href="index.php"><img src="images/logo.png" alt="#" /></a>
                                 </div>
                             </div>
                         </div>
@@ -62,40 +62,35 @@ include('connection.php');
                         </button>
                             <div class="collapse navbar-collapse" id="navbarsExample04">
                                 <ul class="navbar-nav mr-auto">
+                                <li class="nav-item active ">
+                                        <a class="nav-link " href="index.php">Home</a>
+                                    </li>
                                     <li class="nav-item ">
-                                        <a class="nav-link" href="index.html">Home</a>
+                                        <a class="nav-link " href="about.html ">About</a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="about.html">About</a>
+                                    <li class="nav-item ">
+                                        <a class="nav-link " href="service centers.html ">Service Centers</a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="service centers.html">Service Centers</a>
+                                    <li class="nav-item ">
+                                        <a class="nav-link " href="careers.php ">Careers</a>
                                     </li>
-                                    <!--
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="laptop.html">Laptop</a>
-                                    </li>-->
-                                    <li class="nav-item active">
-                                        <a class="nav-link" href="product.php">Products</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="contact.php">Contact Us</a>
-                                    </li>
-                                    <!--
-                                    <li class="nav-item d_none">
-                                        <a class="nav-link" href="#"><i class="fa fa-search" aria-hidden="true"></i></a>
-                                    </li>  -->
 
+                                    <li class="nav-item ">
+                                        <a class="nav-link " href="product.php">Products</a>
+                                    </li>
                                     <li class="nav-item d_none">
-                                        <a class="nav-link" href="user_login.php">Register</a>
+                                        <a class="nav-link" href="cart.php">Cart</a>
+                                    </li>
+                                    <li class="nav-item ">
+                                        <a class="nav-link " href="contact.php">Contact Us</a>
+                                    </li>
+
+                                    <li class="nav-item d_none ">
+                                        <a class="nav-link " href="user_registration.php">Register</a>
                                     </li>
                                     <li class="nav-item d_none ">
                                         <a class="nav-link " href="sidebar-01\user.php">Account</a>
                                     </li>
-
-                                    <!--<li class="nav-item ">
-                                    <a class="nav-link " href="logout.php">logout</a>
-                                    </li>-->
                                 </ul>
                             </div>
                         </nav>

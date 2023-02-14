@@ -36,7 +36,7 @@ include "../session.php";
                             <a href="#">MY WISH LIST</a>
                         </li>
                         <li>
-                            <a href="#">ORDER HISTORY</a>
+                            <a href="\sample\cart.php">CART</a>
                         </li>
                         <li>
                             <a href="#">COMPLANTS</a>

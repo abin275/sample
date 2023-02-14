@@ -1,3 +1,39 @@
+<?php
+session_start();
+include('connection.php');
+include('sidebar-01/show.php');
+$msg=NULL;
+
+$uid=htmlentities($_SESSION['email']);
+
+ if(isset($_GET['id'])){
+    /* $uid = $_SESSION['lid']; */
+    $prod=$_GET["id"];   
+    
+    $select="SELECT * from tblcart where accessories_id=$prod";
+    $result=mysqli_query($conn,$select);
+    if(mysqli_num_rows($result)>0)
+    {
+        $msg = "<div class='alert alert-danger'>Already added to cart.</div>";
+    } 
+    else
+    {
+        $qry = "INSERT INTO `tblcart` (`accessories_id`,`quantity`) VALUES('$prod','1')";
+        $result_query=mysqli_query($conn,$qry);
+        if($qry){
+            $msg = "<div class='alert alert-success'>Added to cart</div>";
+        }
+    }
+  
+   
+        
+    }
+   
+  
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -31,8 +67,16 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
 </head>
 <!-- body -->
-
-<body class="main-layout inner_posituong computer_page">
+<style>
+            form {
+            overflow: hidden;
+            
+            display:inline-block;
+            margin:10px;
+            }
+          
+        </style>
+<body class="main-layout inner_posituong">
     <!-- header -->
     <header>
         <!-- header inner -->
@@ -55,27 +99,21 @@
                         </button>
                             <div class="collapse navbar-collapse" id="navbarsExample04">
                                 <ul class="navbar-nav mr-auto">
-                                    <li class="nav-item active">
+                                    <li class="nav-item ">
                                         <a class="nav-link" href="index.php">Home</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="about.html">About</a>
                                     </li>
-                                    <li class="nav-item  active">
-                                        <a class="nav-link" href="service centers.html">Service Centers</a>
-                                    </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="careers.php">Careers</a>
+                                        <a class="nav-link" href="service centers.html">Service Centers</a>
                                     </li>
                                     <!--
                                     <li class="nav-item">
                                         <a class="nav-link" href="laptop.html">Laptop</a>
-                                    </li> -->
-                                    <li class="nav-item">
+                                    </li>-->
+                                    <li class="nav-item active">
                                         <a class="nav-link" href="product.php">Products</a>
-                                    </li>
-                                    <li class="nav-item d_none">
-                                        <a class="nav-link" href="cart.php">Cart</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="contact.php">Contact Us</a>
@@ -83,14 +121,18 @@
                                     <!--
                                     <li class="nav-item d_none">
                                         <a class="nav-link" href="#"><i class="fa fa-search" aria-hidden="true"></i></a>
-                                    </li> -->
-
+                                    </li>  -->
+                                    
+                                    <li class="nav-item d_none">
+                                        <a class="nav-link" href="cart.php">Cart</a>
+                                    </li>
                                     <li class="nav-item d_none">
                                         <a class="nav-link" href="user_login.php">Register</a>
                                     </li>
                                     <li class="nav-item d_none ">
                                         <a class="nav-link " href="sidebar-01\user.php">Account</a>
                                     </li>
+
                                     <!--<li class="nav-item ">
                                     <a class="nav-link " href="logout.php">logout</a>
                                     </li>-->
@@ -102,33 +144,120 @@
             </div>
         </div>
     </header>
+  
     <!-- end header inner -->
     <!-- end header -->
-    <!-- laptop  section -->
-    <div class="laptop">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="titlepage">
-                        <p>Booking Service Centers</p>
-                        <h2>Up to 30% off !</h2>
-                        <a class="read_more" href="outlet_details.php">OUTLET DETAILS</a>
-                        <a class="read_more" href="bb/b.php">Service Center Book Now</a>
-                        <a class="read_more" href="bb/doorstep.php">Door Step Service Book Now</a>
-
-
+    <!-- products -->
+    <?php  /* echo $uid; */ ?>
+    <div class="products ">
+        <div class="container ">
+            <div class="row ">
+                <div class="col-md-12 ">
+                    <div class="titlepage ">
+                        <h2>Our Products</h2>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="laptop_box">
-                        <figure><img src="images/moto1.jpg" alt="#" /></figure>
+            </div>
+            <form action="search.php" method="post">
+                                        <input type="text" name="search" placeholder="Search" style="width:200px;height:30px;border-radius:10px;">
+                                        <button type="submit"><i class="fa fa-search"></i></button>
+                                    </form>
+            <div class="row ">
+                <div class="col-md-12 ">
+                    <div class="our_products ">
+                        <div class="row ">
+                            <?php
+                                include_once "connection.php";
+                               
+
+
+if (isset($_POST['search'])) {
+    $search = $_POST['search'];
+
+    $result = mysqli_query($conn, "SELECT * FROM tbl_accessories WHERE name LIKE '%$search%'");
+
+                                
+
+                                if ($result-> num_rows > 0){
+                                while($row = $result-> fetch_assoc()){ 
+                            ?> 
+                            <div class="card col-md-4 shadow p-2 mb-3 bg-body rounded">
+                                <div class="card-body product_box ">
+                                <img src="../uploads/<?php echo $row['image']; ?>">
+                                    <p>Name: <?php echo $row['name']?></p>
+                                    <p>Description: <?php echo $row['description']?></p>
+                                    <p>Quantity: <?php echo $row['quantity']?></p>
+                                    <p>Specification: <?php echo $row['specification']?></p>
+                                    <p>Price: <?php echo $row['price']?></p>
+                                    <p>Company: <?php echo $row['company']?></p>
+
+                                </div>
+                               <a href="?id=<?php echo $row['accessories_id']?>" style="text-decoration:none;"> <button type="submit" value="add to cart" name="add_to_cart" class="btn custom-btn cart-btn" data-bs-toggle="modal" data-bs-target="">Add to Cart</button></a>
+                            </div>
+                            <?php
+                            }
+                        }else{
+                            echo '<p style="color:white;font-size:15px;margin:15px">No accessories found</p>';
+                          }
+                          } 
+                        ?>
+                        <?php
+                                // include_once "connection.php";
+                                // $sql="SELECT * from tbl_accessories where accessories_id='1113'";
+                                // $result = $conn-> query($sql);
+                                // if ($result-> num_rows > 0){
+                                // while($row = $result-> fetch_assoc()){ 
+                            ?> 
+                            <!-- <div class="col-md-4 margin_bottom1 ">
+                                <div class="product_box ">
+                                    
+                                    <p>Name: <?php echo $row['name']?></p>
+                                    <p>Description: <?php echo $row['description']?></p>
+                                    <p>Quantity: <?php echo $row['quantity']?></p>
+                                    <p>Specification: <?php echo $row['specification']?></p>
+                                    <p>Price: <?php echo $row['price']?></p>
+                                    <p>Company: <?php echo $row['company']?></p>
+                                </div>
+                            </div> -->
+                            <?php
+                        //     }
+                        // }
+                        ?>   
+                        <?php
+                                // include_once "connection.php";
+                                // $sql="SELECT * from tbl_accessories where accessories_id='1116'";
+                                // $result = $conn-> query($sql);
+
+                                // if ($result-> num_rows > 0){
+                                // while($row = $result-> fetch_assoc()){ 
+                            ?> 
+                            <!-- <div class="col-md-4 margin_bottom1 ">
+                                <div class="product_box ">
+                                    
+                                    <p>Name: <?php echo $row['name']?></p>
+                                    <p>Description: <?php echo $row['description']?></p>
+                                    <p>Quantity: <?php echo $row['quantity']?></p>
+                                    <p>Specification: <?php echo $row['specification']?></p>
+                                    <p>Price: <?php echo $row['price']?></p>
+                                    <p>Company: <?php echo $row['company']?></p>
+                                    
+                                </div>
+                            </div> -->
+                            <?php
+                        //     }
+                        // }
+                        ?>
+                        <?php echo $msg; ?>
+                            <div class="col-md-12 ">
+                                <a class="read_more " href="# ">See More</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    </div>
-    <!-- end laptop  section -->
+    <!-- end products -->
     <!--  footer -->
     <footer>
         <div class="footer">
@@ -143,7 +272,6 @@
                             <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
                         </ul>
                     </div>
-
                     <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 ">
                         <h3>About Us</h3>
                         <ul class="about_us ">

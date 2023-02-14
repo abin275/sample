@@ -23,16 +23,17 @@ include "../connection.php";
                 <a href="#" class="img logo rounded-circle mb-5" style="background-image: url(adminavatar.jpg);"></a>
                 <ul class="list-unstyled components mb-5">
                     <li class="active">
-                        <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">USERS</a>
+                        <a href="admin.php" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">USERS</a>
                         <ul class="collapse list-unstyled" id="homeSubmenu">
                         </ul>
                         </li>
+                        <li>
+                         <a href="admin.php">admin</a>
+                         </li>
                             <li>
                                 <a href="registeruser.php">Registered Users</a>
                             </li>
-                            <!-- <li>
-                                <a href="registershop.html">Register Shops</a>
-                            </li> -->
+                        
                             <li>
                                 <a href="productdetails.php">Product Details</a>
                             </li>
@@ -42,8 +43,17 @@ include "../connection.php";
                             <li>
                                 <a href="contactdetails.php">Complaint Details</a>
                             </li>
+                            <li>
+                           <a href="outlet_insert.php">Add outlets</a>
+                          </li>
                              <li>
                            <a href="pro.php">Add Product</a>
+                          </li>
+                          <li>
+                           <a href="jobentering.php">Enter jobs</a>
+                          </li>
+                          <li>
+                           <a href="bill.php">Generate bill</a>
                           </li>
                           <li>
                          <a href="\sample\bb\cat.php">insert categories</a>
@@ -60,6 +70,10 @@ include "../connection.php";
                          <li>
                          <a href="\sample\bb\qu.php">insert quantity</a>
                          </li>
+                         <li>
+                         <a href="../prev.php">Report generation</a>
+                         </li>
+
                          <li>
                         <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Pages</a>
                         <ul class="collapse list-unstyled" id="pageSubmenu">

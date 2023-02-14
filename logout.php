@@ -4,5 +4,5 @@
     // unset($_SESSION["auth_user"]);
     session_destroy();
     $_SESSION['message'] = "Logged Out Successfully";
-    header("Location: ./index.html");
+    header("Location: ./index.php");
 ?>

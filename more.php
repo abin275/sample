@@ -1,6 +1,35 @@
 <?php
+session_start();
 include('connection.php');
 include('sidebar-01/show.php');
+$msg=NULL;
+
+$uid=htmlentities($_SESSION['email']);
+
+ if(isset($_GET['id'])){
+    /* $uid = $_SESSION['lid']; */
+    $prod=$_GET["id"];   
+    
+    $select="SELECT * from tblcart where accessories_id=$prod";
+    $result=mysqli_query($conn,$select);
+    if(mysqli_num_rows($result)>0)
+    {
+        $msg = "<div class='alert alert-danger'>Already added to cart.</div>";
+    } 
+    else
+    {
+        $qry = "INSERT INTO `tblcart` (`accessories_id`,`quantity`) VALUES('$prod','1')";
+        $result_query=mysqli_query($conn,$qry);
+        if($qry){
+            $msg = "<div class='alert alert-success'>Added to cart</div>";
+        }
+    }
+  
+   
+        
+    }
+   
+  
 ?>
 
 
@@ -36,9 +65,23 @@ include('sidebar-01/show.php');
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+      
+      
+      
+      <!-- payment -->
+      <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 </head>
 <!-- body -->
-
+<style>
+            form {
+            overflow: hidden;
+            
+            display:inline-block;
+            margin:10px;
+            }
+          
+        </style>
 <body class="main-layout inner_posituong">
     <!-- header -->
     <header>
@@ -50,7 +93,7 @@ include('sidebar-01/show.php');
                         <div class="full">
                             <div class="center-desk">
                                 <div class="logo">
-                                    <a href="index.html"><img src="images/logo.png" alt="#" /></a>
+                                    <a href="index.php"><img src="images/logo.png" alt="#" /></a>
                                 </div>
                             </div>
                         </div>
@@ -63,7 +106,7 @@ include('sidebar-01/show.php');
                             <div class="collapse navbar-collapse" id="navbarsExample04">
                                 <ul class="navbar-nav mr-auto">
                                     <li class="nav-item ">
-                                        <a class="nav-link" href="index.html">Home</a>
+                                        <a class="nav-link" href="index.php">Home</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="about.html">About</a>
@@ -85,7 +128,10 @@ include('sidebar-01/show.php');
                                     <li class="nav-item d_none">
                                         <a class="nav-link" href="#"><i class="fa fa-search" aria-hidden="true"></i></a>
                                     </li>  -->
-
+                                    
+                                    <li class="nav-item d_none">
+                                        <a class="nav-link" href="cart.php">Cart</a>
+                                    </li>
                                     <li class="nav-item d_none">
                                         <a class="nav-link" href="user_login.php">Register</a>
                                     </li>
@@ -104,9 +150,11 @@ include('sidebar-01/show.php');
             </div>
         </div>
     </header>
+  
     <!-- end header inner -->
     <!-- end header -->
     <!-- products -->
+    <?php  /* echo $uid; */ ?>
     <div class="products ">
         <div class="container ">
             <div class="row ">
@@ -116,6 +164,10 @@ include('sidebar-01/show.php');
                     </div>
                 </div>
             </div>
+            <form action="search.php" method="post">
+                                        <input type="text" name="search" placeholder="Search" style="width:200px;height:30px;border-radius:10px;">
+                                        <button type="submit"><i class="fa fa-search"></i></button>
+                                    </form>
             <div class="row ">
                 <div class="col-md-12 ">
                     <div class="our_products ">
@@ -137,10 +189,17 @@ include('sidebar-01/show.php');
                                     <p>Specification: <?php echo $row['specification']?></p>
                                     <p>Price: <?php echo $row['price']?></p>
                                     <p>Company: <?php echo $row['company']?></p>
+                                    <input type="button" name="pay" id ="rzp-button1" value="pay now" onclick="pay_now()">
+                                    <?php 
+                                       $val = $row['price']; 
+                                       echo "<input type='hidden' id='myValue' value='$val'>";
+                                    ?>
 
                                 </div>
-                               <a href="cart.php" style="text-decoration:none;"> <button type="submit" value="add to cart" name="add_to_cart" class="btn custom-btn cart-btn" data-bs-toggle="modal" data-bs-target="">Add to Cart</button></a>
+                               <a href="?id=<?php echo $row['accessories_id']?>" style="text-decoration:none;"> <button type="submit" value="add to cart" name="add_to_cart" class="btn custom-btn cart-btn" data-bs-toggle="modal" data-bs-target="">Add to Cart</button></a>
+                              
                             </div>
+
                             <?php
                             }
                         }
@@ -191,6 +250,7 @@ include('sidebar-01/show.php');
                         //     }
                         // }
                         ?>
+                        <?php echo $msg; ?>
                             <div class="col-md-12 ">
                                 <a class="read_more " href="# ">See More</a>
                             </div>
@@ -261,6 +321,46 @@ include('sidebar-01/show.php');
     <!-- sidebar -->
     <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
     <script src="js/custom.js"></script>
+    <script>
+    function pay_now(){
+    var val= document.getElementById("myValue").value;
+    var name=jQuery('#name').val();
+    var amt=jQuery('#amnt').val();
+    var options = {
+    "key": "rzp_test_bpkYObmj5H0Qba",
+    "amount": val*100, 
+    "currency": "INR",
+    "name": "Ad_Sol",
+    "description": "Test Transaction",
+    "image": "https://drive.google.com/file/d/1FJCNPPMhML96z3s4IrR8-yGU4A6HLm2X/view?usp=share_link",
+    "handler":function(response){
+        console.log(response);
+        jQuery.ajax({
+            type:'POST',
+            url:'payment.php',
+            data:"payment_id="+response.razorpay_payment_id+"&amt="+amt+"&name="+name,
+            success:function(result){
+                window.location.href="thankyou.php";
+            }
+
+        })
+        // if(response){
+        //     window.location.href="/adsol/index.php";
+        // }
+       
+
+    }
+};
+
+var rzp1 = new Razorpay(options);
+document.getElementById('rzp-button1').onclick = function(e){
+    rzp1.open();
+    e.preventDefault();
+}
+
+}
+</script>
+
 </body>
 
 </html>

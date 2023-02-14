@@ -25,7 +25,14 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
-
+<style>
+            form {
+            overflow: hidden;
+            
+            display:inline-block;
+            margin:10px;
+            }
+</style>
 <body>
 
     <div class="wrapper d-flex align-items-stretch">
@@ -34,11 +41,15 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
                 <a href="#" class="img logo rounded-circle mb-5" style="background-image: url(adminavatar.jpg);"></a>
                 <ul class="list-unstyled components mb-5">
                     <li class="active">
-                        <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">USERS</a>
+                        <a href="admin.php" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">USERS</a>
                         <ul class="collapse list-unstyled" id="homeSubmenu">
                         </ul>
                     </li>
+
                     <li>
+                    <a href="admin.php">admin</a>
+                    </li>
+                      <li>
                                 <a href="registeruser.php">Registered Users</a>
                             </li>
                             <!-- <li>
@@ -53,8 +64,17 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
                             <li>
                                 <a href="contactdetails.php">Complaint Details</a>
                             </li>
+                            <li>
+                           <a href="outlet_insert.php">Add outlets</a>
+                          </li>
                              <li>
                            <a href="pro.php">Add Product</a>
+                          </li>
+                          <li>
+                           <a href="jobentering.php">Enter jobs</a>
+                          </li>
+                          <li>
+                           <a href="bill.php">Generate bill</a>
                           </li>
                           <li>
                          <a href="\sample\bb\cat.php">insert categories</a>
@@ -142,36 +162,58 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
 
 
 
-        <div class="card bg-secondary mt-3">
+        <div class="card1 bg-secondary mt-3">
         <div class="card-header">
             <h1 id="h1">Product Details</h1>
         </div>
         <div class="card-body">
             <!-- <a href="admin_dashboard.php"><button class="button-54">Dashboard</button></a> -->
             
-            <form>
-                               
-                                    
-                               <input type="search" class="form-control ds-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off" spellcheck="false" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-owns="algolia-autocomplete-listbox-0" dir="auto" style="position: relative; vertical-align: top;">
-                                       <!--end of col-->
-                                 
-                               </form>
+            <form action="searchproductdetails.php" method="post">
+                                        <input type="text" name="search" placeholder="Search" style="width:200px;height:30px;border-radius:10px;">
+                                        <button type="submit"><i class="fa fa-search"></i></button>
+                                    </form>
                         
+            <style>
+                #content {
+                           width: 160%;}
+                .card1{
+                            border-radius: 5px;
+                            width: 100%;
+                            -webkit-box-shadow: 0 1px 2.94px 0.06px rgba(4, 26, 55, 0.16);
+                            box-shadow: 0 1px 2.94px0.06px rgba(4, 26, 55, 0.16);
+                            border: none;
+                            margin-bottom: 30px;
+                            -webkit-transition: all 0.3s ease-in-out;
+                            transition: all 0.3s ease-in-out;
+                        }
 
-            <table class="table table-bordered table-hover table-info">
+                        .card .card-block {
+                            padding: 25px;
+                        }
+
+                        .order-card i {
+                            font-size: 26px;
+                        }
+            </style>
+            <table class="table table-bordered table-hover table-info" style="width: 100%;">
                 <thead>
                     <tr>
-                        <th>ACCESSORIES ID</th>    
-                        <th>CATEGORY ID</th>
-                        <th>SECOND ID</th>
-                        <th>NAME</th>
-                        <th>DESCRIPTION</th>
-                        <th>SPECIFICATION</th>
-                        <th>QUANTITY</th>
-                        <th>PRICE</th>
-                        <th>COLOUR</th>
-                        <th>COMPANY</th>
-                        <th>IMAGE</th>
+                        <th style="width: 10px">ACCESSORIES ID</th>    
+                        <th style="width: 10px">CATEGORY ID</th>
+                        <th style="width: 10px">SECOND ID</th>
+                        <th style="width: 10px">NAME</th>
+                        <th style="width: 10px">DESCRIPTION</th>
+                        <th style="width: 10px">SPECIFICATION</th>
+                        <th style="width: 10px">SIZE</th>
+                        <th style="width: 10px">PRICE</th>
+                        <th style="width: 10px">COLOUR</th>
+                        <th style="width: 10px">COMPANY</th>
+                        <th style="width: 10px">DATE</th>
+                        <th style="width: 10px">QUANTITY</th>
+                        <th style="width: 10px">YEAR</th>
+                        <th style="width: 10px">MONTH</th>
+                        <th style="width: 10px">IMAGE</th>
 
                         <th>Actions</th>
                     </tr>
@@ -179,7 +221,7 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
                 <tbody>
 
                     <?php
-                 $sql = "SELECT * from tbl_accessories";
+                 $sql = "SELECT * from tbl_accessories"  ;
                 //  $sql = "SELECT * from tbl_oil";
                  $result = $conn->query($sql);
                  if ($result->num_rows > 0) {
@@ -206,7 +248,7 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
                                 <?php echo $row['specification'] ?>
                             </td>
                             <td>
-                                <?php echo $row['quantity'] ?>
+                                <?php echo $row['size'] ?>
                             </td>
                             <td>
                                 <?php echo $row['price'] ?>
@@ -216,6 +258,18 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
                             </td>
                             <td>
                                 <?php echo $row['company'] ?>
+                            </td>
+                            <td>
+                                <?php echo $row['date'] ?>
+                            </td>
+                            <td>
+                                <?php echo $row['quantity'] ?>
+                            </td>
+                            <td>
+                                <?php echo $row['year'] ?>
+                            </td>
+                            <td>
+                                <?php echo $row['month'] ?>
                             </td>
                             <td>
                                 <?php echo $row['image'] ?>

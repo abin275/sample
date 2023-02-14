@@ -37,8 +37,8 @@ include "../session.php";
                         </ul>
                         </li>
                         <li>
-                         <a href="admin.php">admin</a>
-                        </li>
+                      <a href="admin.php">admin</a>
+                      </li>
                             <li>
                                 <a href="registeruser.php">Registered Users</a>
                             </li>
@@ -205,12 +205,18 @@ if ($conn->connect_error) {
 
                         </tr>
                         <?php
-                        $sql = "SELECT * from tbluser_registration where status!='1'";
-                        $result = $conn->query($sql);
+                        
+if (isset($_POST['search'])) {
+    $search = $_POST['search'];
+
+    $result = mysqli_query($conn, "SELECT * FROM tbluser_registration WHERE name LIKE '%$search%'");
+
+
+                       
+                        
                         $count=1;
-                if ($result->num_rows > 0) {
-  // output data of each row
-  while($row = $result->fetch_assoc()) {
+                        if ($result-> num_rows > 0){
+                            while($row = $result-> fetch_assoc()){ 
  ?>
                             <tr>
                                 <td>
@@ -238,8 +244,11 @@ if ($conn->connect_error) {
                             </tr>
                             
                             <?php
- }
- }
+ }}
+ }else{
+    echo '<p style="color:white;font-size:15px;margin:15px">No user found</p>';
+  }
+  
     ?>
 
                     </table>

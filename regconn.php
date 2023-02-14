@@ -46,7 +46,7 @@ if(isset($_POST["save"]))
         $result2 = mysqli_query($conn,$sql2);
         if($result && $result2)
         {
-            header("Location:index.html");
+            header("Location:index.php");
         
         }
         
