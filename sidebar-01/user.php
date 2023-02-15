@@ -91,7 +91,7 @@ include "../session.php";
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="nav navbar-nav ml-auto">
                             <li class="nav-item">
-                                <a class="nav-link" href="../first.html">HOME</a>
+                                <a class="nav-link" href="../first.php">HOME</a>
                             </li>
                                 <li class="nav-item active">
                                     <a class="nav-link" href="../logout.php">LOGOUT</a>

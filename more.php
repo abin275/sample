@@ -6,10 +6,10 @@ $msg=NULL;
 
 $uid=htmlentities($_SESSION['email']);
 
- if(isset($_GET['id'])){
+ if(isset($_POST['add_to_cart'])){
     /* $uid = $_SESSION['lid']; */
     $prod=$_GET["id"];   
-    
+    $price=$_POST["price"];
     $select="SELECT * from tblcart where accessories_id=$prod";
     $result=mysqli_query($conn,$select);
     if(mysqli_num_rows($result)>0)
@@ -18,7 +18,7 @@ $uid=htmlentities($_SESSION['email']);
     } 
     else
     {
-        $qry = "INSERT INTO `tblcart` (`accessories_id`,`quantity`) VALUES('$prod','1')";
+        $qry = "INSERT INTO `tblcart` (`accessories_id`,`quantity` , `price`) VALUES('$prod','1', $price)";
         $result_query=mysqli_query($conn,$qry);
         if($qry){
             $msg = "<div class='alert alert-success'>Added to cart</div>";
@@ -189,6 +189,7 @@ $uid=htmlentities($_SESSION['email']);
                                     <p>Specification: <?php echo $row['specification']?></p>
                                     <p>Price: <?php echo $row['price']?></p>
                                     <p>Company: <?php echo $row['company']?></p>
+                                    <input type='hidden' id='price' value='<?php echo $row['price']?>'>
                                     <input type="button" name="pay" id ="rzp-button1" value="pay now" onclick="pay_now()">
                                     <?php 
                                        $val = $row['price']; 

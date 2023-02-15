@@ -1,5 +1,4 @@
 <?php
-include('session.php');
 include('connection.php');
 include "google_translater.php";
 ?>
