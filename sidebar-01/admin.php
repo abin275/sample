@@ -41,6 +41,9 @@ include "../connection.php";
                                 <a href="bookingdetails.php">Booking Details</a>
                             </li>
                             <li>
+                                <a href="doorstepbookingdetails.php">Doorstep Booking Details</a>
+                            </li>
+                            <li>
                                 <a href="contactdetails.php">Complaint Details</a>
                             </li>
                             <li>

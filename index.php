@@ -300,7 +300,7 @@ include "google_translater.php";
         <script type="text/javascript">
             (function(d, m) {
                 var kommunicateSettings = {
-                    "appId": "1e5676d0b7781e77e7f4ec1f0c8fd4eb9",
+                    "appId": "187afb9aa60177a149ba951878f9bf2af",
                     "popupWidget": true,
                     "automaticChatOpenOnNavigation": true
                 };

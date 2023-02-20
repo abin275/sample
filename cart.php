@@ -2,7 +2,7 @@
 session_start();
 include "connection.php";
  $email=$_SESSION["email"];
- $uid=htmlentities($_SESSION['email']);
+ $uid=$_SESSION["email"];
 if(!isset($_SESSION["email"]))  
 {
     header("Location:user_login.php");
@@ -306,7 +306,7 @@ Check Out
 </tr>
 
 <?php
-                        $sql1="SELECT * from tbl_accessories,tblcart where tblcart.accessories_id=tbl_accessories.accessories_id";
+                        $sql1="SELECT * from tbl_accessories,tblcart where tblcart.accessories_id=tbl_accessories.accessories_id and user_id='$uid'";
                        
                         $res = $conn-> query($sql1);
                         if ($res-> num_rows > 0){

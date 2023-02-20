@@ -48,8 +48,13 @@ if (isset($_POST['submit'])) {
     }
     
 }
+$sql4=mysqli_query($conn,"SELECT * from tbluser_registration where email='$user");
+while ($row = mysqli_fetch_array($sql4)) {
+    $user_id=$row['registration_id'];
 
-$sql3 = mysqli_query($conn,"SELECT c.cart_id, c.accessories_id, p.name, c.quantity, p.price FROM tblcart c INNER JOIN tbl_accessories p ON p.accessories_id = c.accessories_id WHERE c.user_id= $user");
+
+$sql3 = mysqli_query($conn,"SELECT c.cart_id, c.accessories_id, p.name, c.quantity, p.price FROM tblcart c INNER JOIN tbl_accessories p ON p.accessories_id = c.accessories_id WHERE c.user_id= $user_id");
+}
 ?>
 <!doctype html>
 <html lang="en">

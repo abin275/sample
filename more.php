@@ -8,9 +8,12 @@ $uid=htmlentities($_SESSION['email']);
 
  if(isset($_POST['add_to_cart'])){
     /* $uid = $_SESSION['lid']; */
-    $prod=$_GET["id"];   
+    $prod=$_POST["prod"];   
     $price=$_POST["price"];
-    $select="SELECT * from tblcart where accessories_id=$prod";
+    echo $prod;
+    echo $price;
+
+    $select = "SELECT * FROM tblcart WHERE accessories_id='$prod' AND user_id='$uid'";
     $result=mysqli_query($conn,$select);
     if(mysqli_num_rows($result)>0)
     {
@@ -18,11 +21,12 @@ $uid=htmlentities($_SESSION['email']);
     } 
     else
     {
-        $qry = "INSERT INTO `tblcart` (`accessories_id`,`quantity` , `price`) VALUES('$prod','1', $price)";
+        $qry = "INSERT INTO `tblcart` (`accessories_id`, `quantity`, `user_id`, `price`) VALUES('$prod','1','$uid','$price')";
         $result_query=mysqli_query($conn,$qry);
-        if($qry){
-            $msg = "<div class='alert alert-success'>Added to cart</div>";
-        }
+        if($result_query){
+            // $msg = "<div class='alert alert-success'>Added to cart</div>";
+            header("Location:cart.php");
+        } 
     }
   
    
@@ -136,9 +140,19 @@ $uid=htmlentities($_SESSION['email']);
                                         <a class="nav-link" href="user_login.php">Register</a>
                                     </li>
                                     <li class="nav-item d_none ">
-                                        <a class="nav-link " href="sidebar-01\user.php">Account</a>
-                                    </li>
-
+                                        
+                                    
+                                    <div class="d-none d-lg-block">
+                        <?php if( isset($_SESSION['email'])&& !empty($_SESSION['email']) )
+                        { ?>
+                            <a href="sidebar-01\user.php " style="font-size:15px;display:flex;float:right;color:white;" class="bi-person custom-icon me-3"> Welcome -<?php echo htmlentities($_SESSION['email']);?></a>
+                        <?php }
+                        else{ ?>
+                            <a href=" " class="bi-person custom-icon me-3"></a> 
+                                
+                         <?php } ?>
+                            <a href="product-detail.html" class="bi-bag custom-icon"></a>
+                    </div></li>
                                     <!--<li class="nav-item ">
                                     <a class="nav-link " href="logout.php">logout</a>
                                     </li>-->
@@ -170,6 +184,7 @@ $uid=htmlentities($_SESSION['email']);
                                     </form>
             <div class="row ">
                 <div class="col-md-12 ">
+                <form action="more.php" method="POST">
                     <div class="our_products ">
                         <div class="row ">
                             <?php
@@ -180,24 +195,27 @@ $uid=htmlentities($_SESSION['email']);
                                 if ($result-> num_rows > 0){
                                 while($row = $result-> fetch_assoc()){ 
                             ?> 
+                            
                             <div class="card col-md-4 shadow p-2 mb-3 bg-body rounded">
                                 <div class="card-body product_box ">
                                 <img src="../uploads/<?php echo $row['image']; ?>">
-                                    <p>Name: <?php echo $row['name']?></p>
-                                    <p>Description: <?php echo $row['description']?></p>
-                                    <p>Quantity: <?php echo $row['quantity']?></p>
-                                    <p>Specification: <?php echo $row['specification']?></p>
-                                    <p>Price: <?php echo $row['price']?></p>
-                                    <p>Company: <?php echo $row['company']?></p>
-                                    <input type='hidden' id='price' value='<?php echo $row['price']?>'>
+                                
+                                    <p>Name: <?php echo $row['name'];?></p>
+                                    <p>Description: <?php echo $row['description'];?></p>
+                                    <p>Quantity: <?php echo $row['quantity'];?></p>
+                                    <p>Specification: <?php echo $row['specification'];?></p>
+                                    <p>Price: <?php echo $row['price'];?></p>
+                                    <p>Company: <?php echo $row['company'];?></p>
+                                    <input type="hidden" id="price" name="price" value="<?php echo $row['price'];?>">
+                                    <input type="hidden" id="prod" name="prod" value="<?php echo $row['accessories_id']?>">
                                     <input type="button" name="pay" id ="rzp-button1" value="pay now" onclick="pay_now()">
                                     <?php 
-                                       $val = $row['price']; 
+                                        $val = $row['price']; 
                                        echo "<input type='hidden' id='myValue' value='$val'>";
                                     ?>
 
                                 </div>
-                               <a href="?id=<?php echo $row['accessories_id']?>" style="text-decoration:none;"> <button type="submit" value="add to cart" name="add_to_cart" class="btn custom-btn cart-btn" data-bs-toggle="modal" data-bs-target="">Add to Cart</button></a>
+                              <input type="submit" value="add to cart" name="add_to_cart" class="btn custom-btn cart-btn" data-bs-toggle="modal" data-bs-target="">
                               
                             </div>
 
@@ -205,6 +223,7 @@ $uid=htmlentities($_SESSION['email']);
                             }
                         }
                         ?>
+                    </form>
                         <?php
                                 // include_once "connection.php";
                                 // $sql="SELECT * from tbl_accessories where accessories_id='1113'";

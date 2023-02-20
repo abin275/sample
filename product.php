@@ -89,8 +89,19 @@ include('connection.php');
                                         <a class="nav-link " href="user_registration.php">Register</a>
                                     </li>
                                     <li class="nav-item d_none ">
-                                        <a class="nav-link " href="sidebar-01\user.php">Account</a>
-                                    </li>
+                                        
+                                    
+                                    <div class="d-none d-lg-block">
+                        <?php if( isset($_SESSION['email'])&& !empty($_SESSION['email']) )
+                        { ?>
+                            <a href="sidebar-01\user.php " style="font-size:15px;display:flex;float:right;color:white;" class="bi-person custom-icon me-3"> Welcome -<?php echo htmlentities($_SESSION['email']);?></a>
+                        <?php }
+                        else{ ?>
+                            <a href=" " class="bi-person custom-icon me-3"></a> 
+                                
+                         <?php } ?>
+                            <a href="product-detail.html" class="bi-bag custom-icon"></a>
+                    </div></li>
                                 </ul>
                             </div>
                         </nav>

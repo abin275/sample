@@ -89,9 +89,7 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
                             <li>
                                 <a href="registeruser.php">Registered Users</a>
                             </li>
-                            <!-- <li>
-                                <a href="registershop.html">Register Shops</a>
-                            </li> -->
+                            
                             <li>
                                 <a href="productdetails.php">Product Details</a>
                             </li>
@@ -208,9 +206,11 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
 <table class="paleBlueRows">
     <thead>
         <tr>
-            <th>BOOKING_ID</th>
+            <th>DOORSTEP BOOKING_ID</th>
             <th>TITLE</th>
             <th>NAME</th>
+            <th>ADDRESS</th>
+            <th>LOCATION</th>
             <th>EMAIL</th>
             <th>PHONE</th>
             <th>TYPE_OF_BIKE</th>
@@ -222,6 +222,7 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
             <th>ARRAVING TIME</th>
             <th>RC BOOK PHOTO</th>
             <th>BIKE PHOTO</th>
+            <th>IMMIDATE OR NOT</th>
             <th>ACTION</th>
             <th>Service Status</th>
         
@@ -230,7 +231,7 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
     <tbody>
 
         <?php
-     $sql = "SELECT * from booking where status = 0";
+     $sql = "SELECT * from doorstep_booking where status = 0";
     
      $result = $conn->query($sql);
      if ($result->num_rows > 0) {
@@ -239,13 +240,19 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
         ?>
             <tr>
             <td>
-             <?php echo $row['booking_id'] ?>
+             <?php echo $row['d_id'] ?>
                 </td>
                 <td>
                     <?php echo $row['title'] ?>
                 </td>
                 <td>
                     <?php echo $row['name'] ?>
+                </td>
+                <td>
+                    <?php echo $row['address'] ?>
+                </td>
+                <td>
+                    <?php echo $row['location'] ?>
                 </td>
                 <td>
                     <?php echo $row['email'] ?>
@@ -280,11 +287,14 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
                 <td>
                   <img src="../bb/<?php echo $row['bike_pic'] ?>" style="width: 100px;height: 100px;">
                 </td>
+                <td>
+                    <?php echo $row['immidate'] ?>
+                </td>
                <td> 
-                <button class="btn btn-danger" id="con" name="conform" value="<?=$row['booking_id']?>" onclick="fnConfirm()">Confirm</button>
+                <button class="btn btn-danger" id="con" name="conform" value="<?=$row['d_id']?>" onclick="fnConfirm()">Confirm</button>
                </td>
                <td> 
-                <a href="servicedone.php?id=<?php echo $row['booking_id']; ?>"><button class="btn btn-dark">DONE</button></a>
+                <a href="doorservicedone.php?id=<?php echo $row['d_id']; ?>"><button class="btn btn-dark">DONE</button></a>
                </td>
             </tr>
             <?php
@@ -299,9 +309,11 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
 <table class="paleBlueRows">
     <thead>
         <tr>
-            <th>BOOKING_ID</th>
+        <th>DOORSTEP BOOKING_ID</th>
             <th>TITLE</th>
             <th>NAME</th>
+            <th>ADDRESS</th>
+            <th>LOCATION</th>
             <th>EMAIL</th>
             <th>PHONE</th>
             <th>TYPE_OF_BIKE</th>
@@ -313,6 +325,7 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
             <th>ARRAVING TIME</th>
             <th>RC BOOK PHOTO</th>
             <th>BIKE PHOTO</th>
+            <th>IMMIDATE OR NOT</th>
             <th>ACTION</th>
             <!-- <th>Service Status</th> -->
         
@@ -321,7 +334,7 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
     <tbody>
 
         <?php
-     $sql = "SELECT * from booking where status = 1";
+     $sql = "SELECT * from doorstep_booking where status = 1";
     
      $result = $conn->query($sql);
      if ($result->num_rows > 0) {
@@ -330,13 +343,19 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
         ?>
             <tr>
             <td>
-             <?php echo $row['booking_id'] ?>
+             <?php echo $row['d_id'] ?>
                 </td>
                 <td>
                     <?php echo $row['title'] ?>
                 </td>
                 <td>
                     <?php echo $row['name'] ?>
+                </td>
+                <td>
+                    <?php echo $row['address'] ?>
+                </td>
+                <td>
+                    <?php echo $row['location'] ?>
                 </td>
                 <td>
                     <?php echo $row['email'] ?>
@@ -371,8 +390,11 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
                 <td>
                   <img src="../bb/<?php echo $row['bike_pic'] ?>" style="width: 100px;height: 100px;">
                 </td>
+                <td>
+                    <?php echo $row['immidate'] ?>
+                </td>
                <td> 
-                <button class="btn btn-danger" id="con" name="conform" value="<?=$row['booking_id']?>" onclick="fnConfirm()">Confirm</button>
+                <button class="btn btn-danger" id="con" name="conform" value="<?=$row['d_id']?>" onclick="fnConfirm()">Confirm</button>
                </td>
             </tr>
             <?php

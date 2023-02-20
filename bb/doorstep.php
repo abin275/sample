@@ -1,10 +1,12 @@
 
 <?php
-include('connectionN.php');
+include('connection.php');
 
 if(isset($_POST['submit'])){
     $title=$_POST['title'];
     $name=$_POST['name'];
+    $address=$_POST['address'];
+    $location=$_POST['location'];
     $email=$_POST['email'];
     $phone=$_POST['phone'];
     $type_of_bike=$_POST['t'];
@@ -14,6 +16,7 @@ if(isset($_POST['submit'])){
     $type_of_service=$_POST['services'];
     $check_in=$_POST['cin'];
     $time=$_POST['time'];
+    
     // $rc=$_POST['rc'];
  
 
@@ -30,12 +33,12 @@ if(isset($_POST['submit'])){
     move_uploaded_file($_FILES["bike_pic"]['tmp_name'],"uploads/" .$newfilename);                  
     $loc="uploads/".$newfilename;
 
-
+    $immidate=$_POST['immidate'];
 
     //checking empty condition
-    if($title=='' or $name=='' or 
+    if($title=='' or $name=='' or  $address=='' or $location=='' or
     $email=='' or $phone=='' or $type_of_bike=='' or 
-    $bike_name==''or $bike_number=='' or $bike_cc=='' or $type_of_service=='' or $check_in=='' or $time==''  or $rc==''  or $bike_pic==''){
+    $bike_name==''or $bike_number=='' or $bike_cc=='' or $type_of_service=='' or $check_in=='' or $time==''  or $rc==''  or $bike_pic=='' or $immidate==''){
         echo "<script>alert('Please fill all the fields.')</script>";
         exit();
     }else{
@@ -43,13 +46,13 @@ if(isset($_POST['submit'])){
     }
 
     //insert query
-    $insert_products="INSERT INTO `booking`(`title`, 
-    `name`, `email`, `phone`, `type_of_bike`,
+    $insert_products="INSERT INTO `doorstep_booking`(`title`, 
+    `name`,`address`,`location`, `email`, `phone`, `type_of_bike`,
     `bike_name`, `bike_number`, `bike_cc`, `type_of_service`,
-    `check_in`, `rc`, `bike_pic`, `status`) VALUES ('$title','$name',
+    `check_in`, `rc`, `bike_pic`,`immidate`, `status`) VALUES ('$title','$name','$address','$location',
     '$email','$phone','$type_of_bike',
     '$bike_name','$bike_number','$bike_cc',
-    '$type_of_service','$check_in', '$loc1', '$loc', 0)";
+    '$type_of_service','$check_in', '$loc1', '$loc', '$immidate', 0)";
 
     $result_query=mysqli_query($conn,$insert_products);
     if($result_query){
@@ -65,7 +68,7 @@ if(isset($_POST['submit'])){
 <head>
       <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BOOKING SERVICES</title>
+    <title>DOORSTEP BOOKING SERVICES</title>
 	<!-- Bootstrap Styles-->
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
      <!-- FontAwesome Styles-->
@@ -231,7 +234,7 @@ if(isset($_POST['submit'])){
                                             <div class="form-group">
                                             
                                             <label for="IMMIDATE OR NOT">IMMIDATE OR NOT:</label>
-                                            <input type="text"  id="IMMIDATE OR NOT" name="IMMIDATE OR NOT" class="form-control" placeholder="ENTER YES OR NO" octavalidate="R" >
+                                            <input type="text"  id="immidate" name="immidate" class="form-control" placeholder="ENTER YES OR NO" octavalidate="R" >
 
                                </div>              
 
