@@ -19,7 +19,7 @@ if(isset($_POST['submit'])){
 //             $_SESSION['msg']="Product  already Created !!";     
 //         }
 //         else{
-    $sql=mysqli_query($conn,"update tbluser_registration set name='$name',phone='$contact_no' where email = '$email'");
+    $sql=mysqli_query($conn,"update tbloutlet set name='$name',phone='$contact_no' where email = '$email'");
 $_SESSION['msg']="Profile Updated Successfully !!";
 }
 }
@@ -66,7 +66,7 @@ $_SESSION['msg']="Profile Updated Successfully !!";
 <form class="form-horizontal row-fluid" name="profileupdate" method="post" enctype="multipart/form-data">
 <?php
 // $id=intval($_GET['id']);
-$query=mysqli_query($conn,"SELECT * FROM tbluser_registration WHERE tbluser_registration.email = '$email'");
+$query=mysqli_query($conn,"SELECT * FROM tbloutlet WHERE tbloutlet.email = '$email'");
 while($row=mysqli_fetch_array($query))
 {
 ?>

@@ -68,7 +68,7 @@ width:1200px;}
 <div class="col-md-12 text-right mb-3">
                 <button class="btn btn-primary" id="download"> Take a pdf</button>
             </div>
-<h3>Orders</h3>
+<h3>Service order</h3>
 </div>
 <!-- <div class="module-body table"> -->
 <?php if(isset($_GET['del']))
@@ -98,47 +98,27 @@ width:1200px;}
 </thead>
 <tbody>
 <?php
-$query1=mysqli_query($con,"select * from users");
-while($row=mysqli_fetch_array($query1))
-{
-   $user_id=$row['user_id'];
-   $query2=mysqli_query($con,"select * from users where users.user_id='$user_id'"); 
-   while($row=mysqli_fetch_array($query2))
-   {
-$seller_id=$row['user_id'];
-$query=mysqli_query($con,"SELECT *from users,product,orders,order_items where orders.user_id=users.user_id and order_items.order_id =orders.id and product.product_id=order_items.product_id and product.sell_id='$seller_id'");
+$query=mysqli_query($conn,"SELECT *from booking ");
 $cnt=1;
 while($row=mysqli_fetch_array($query))
 {
 ?>
 <tr>
 <td><?php echo htmlentities($cnt);?></td>
-<td><?php echo htmlentities($row['order_date']);?></td>
-<td><?php echo htmlentities($row['username']);?></td>
-<td><?php echo htmlentities($row['email']);?>/<br><?php echo htmlentities($row['contact_no']);?></td>
-<td><?php echo htmlentities($row['product_name']);?></td>
-<td><?php echo htmlentities($row['customer_address']);?></td>
-<td><?php echo htmlentities($row['quantity']);?></td>
-<td><?php echo htmlentities($row['total_price']);?></td>
-<td>
-                    <?php 
-                    
-                    if($row['or_status']=="0")                     
-                        echo                                   
-"<a href=processing.php?id=".$row['id']."><button class='btn btn-primary'onclick='myFunction1()' >processing</button></a>";
-                    else if($row['or_status']=="2") 
-                        echo 
-"<a href=shipped.php?id=".$row['id']."><button class='btn btn-btn btn-danger' onclick='myFunction2()' >shipped</button></a>";
-                    else 
-echo" 
-delivered";
-  ?>
+<td><?php echo htmlentities($row['time']);?></td>
+<td><?php echo htmlentities($row['check_in']);?></td>
 
-      </td>
-</td>
+<td><?php echo htmlentities($row['name']);?></td>
+<td><?php echo htmlentities($row['email']);?>
+<td><?php echo htmlentities($row['phone']);?></td>
+<td><?php echo htmlentities($row['rc']);?></td>
+<td><?php echo htmlentities($row['bike_number']);?></td>
+<td><?php echo htmlentities($row['bike_cc']);?></td>
+<td><?php echo htmlentities($row['type_of_service']);?></td>
+
 </tr>
 
-<?php $cnt=$cnt+1; }}}?>
+<?php $cnt=$cnt+1; }?>
 </tbody>
 </table>
 
