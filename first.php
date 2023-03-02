@@ -65,7 +65,7 @@ include('connection.php');
                                         <a class="nav-link " href="index.php">Home</a>
                                     </li>
                                     <li class="nav-item ">
-                                        <a class="nav-link " href="about.html ">About</a>
+                                        <a class="nav-link " href="aboutt.php">About</a>
                                     </li>
                                     <li class="nav-item ">
                                         <a class="nav-link " href="service centers.html ">Service Centers</a>
@@ -90,9 +90,9 @@ include('connection.php');
                                     <li class="nav-item d_none ">
                                         <a class="nav-link " href="# "><i class="fa fa-search " aria-hidden="true "></i></a>
                                     </li>  -->
-                                    <li class="nav-item d_none ">
+                                    <!-- <li class="nav-item d_none ">
                                         <a class="nav-link " href="user_registration.php">Register</a>
-                                    </li>
+                                    </li> -->
                                     <li class="nav-item d_none ">
                                         <a class="nav-link " href="sidebar-01\user.php">Account</a>
                                     </li>

@@ -9,6 +9,7 @@ if(isset($_POST['submit'])){
     $location=$_POST['location'];
     $email=$_POST['email'];
     $phone=$_POST['phone'];
+    $o=$_POST['o'];
     $type_of_bike=$_POST['t'];
     $bike_name=$_POST['bname'];
     $bike_number=$_POST['number'];
@@ -37,7 +38,7 @@ if(isset($_POST['submit'])){
 
     //checking empty condition
     if($title=='' or $name=='' or  $address=='' or $location=='' or
-    $email=='' or $phone=='' or $type_of_bike=='' or 
+    $email=='' or $phone=='' or $o=='' or $type_of_bike=='' or 
     $bike_name==''or $bike_number=='' or $bike_cc=='' or $type_of_service=='' or $check_in=='' or $time==''  or $rc==''  or $bike_pic=='' or $immidate==''){
         echo "<script>alert('Please fill all the fields.')</script>";
         exit();
@@ -47,10 +48,10 @@ if(isset($_POST['submit'])){
 
     //insert query
     $insert_products="INSERT INTO `doorstep_booking`(`title`, 
-    `name`,`address`,`location`, `email`, `phone`, `type_of_bike`,
+    `name`,`address`,`location`, `email`, `phone`, `outlet`, `type_of_bike`,
     `bike_name`, `bike_number`, `bike_cc`, `type_of_service`,
     `check_in`, `rc`, `bike_pic`,`immidate`, `status`) VALUES ('$title','$name','$address','$location',
-    '$email','$phone','$type_of_bike',
+    '$email','$phone','$o','$type_of_bike',
     '$bike_name','$bike_number','$bike_cc',
     '$type_of_service','$check_in', '$loc1', '$loc', '$immidate', 0)";
 
@@ -152,6 +153,16 @@ if(isset($_POST['submit'])){
                                 <label for="phone">PHONE NUMBER:</label>
                                 <input type= "tel" id="phone" class="form-control" name="phone" placeholder="ENTER PHONE NUMBER" octavalidate="R,DIGITS" > 
                                 </div>
+                                <div class="form-group">
+                                            <label>SELECT OUTLET</label>
+                                            <select name="o" id="o" class="form-control" octavalidate="R" >
+												<option value selected ></option>
+                                                <option value="kottyam">kottyam</option>
+                                                <option value="kanjirappally">kanjirappally</option>
+                                                <option value="pathanamthitta">pathanamthitta</option>
+                                            
+                                            </select>
+                              </div>
 							   
                         <!-- </div>
                         

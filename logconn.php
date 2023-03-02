@@ -39,7 +39,14 @@ if(isset($_POST['login']))
             $_SESSION["lid"]=$row["login_id"];
             $_SESSION["email"]=$row["email"];
             header("Location:sidebar-01/..//first.php");
-        }       
+        }    
+        elseif($row['role'] == 'shop')
+        {
+            session_start();
+          
+            $_SESSION["email"]=$row["email"];
+            header("Location:seller/index.php");
+        }      
     }
     else
     {

@@ -82,18 +82,18 @@ include "google_translater.php";
                                         <li class="nav-item ">
                                             <a class="nav-link " href="product.php">Products</a>
                                         </li>
-                                        <li class="nav-item d_none">
+                                        <!-- <li class="nav-item d_none">
                                             <a class="nav-link" href="cart.php">Cart</a>
-                                        </li>
-                                        <li class="nav-item ">
+                                        </li> -->
+                                        <!-- <li class="nav-item ">
                                             <a class="nav-link " href="contact.php">Contact Us</a>
-                                        </li>
+                                        </li> -->
 
                                         <li class="nav-item d_none ">
                                             <a class="nav-link " href="user_registration.php">Register</a>
                                         </li>
                                         <li class="nav-item d_none ">
-                                            <a class="nav-link " href="sidebar-01\user.php">Account</a>
+                                            <a class="nav-link " href="user_login.php">Login</a>
                                         </li>
 
                                     </ul>

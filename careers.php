@@ -84,9 +84,9 @@ include('sidebar-01/show.php');
                                         <a class="nav-link " href="contact.php">Contact Us</a>
                                     </li>
 
-                                    <li class="nav-item d_none ">
+                                    <!-- <li class="nav-item d_none ">
                                         <a class="nav-link " href="user_registration.php">Register</a>
-                                    </li>
+                                    </li> -->
                                     <li class="nav-item d_none ">
                                         <a class="nav-link " href="sidebar-01\user.php">Account</a>
                                     </li>
@@ -369,7 +369,7 @@ include('sidebar-01/show.php');
                                         </div>
                                     </div>
                                     <div class="items-link items-link2 f-right">
-                                        <a href="job_details.html">Apply</a>
+                                        <a href="bb\jobapply.php">Apply</a>
                                         <!-- <span>7 hours ago</span> -->
                                     </div>
                                 </div>

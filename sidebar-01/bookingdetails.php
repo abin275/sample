@@ -213,6 +213,7 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
             <th>NAME</th>
             <th>EMAIL</th>
             <th>PHONE</th>
+            <th>OUTLET</th>
             <th>TYPE_OF_BIKE</th>
             <th>BIKE_NAME</th>
             <th>BIKE_NUMBER</th>
@@ -252,6 +253,9 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
                 </td>
                 <td>
                     <?php echo $row['phone'] ?>
+                </td>
+                <td>
+                    <?php echo $row['outlet'] ?>
                 </td>
                 <td>
                     <?php echo $row['type_of_bike'] ?>
@@ -304,6 +308,7 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
             <th>NAME</th>
             <th>EMAIL</th>
             <th>PHONE</th>
+            <th>OUTLET</th>
             <th>TYPE_OF_BIKE</th>
             <th>BIKE_NAME</th>
             <th>BIKE_NUMBER</th>
@@ -343,6 +348,9 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
                 </td>
                 <td>
                     <?php echo $row['phone'] ?>
+                </td>
+                <td>
+                    <?php echo $row['outlet'] ?>
                 </td>
                 <td>
                     <?php echo $row['type_of_bike'] ?>

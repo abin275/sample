@@ -85,9 +85,9 @@ include('connection.php');
                                         <a class="nav-link " href="contact.php">Contact Us</a>
                                     </li>
 
-                                    <li class="nav-item d_none ">
+                                    <!-- <li class="nav-item d_none ">
                                         <a class="nav-link " href="user_registration.php">Register</a>
-                                    </li>
+                                    </li> -->
                                     <li class="nav-item d_none ">
                                         
                                     

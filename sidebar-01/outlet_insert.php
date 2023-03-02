@@ -6,6 +6,9 @@ if(isset($_POST['submit'])){
     $product_name=$_POST['name'];
     $product_address=$_POST['address'];
     $product_location=$_POST['location'];
+    $email=$_POST['email'];
+    
+    $password=$_POST['password'];
     $phone=$_POST['phone'];
     $name = $_FILES['img']['name'];
     $temp = $_FILES['img']['tmp_name'];
@@ -80,11 +83,17 @@ if(isset($_POST['submit'])){
 // }
 //
 // $product_category=="SELECT 'category_id' FROM `tbl_category`";
- $insert_products="INSERT INTO tbloutlet(`name`, `address`, `city_location`, `phone`,`image`) 
-VALUES (' $product_name','$product_address','$product_location','$phone','$finalImage')";
+ $insert_products="INSERT INTO tbloutlet(`name`, `address`, `city_location`, `phone`,`image`,`username`,`password`) 
+VALUES ('$product_name','$product_address','$product_location','$phone','$finalImage','$email','$password')";
 
     $result_query=mysqli_query($conn,$insert_products);
     if($result_query){
+        $insert_shop="INSERT INTO tbl_login(`email`,`password`,`role`) 
+        VALUES ('$email','$password','shop')";
+
+        $result_query2=mysqli_query($conn,$insert_shop);
+        
+
         echo "<script>alert('Successfully inserted the products.')</script>";
     }
    
@@ -248,11 +257,38 @@ VALUES (' $product_name','$product_address','$product_location','$phone','$final
                                                 <input type="text" class="form-control" name="location" placeholder="Location">
                                             </div>
                                         </div>
+                                        <!-- <div class="form-group">
+                                <label for="gender">GENDER:</label>
+                                <div>
+                                    <input type="radio" name="gender" value="male" >Male
+                                    <input type="radio" name="gender" value="female" >Female
+                                    <input type="radio" name="gender" value="other" >Other<br> -->
+                                <!--<select name="gender">
+                                   <option>male</option>
+                                   <option>female</option>
+                                   <option>other</option>-->
+                                </div>
 
                                         <div class="col-lg-12 col-md-12 mt-2">
                                             <div class="form-group text-start">
                                                 <label class="form-label fw-normal fs-5">PHONE NUMBER</label>
                                                 <input type="text" class="form-control" name="phone" placeholder="phone number">
+                                            </div>
+                                        </div>
+
+                                        
+                                        <div class="col-lg-12 col-md-12 mt-2">
+                                            <div class="form-group text-start">
+                                                <label class="form-label fw-normal fs-5">Email</label>
+                                                <input type="text" class="form-control" name="email" placeholder="phone number">
+                                            </div>
+                                        </div>
+
+                                        
+                                        <div class="col-lg-12 col-md-12 mt-2">
+                                            <div class="form-group text-start">
+                                                <label class="form-label fw-normal fs-5">Password</label>
+                                                <input type="text" class="form-control" name="password" placeholder="phone number">
                                             </div>
                                         </div>
 
