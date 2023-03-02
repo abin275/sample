@@ -12,11 +12,12 @@ if(isset($_POST['submit'])){
     $x=$_POST['x'];
     $q=$_POST['q'];
     $s=$_POST['s'];
+    $date=date("Y/m/d");
     // $rc=$_POST['rc'];
  
 
  
-    $bike_pic=$_FILES["cv"]["name"];
+    $cv=$_FILES["cv"]["name"];
     $temp = explode(".", $_FILES["cv"]["name"]);
     $newfilename = round(microtime(true)) . '.' .end($temp);
     move_uploaded_file($_FILES["cv"]['tmp_name'],"uploads/" .$newfilename);                  
@@ -27,7 +28,7 @@ if(isset($_POST['submit'])){
     //checking empty condition
     if($name=='' or $address=='' or 
     $email=='' or $phone=='' or $birth=='' or $p=='' or 
-    $x==''or $q=='' or $s=='' or $cv==''){
+    $x==''or $q=='' or $s=='' or $date=='' or $cv==''){
         echo "<script>alert('Please fill all the fields.')</script>";
         exit();
     }else{
@@ -35,11 +36,11 @@ if(isset($_POST['submit'])){
     }
 
     //insert query
-    $insert_products="INSERT INTO `booking`(
+    $insert_products="INSERT INTO  `jobers`(
     `name`,`address`, `email`, `phone`, `birth`, `position`,
-    `experience`, `education`, `skills`,`cv`, `status`) VALUES ('$name','address',
+    `experience`, `education`, `skills`,`date`,`cv`,`status`) VALUES ('$name','address',
     '$email','$phone','$birth','$p',
-    '$x','$q','$s','$loc', 0)";
+    '$x','$q','$s','date','$loc', 0)";
 
     $result_query=mysqli_query($conn,$insert_products);
     if($result_query){
@@ -81,6 +82,7 @@ if(isset($_POST['submit'])){
             </div>
 
         </nav>
+
        
         <div id="page-wrapper" >
             <div id="page-inner">
@@ -101,7 +103,7 @@ if(isset($_POST['submit'])){
                             PERSONAL INFORMATION
                         </div>
                         <div class="panel-body">
-						<form id='userreg' action="b.php" name="form" method="post" enctype="multipart/form-data">
+						<form id='userreg' action="jobapply.php" name="form" method="post" enctype="multipart/form-data">
                         
 							  <div class="form-group">
                               <label for="name">NAME:</label>
@@ -123,7 +125,7 @@ if(isset($_POST['submit'])){
                                 </div>
                                 <div class="form-group">
                                 <label for="date of birth">DATE OF BIRTH:</label>
-                                <input type= "text" id="birth" class="form-control" name="birth" placeholder="ENTER DATE OF BIRTH" octavalidate="R,DIGITS" > 
+                                <input type= "text" id="birth" class="form-control" name="birth" placeholder="ENTER DATE OF BIRTH" octavalidate="R" > 
                                 </div>
                                 <div class="form-group">
                                 <label for="position">APPLIED POSITION & PLACE:</label>
