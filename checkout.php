@@ -2,7 +2,7 @@
     session_start();
     include('connection.php');
     $email=$_SESSION["email"];
-    $user=$_GET["user"];
+    $user_id=$_GET["user"];
 $grand_total = 0;
 
 if (!isset($_SESSION["email"])) {
@@ -18,8 +18,14 @@ if (isset($_POST['submit'])) {
     $payment_mode = $_POST['payment_mode'];
     $total_amount = $_POST['total_amount'];
     //Insert to orders table
-    $sql = "INSERT INTO orders (user_id, order_date, c_name, c_email, c_phone, c_address, payment_mode, total_amount, order_status) 
-    VALUES ('$user', '$order_date', '$customer_name', '$customer_email', '$customer_phone', '$customer_address', '$payment_mode', '$total_amount',0)";
+    $sq=mysqli_query($conn,"SELECT registration_id FROM tbluser_registration where email='$user_id'");
+    while($ro=mysqli_fetch_array($sq))
+    {
+        $user_id=$ro['registration_id'];
+    
+
+    $sql = "INSERT INTO orders (user_id, order_date, customer_name, customer_email, customer_phone, customer_address, payment_mode, total_amount, order_status) 
+    VALUES ('$user_id', '$order_date', '$customer_name', '$customer_email', '$customer_phone', '$customer_address', '$payment_mode', '$total_amount',0)";
     $result = mysqli_query($conn, $sql);
     $order_id = mysqli_insert_id($conn);
     if (!empty($order_id)) {
@@ -30,9 +36,9 @@ if (isset($_POST['submit'])) {
             $total_price = $quantity * $price;
             $sql = "INSERT INTO order_items (order_id, product_id, quantity, price, total_price) VALUES ('$order_id', '$product_id', '$quantity', '$price', '$total_price')";
             $result = mysqli_query($conn, $sql);
-            // update cart table status
-            // $sql1 = "UPDATE tblcart SET is_checked_out = 1 WHERE entry_id = $id";
-            // $result1 = mysqli_query($conn, $sql1);
+             //update cart table status
+             $sql1 = "UPDATE tblcart SET is_checked_out = 1 WHERE cart_id = $id";
+             $result1 = mysqli_query($conn, $sql1);
             if ($result) {
                 // reduce Total_quantity from product table
                 $sql2 = "UPDATE tbl_accessories SET quantity = quantity - $quantity WHERE accessories_id = $product_id";
@@ -46,15 +52,14 @@ if (isset($_POST['submit'])) {
         
         
     }
+}
     
 }
-$sql4=mysqli_query($conn,"SELECT * from tbluser_registration where email='$user");
-while ($row = mysqli_fetch_array($sql4)) {
-    $user_id=$row['registration_id'];
 
 
-$sql3 = mysqli_query($conn,"SELECT c.cart_id, c.accessories_id, p.name, c.quantity, p.price FROM tblcart c INNER JOIN tbl_accessories p ON p.accessories_id = c.accessories_id WHERE c.user_id= $user_id");
-}
+
+$sql3 = mysqli_query($conn,"SELECT c.cart_id, c.accessories_id, p.name, c.quantity, p.price,c.user_id FROM tblcart c INNER JOIN tbl_accessories p ON p.accessories_id = c.accessories_id WHERE c.user_id= '$user_id'");
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -202,7 +207,64 @@ $sql3 = mysqli_query($conn,"SELECT c.cart_id, c.accessories_id, p.name, c.quanti
 </style>
     </head>
     <body>
+
+
+ <!-- bootstrap css -->
+ <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- style css -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Responsive-->
+    <link rel="stylesheet" href="css/responsive.css">
+    <!-- fevicon -->
+    <link rel="icon" href="images/fevicon.png" type="image/gif" />
+    <!-- Scrollbar Custom CSS -->
+    <link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css">
+    <!-- Tweaks for older IEs-->
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+</head>
+<!-- body -->
+
+<body class="main-layout inner_posituong contact_page">
+    <!-- header -->
+    <header>
+        <!-- header inner -->
+        <div class="header">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col logo_section">
+                        <div class="full">
+                            <div class="center-desk">
+                                <div class="logo">
+                                <li class="nav-item">
+                        <a class="nav-link" href="first.php">TRIALS FRONTIER</a>
+                    </li> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9">
+                        <nav class="navigation navbar navbar-expand-md navbar-dark ">
+                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                        </button>
+                            <div class="collapse navbar-collapse" id="navbarsExample04">
+                                <ul class="navbar-nav mr-auto">
+                                
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
         <main>
+            
         <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
         <div class="container-fluid">
             
@@ -214,7 +276,7 @@ $sql3 = mysqli_query($conn,"SELECT c.cart_id, c.accessories_id, p.name, c.quanti
             <div class="collapse navbar-collapse" id="mynavbar">
             <ul class="navbar-nav me-auto">
             <li class="nav-item">
-                        <a class="nav-link" href="index.php">Home</a>
+                        <a class="nav-link" href="first.php">Home</a>
                     </li> 
                     <li class="nav-item">
                         <a class="nav-link" href="products.php">Shop</a>
@@ -281,6 +343,7 @@ $sql3 = mysqli_query($conn,"SELECT c.cart_id, c.accessories_id, p.name, c.quanti
                                     while ($row = mysqli_fetch_array($sql3)) {
                                         $sub_total = $row['quantity'] * $row['price'];
                                         $grand_total += $sub_total;
+                                        
                                         ?>
                                         <input type="hidden" name="items[]" value="<?= $row['accessories_id'] ?>">
                                         <input type="hidden" name="quantity[]" value="<?= $row['quantity'] ?>">
@@ -291,7 +354,7 @@ $sql3 = mysqli_query($conn,"SELECT c.cart_id, c.accessories_id, p.name, c.quanti
                                     } ?>
                                     <hr class="hr">
                                     <?php
-                                    $grand_total += 20;
+                                    
                                     ?>
                                     <p>Total <span class="price" style="color:black"><b>₹ <?= $grand_total ?></b></span></p>
                                 </div>
@@ -299,14 +362,14 @@ $sql3 = mysqli_query($conn,"SELECT c.cart_id, c.accessories_id, p.name, c.quanti
                                 <input type="hidden" id="amt"name="total_amount" id="total" value="<?= $grand_total; ?>">
                                 </br>
                                 <?php
-                                $sq = "SELECT * FROM users where user_id = $user";
-                                $res = $conn-> query($sq);
+                                $sq = "SELECT * FROM tbluser_registration where email = '$user_id'";
+                                $res = $conn->query($sq);
                                     if ($res-> num_rows > 0){
                                         while($ro = $res-> fetch_assoc()){
                     
                                 ?>
                                 <div class="form-group">
-                                    <input type="text" name="name" id="name" class="form-control" placeholder="Enter Name"  value = "<?= $ro['username'] ?>" minlength="5" maxlength="50" pattern="\S(.*\S)?" required>
+                                    <input type="text" name="name" id="name" class="form-control" placeholder="Enter Name"  value = "<?= $ro['name'] ?>" minlength="5" maxlength="50" pattern="\S(.*\S)?" required>
                                 </div>
                                 </br>
                                 <div class="form-group">
@@ -314,10 +377,17 @@ $sql3 = mysqli_query($conn,"SELECT c.cart_id, c.accessories_id, p.name, c.quanti
                                 </div>
                                 </br>
                                 <div class="form-group">
-                                    <input type="text" name="phone" class="form-control" placeholder="Enter Phone" value = "<?= $ro['contact_no'] ?>" pattern="[6-9]{1}[0-9]{9}" title="Phone number with 6-9 and remaing 9 digit with 0-9" required>
+                                    <input type="text" name="phone" class="form-control" placeholder="Enter Phone" value = "<?= $ro['phone'] ?>"   required>
+                                </div>
+                                </br>
+
+                                <div class="form-group">
+                                <input type="text" name="address" id="address" class="form-control" placeholder="Enter Address"  value = "<?= $ro['address'] ?>"  required>
                                 </div>
                                 </br>
                                 
+
+
                                 <div class="form-group">
                                     <select name="payment_mode" class="form-control" required>
                                         <option value="" selected disabled>Payment Mode</option>
@@ -326,18 +396,16 @@ $sql3 = mysqli_query($conn,"SELECT c.cart_id, c.accessories_id, p.name, c.quanti
                                     </select>
                                 </div>
                                 </br>
-                                <div class="form-group">
-                                    <textarea name="address" class="form-control" rows="3" cols="10" placeholder="Enter Delivery Address Here..."></textarea>
-                                </div>
-                                </br>
+                              
+                               
+         
                                 
-                                
-                                <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
-<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+                                <!-- <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script> -->
 
-<form>
-    <!-- <input type="text" name = "name" id = "name">
-    <input type="text" name="amt" id="amt"> -->
+<!-- <form>
+    <input type="text" name = "name" id = "name">
+    <input type="text" name="amt" id="amt">
 
 
     <input type="button" class="btn btn-primary"name="pay" id ="rzp-button1" value="Pay now" onclick="pay_now()">
@@ -347,7 +415,7 @@ $sql3 = mysqli_query($conn,"SELECT c.cart_id, c.accessories_id, p.name, c.quanti
     function pay_now(){
 
     var name=jQuery('#name').val();
-    var amt=jQuery('#amt').val();
+    var amt=jQuery('#amt').val(); 
     // var amount = getElementById('total').value;
     var options = {
     "key": "rzp_test_bpkYObmj5H0Qba",
@@ -382,10 +450,10 @@ document.getElementById('rzp-button1').onclick = function(e){
 }
 
 }
-</script>
+</script> -->
                                 </br></br>
                                 <div class="form-group">
-                                    <input type="submit" name="submit" value="Place Order" class="btn btn-danger">
+                                    <button type="submit" name="submit" class="btn btn-danger">Place Order</button>
                                 </div>
                                 <?php
                                         }
@@ -406,5 +474,42 @@ document.getElementById('rzp-button1').onclick = function(e){
         <script src="js/custom.js"></script>
         <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.min.js'></script>
+
+
+</script>
+                                <?php
+$apiKey="rzp_test_bpkYObmj5H0Qba";
+?>
+
+<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+
+<form action="" method="POST">
+<script
+    src="https://checkout.razorpay.com/v1/checkout.js"
+    data-key="<?php echo $apiKey; ?>" // Enter the Test API Key ID generated from Dashboard → Settings → API Keys
+    data-amount="<?php echo $grand_total  * 100;?>" // Amount is in currency subunits. Hence, 29935 refers to 29935 paise or ₹299.35.
+    data-currency="INR"// You can accept international payments by changing the currency code. Contact our Support Team to enable International for your account
+    data-id="order_CgmcjRh9ti2lP7"// Replace with the order_id generated by you in the backend.
+    data-buttontext="Pay Now"
+    data-name="Fragrance IND"
+    data-description="Everything’s better with a bit of fragrance."
+    data-image="https://st4.depositphotos.com/31445094/41249/v/1600/depositphotos_412499652-stock-illustration-perfume-icon-design-template-isolated.jpg"
+    data-prefill.name="Minu Joe"
+    data-prefill.email=""
+    data-theme.color="#F37254"
+    
+></script>
+<input type="hidden" custom="Hidden Element" name="hidden" class="btn btn-primary">
+</form>
+<!--gateway end-->
+
+<style>
+    .razorpay-payment-button{
+        background-color: #0DCAF0;
+        color: white;
+        font-size: 18px;padding: 8px 10px;font-weight: bold;
+        border-radius: 12px; border: none;text-align: center; 
+    }
+</style>
     </body>
 </html>

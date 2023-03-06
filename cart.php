@@ -306,7 +306,7 @@ Check Out
 </tr>
 
 <?php
-                        $sql1="SELECT * from tbl_accessories,tblcart where tblcart.accessories_id=tbl_accessories.accessories_id and user_id='$uid'";
+                        $sql1="SELECT * from tbl_accessories,tblcart where tblcart.accessories_id=tbl_accessories.accessories_id and user_id='$uid' and tblcart.is_checked_out=0";
                        
                         $res = $conn-> query($sql1);
                         if ($res-> num_rows > 0){

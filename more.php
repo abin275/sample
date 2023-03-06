@@ -7,13 +7,13 @@ $msg=NULL;
 $uid=htmlentities($_SESSION['email']);
 
  if(isset($_POST['add_to_cart'])){
-    /* $uid = $_SESSION['lid']; */
+    $uid = $_SESSION["email"]; 
     $prod=$_POST["prod"];   
     $price=$_POST["price"];
     echo $prod;
     echo $price;
 
-    $select = "SELECT * FROM tblcart WHERE accessories_id='$prod' AND user_id='$uid'";
+    $select = "SELECT * FROM tblcart WHERE accessories_id=$prod AND user_id='$uid' AND is_checked_out=0";
     $result=mysqli_query($conn,$select);
     if(mysqli_num_rows($result)>0)
     {
@@ -21,7 +21,7 @@ $uid=htmlentities($_SESSION['email']);
     } 
     else
     {
-        $qry = "INSERT INTO `tblcart` (`accessories_id`, `quantity`, `user_id`, `price`) VALUES('$prod','1','$uid','$price')";
+        $qry = "INSERT INTO tblcart (accessories_id, quantity, user_id, price) VALUES('$prod','1','$uid','$price')";
         $result_query=mysqli_query($conn,$qry);
         if($result_query){
             // $msg = "<div class='alert alert-success'>Added to cart</div>";
@@ -184,7 +184,7 @@ $uid=htmlentities($_SESSION['email']);
                                     </form>
             <div class="row ">
                 <div class="col-md-12 ">
-                <form action="more.php" method="POST">
+                <!-- <form action="" method="POST"> -->
                     <div class="our_products ">
                         <div class="row ">
                             <?php
@@ -198,7 +198,7 @@ $uid=htmlentities($_SESSION['email']);
                             
                             <div class="card col-md-4 shadow p-2 mb-3 bg-body rounded">
                                 <div class="card-body product_box ">
-                                <img src="../uploads/<?php echo $row['image']; ?>">
+                                    <img src="../uploads/<?php echo $row['image']; ?>">
                                 
                                     <p>Name: <?php echo $row['name'];?></p>
                                     <p>Description: <?php echo $row['description'];?></p>
@@ -206,16 +206,13 @@ $uid=htmlentities($_SESSION['email']);
                                     <p>Specification: <?php echo $row['specification'];?></p>
                                     <p>Price: <?php echo $row['price'];?></p>
                                     <p>Company: <?php echo $row['company'];?></p>
-                                    <input type="hidden" id="price" name="price" value="<?php echo $row['price'];?>">
-                                    <input type="hidden" id="prod" name="prod" value="<?php echo $row['accessories_id']?>">
+                                    <input type="hidden" id="price" name="price" value="">
+                                    <input type="hidden" id="prod" name="prod" value="">
                                     <input type="button" name="pay" id ="rzp-button1" value="pay now" onclick="pay_now()">
-                                    <?php 
-                                        $val = $row['price']; 
-                                       echo "<input type='hidden' id='myValue' value='$val'>";
-                                    ?>
+                                  
 
                                 </div>
-                              <input type="submit" value="add to cart" name="add_to_cart" class="btn custom-btn cart-btn" data-bs-toggle="modal" data-bs-target="">
+                              <input type="submit" onclick ="myFn(<?php echo $row['accessories_id'];echo ','; echo  $row['price']; ?>)" value="add to cart" name="add_to_cart" class="btn custom-btn cart-btn" data-bs-toggle="modal" data-bs-target="">
                               
                             </div>
 
@@ -223,7 +220,7 @@ $uid=htmlentities($_SESSION['email']);
                             }
                         }
                         ?>
-                    </form>
+                    <!-- </form> -->
                         <?php
                                 // include_once "connection.php";
                                 // $sql="SELECT * from tbl_accessories where accessories_id='1113'";
@@ -341,6 +338,15 @@ $uid=htmlentities($_SESSION['email']);
     <!-- sidebar -->
     <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
     <script src="js/custom.js"></script>
+    <script>
+        function myFn(e,c){
+            //alert(c);
+            $("#prod").val(e);
+            $("#price").val(c);
+            window.location = "mores.php?prod="+e+"&price="+c;
+            
+        }
+    </script>
     <script>
     function pay_now(){
     var val= document.getElementById("myValue").value;
