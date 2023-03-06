@@ -26,6 +26,20 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
     <link rel="stylesheet" href="table.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<style>.progress {
+  height: 20px;
+  border-radius: 10px;
+  width:60%;
+  margin-left:20%px;
+  background-color: lightgray;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  transition: width 0.5s ease;
+}</style>
 </head>
 
 <body>
@@ -156,7 +170,46 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
             </nav>
 
             <!-- <h2 class="mb-4"></h2> -->
-            <h1 id="h1">Complaint Detail</h1><br> <br>
+            <h1 id="h1">FEEDBACK FORM</h1><br> <br>
+            <?php
+ $sql = "SELECT message from tbl_contact";
+$result = $conn->query($sql);
+if ($result->num_rows > 0) {
+    // Output data of each row
+    $texts = array();
+    while($row = $result->fetch_assoc()) {
+        $texts[] = $row["message"];
+    }
+    $url = 'http://127.0.0.1:5000/sentiment';
+    $data = json_encode(array('texts' => $texts));
+    $options = array(
+        'http' => array(
+            'header'  => "Content-type: application/json\r\n",
+            'method'  => 'POST',
+            'content' => $data,
+        ),
+    );
+    $context  = stream_context_create($options);
+    $result = file_get_contents($url, false, $context);
+    $overall_sentiment = json_decode($result, true)['sentiment'];
+$neg=100 - ($overall_sentiment * 100);
+} else {
+    echo "No comments found";
+}
+?>
+
+
+&nbsp;<div class="progress">
+  <div class="progress-bar" role="progressbar" style="width: <?php echo abs($overall_sentiment) * 100; ?>%; background-color:green;">
+  </div>
+</div>
+<span>&nbsp;Positive &nbsp;<?php  echo abs($overall_sentiment) * 100;?> %</span>
+&nbsp;<div class="progress">
+  <div class="progress-bar" role="progressbar" style="width: <?php echo $neg; ?>%; background-color:red;">
+  </div>
+  </div>
+  <span>&nbsp;Negative&nbsp;<?php  echo $neg;?> %</span>
+    <br><br><br>
 
 <table class="paleBlueRows">
     <thead>

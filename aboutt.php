@@ -77,7 +77,7 @@
                                         <a class="nav-link" href="cart.php">Cart</a>
                                     </li>
                                     <li class="nav-item ">
-                                        <a class="nav-link " href="contact.php">Contact Us</a>
+                                        <a class="nav-link " href="contact.php">Feedback</a>
                                     </li>
 
                                     <!-- <li class="nav-item d_none ">

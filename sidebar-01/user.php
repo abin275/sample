@@ -39,7 +39,7 @@ include "../session.php";
                             <a href="\sample\cart.php">CART</a>
                         </li>
                         <li>
-                            <a href="#">COMPLANTS</a>
+                            <a href="history.php">My orders</a>
                         </li>
                         
                         <li>

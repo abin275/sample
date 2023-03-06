@@ -126,7 +126,7 @@ $uid=htmlentities($_SESSION['email']);
                                         <a class="nav-link" href="product.php">Products</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="contact.php">Contact Us</a>
+                                        <a class="nav-link" href="contact.php">Feedback</a>
                                     </li>
                                     <!--
                                     <li class="nav-item d_none">

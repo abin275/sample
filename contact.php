@@ -102,7 +102,7 @@ if(isset($_POST['submit'])){
                                         <a class="nav-link" href="cart.php">Cart</a>
                                     </li>
                                     <li class="nav-item ">
-                                        <a class="nav-link " href="contact.php">Contact Us</a>
+                                        <a class="nav-link " href="contact.php">Feedback</a>
                                     </li>
 
                                     <!-- <li class="nav-item d_none ">
@@ -127,7 +127,7 @@ if(isset($_POST['submit'])){
             <div class="row">
                 <div class="col-md-12">
                     <div class="titlepage">
-                        <h2>Contact Now</h2>
+                        <h2>FEEDBACK FORM</h2>
                     </div>
                 </div>
             </div>
@@ -145,7 +145,7 @@ if(isset($_POST['submit'])){
                                 <input name="phone" id="c" class="contactus" placeholder="Phone Number" type="type">
                             </div>
                             <div class="col-md-12">
-                                <textarea name="message" id="d" class="textarea" placeholder="Message" type="type" ></textarea>
+                                <textarea name="message" id="d" class="textarea" placeholder="Feedback Message" type="type" ></textarea>
                             </div>
                            <div class="col-md-12 col-sm-12">
                     <div class="well">

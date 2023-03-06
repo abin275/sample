@@ -478,12 +478,13 @@ document.getElementById('rzp-button1').onclick = function(e){
 
 </script>
                                 <?php
-$apiKey="rzp_test_bpkYObmj5H0Qba";
+$apiKey="rzp_test_XaAAlWqBVMC0Yn";
 ?>
 
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 
 <form action="" method="POST">
+<form action="stock.php" method="POST">
 <script
     src="https://checkout.razorpay.com/v1/checkout.js"
     data-key="<?php echo $apiKey; ?>" // Enter the Test API Key ID generated from Dashboard → Settings → API Keys
