@@ -483,7 +483,6 @@ $apiKey="rzp_test_XaAAlWqBVMC0Yn";
 
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 
-<form action="" method="POST">
 <form action="stock.php" method="POST">
 <script
     src="https://checkout.razorpay.com/v1/checkout.js"
