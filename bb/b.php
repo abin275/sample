@@ -3,7 +3,7 @@
 include('connection.php');
 
 if(isset($_POST['submit'])){
-    $title=$_POST['title'];
+    echo $title=$_POST['title'];
     $name=$_POST['name'];
     $email=$_POST['email'];
     $phone=$_POST['phone'];
@@ -14,21 +14,18 @@ if(isset($_POST['submit'])){
     $bike_cc=$_POST['cc'];
     $type_of_service=$_POST['services'];
     $check_in=$_POST['cin'];
-    $time=$_POST['time'];
+    echo $time=$_POST['time'];
+    echo $lat=$_POST['latitude'];
+    echo $lon=$_POST['longitude'];
     // $rc=$_POST['rc'];
  
 
-    $rc=$_FILES["rc"]["name"];
-    $temp1 = explode(".", $_FILES["rc"]["name"]);
-    $newfilename1 = round(microtime(true)) . '.' .end($temp1);
-    move_uploaded_file($_FILES["rc"]['tmp_name'],"uploads/" .$newfilename1);                  
-    $loc1="uploads/".$newfilename1;
 
  
-    $bike_pic=$_FILES["bike_pic"]["name"];
-    $temp = explode(".", $_FILES["bike_pic"]["name"]);
+    $rc=$_FILES["rc"]["name"];
+    $temp = explode(".", $_FILES["rc"]["name"]);
     $newfilename = round(microtime(true)) . '.' .end($temp);
-    move_uploaded_file($_FILES["bike_pic"]['tmp_name'],"uploads/" .$newfilename);                  
+    move_uploaded_file($_FILES["rc"]['tmp_name'],"uploads/" .$newfilename);                  
     $loc="uploads/".$newfilename;
 
 
@@ -36,7 +33,7 @@ if(isset($_POST['submit'])){
     //checking empty condition
     if($title=='' or $name=='' or 
     $email=='' or $phone=='' or $o=='' or $type_of_bike=='' or 
-    $bike_name==''or $bike_number=='' or $bike_cc=='' or $type_of_service=='' or $check_in=='' or $time==''  or $rc==''  or $bike_pic==''){
+    $bike_name==''or $bike_number=='' or $bike_cc=='' or $type_of_service=='' or $check_in=='' or $time==''){
         echo "<script>alert('Please fill all the fields.')</script>";
         exit();
     }else{
@@ -47,10 +44,10 @@ if(isset($_POST['submit'])){
     $insert_products="INSERT INTO `booking`(`title`, 
     `name`, `email`, `phone`, `outlet`, `type_of_bike`,
     `bike_name`, `bike_number`, `bike_cc`, `type_of_service`,
-    `check_in`, `rc`, `bike_pic`, `status`) VALUES ('$title','$name',
+    `check_in`, `rc`,`longitude`,`latitude`, `status`) VALUES ('$title','$name',
     '$email','$phone','$o','$type_of_bike',
     '$bike_name','$bike_number','$bike_cc',
-    '$type_of_service','$check_in', '$loc1', '$loc', 0)";
+    '$type_of_service','$check_in', '$loc','$lon','$lat', 0)";
 
     $result_query=mysqli_query($conn,$insert_products);
     if($result_query){
@@ -77,7 +74,9 @@ if(isset($_POST['submit'])){
    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
    <script src="validate.js"></script>
 </head>
-<body>
+
+    
+<body onload = "getLocation();">
     <div id="wrapper">
         <nav class="navbar-default navbar-side" role="navigation">
             <div class="sidebar-collapse">
@@ -112,7 +111,8 @@ if(isset($_POST['submit'])){
                             PERSONAL INFORMATION
                         </div>
                         <div class="panel-body">
-						<form id='userreg' action="b.php" name="form" method="post" enctype="multipart/form-data">
+                            
+						<form id='userreg' action="" name="form" method="post" enctype="multipart/form-data">
                         
                             <div class="form-group">
                                             <label>Title*</label>
@@ -224,15 +224,29 @@ if(isset($_POST['submit'])){
                                             
                                </div>
 
-                               <div class="form-group" >
+                                            <div class="form-group" >
                                             <label for="img" style="font-size : 15px">Insert RC Book Image:</label>
                                              <input type="file" id="rc" name="rc" style="font-size : 15px">
                                             </div>
+                                
 
-                                            <div class="form-group" >
-                                            <label for="img" style="font-size : 15px">Insert Bike Image For Prototype Modeling:</label>
-                                             <input type="file" id="bike_pic" name="bike_pic" style="font-size : 15px">
-                                            </div>
+                                        <!-- <input type="text" class="form-control form-control-user" name="location" placeholder="location"> -->
+                    <input type="hidden" id="ws" name="ws" value="#">
+                    <input type="hidden" id="cs" name="cs" value="#">
+                    <div class="form-group">
+                    <input type="hidden" class="user" id="" name="latitude"
+                    placeholder="latitude"/>
+                    </div>
+                    <div class="form-group">
+                    <input type="hidden" class="user" id="" name="longitude"
+                    placeholder="longitude"/>
+                    </div>
+                    <!-- <div class="form-group">
+                    <input type="text" class="form-control form-control-user" id="" name="land"
+                    placeholder="Landmark" required/>
+                    </div> -->
+                    <!-- <input type="text" class="form-control form-control-user" name="land" placeholder="Landmark"> -->
+
 
                        </div>
                         
@@ -246,7 +260,7 @@ if(isset($_POST['submit'])){
 						<input type="submit" name="submit" class="btn btn-primary">
 						
 						</form>
-							
+    
                     </div>
                 </div>
             </div>
@@ -271,6 +285,28 @@ if(isset($_POST['submit'])){
     <script src="assets/js/jquery.metisMenu.js"></script>
       <!-- Custom Js -->
     <script src="assets/js/custom-scripts.js"></script>
+   
+
+    <script type="text/javascript">
+        function getLocation(){
+            if(navigator.geolocation){
+                navigator.geolocation.getCurrentPosition(showPosition(),showError());
+            }
+        }
+        function showPosition(position){
+            document.querySelector('.user input[name = "latitude"]').value = position.coords.latitude; 
+            document.querySelector('.user input[name = "longitude"]').value = position.coords.longitude; 
+        }
+        function showError(error){
+            switch(error.code){
+                case error.PERMISSION_DENIED:
+                alert("Allow Geolocation");
+                location.reload();
+                break;
+            }
+        }
+    </script>
+
     
     <script>
         const myForm = new octaValidate('userreg');

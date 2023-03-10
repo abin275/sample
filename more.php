@@ -208,8 +208,17 @@ $uid=htmlentities($_SESSION['email']);
                                     <p>Company: <?php echo $row['company'];?></p>
                                     <input type="hidden" id="price" name="price" value="">
                                     <input type="hidden" id="prod" name="prod" value="">
-                                    <input type="button" name="pay" id ="rzp-button1" value="pay now" onclick="pay_now()">
                                   
+                                  
+
+                                    <?php
+          if ($row['quantity'] == "0") {
+          echo "<p><span style='color:red;'>Out of stock!!!</span></p>";
+          }
+          else{
+            echo "<p><span style='color:red;'></span></p>";
+          }
+          ?>
 
                                 </div>
                               <input type="submit" onclick ="myFn(<?php echo $row['accessories_id'];echo ','; echo  $row['price']; ?>)" value="add to cart" name="add_to_cart" class="btn custom-btn cart-btn" data-bs-toggle="modal" data-bs-target="">
@@ -347,45 +356,6 @@ $uid=htmlentities($_SESSION['email']);
             
         }
     </script>
-    <script>
-    function pay_now(){
-    var val= document.getElementById("myValue").value;
-    var name=jQuery('#name').val();
-    var amt=jQuery('#amnt').val();
-    var options = {
-    "key": "rzp_test_bpkYObmj5H0Qba",
-    "amount": val*100, 
-    "currency": "INR",
-    "name": "Ad_Sol",
-    "description": "Test Transaction",
-    "image": "https://drive.google.com/file/d/1FJCNPPMhML96z3s4IrR8-yGU4A6HLm2X/view?usp=share_link",
-    "handler":function(response){
-        console.log(response);
-        jQuery.ajax({
-            type:'POST',
-            url:'payment.php',
-            data:"payment_id="+response.razorpay_payment_id+"&amt="+amt+"&name="+name,
-            success:function(result){
-                window.location.href="thankyou.php";
-            }
-
-        })
-        // if(response){
-        //     window.location.href="/adsol/index.php";
-        // }
-       
-
-    }
-};
-
-var rzp1 = new Razorpay(options);
-document.getElementById('rzp-button1').onclick = function(e){
-    rzp1.open();
-    e.preventDefault();
-}
-
-}
-</script>
 
 </body>
 

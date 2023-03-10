@@ -68,7 +68,7 @@ width:1200px;}
 <div class="col-md-12 text-right mb-3">
                 <button class="btn btn-primary" id="download"> Take a pdf</button>
             </div>
-<h3>SERVICE ORDERS</h3>
+<h3>DOORSTEP SERVICE ORDER</h3>
 </div>
 <!-- <div class="module-body table"> -->
 <?php if(isset($_GET['del']))
@@ -90,6 +90,8 @@ width:1200px;}
 <th>Check in date</th>
 <th>Title</th>
 <th>Name</th>
+<th>Address</th>
+<th>Location</th>
 <th>Email</th>
 <th>Contact no</th>
 <th>Type_of_bike</th>
@@ -98,12 +100,13 @@ width:1200px;}
 <th>Bike_cc</th>
 <th>RC Book details </th>
 <th>Type_of_service</th>
+<th>Immidate</th>
 </tr>
 </thead>
 <tbody>
 <?php
 
- $query1=mysqli_query($conn,"SELECT * from booking");
+ $query1=mysqli_query($conn,"SELECT * from doorstep_booking");
  if($rows=mysqli_fetch_array($query1))
      {
         $email=$_SESSION["email"];
@@ -118,7 +121,7 @@ width:1200px;}
 
 $ad=$_SESSION['ad'];
   
-$query=mysqli_query($conn,"SELECT b.name as name, b.bike_cc as bike_cc, b.bike_name as bike_name, b.type_of_bike as type_of_bike, b.title as title, b.email as email, b.time as time, b.check_in as check_in, b.phone as phone,b.rc as rc, b.bike_number as bike_number,b.bike_cc as bike_cc, b.type_of_service as type_of_service from booking b,tbloutlet ou where b.outlet=ou.address and b.outlet = '$ad'");
+$query=mysqli_query($conn,"SELECT b.name as name, b.address as address, b.immidate as immidate, b.bike_cc as bike_cc, b.bike_name as bike_name, b.type_of_bike as type_of_bike, b.title as title, b.location as location,  b.email as email, b.time as time, b.check_in as check_in, b.phone as phone,b.rc as rc, b.bike_number as bike_number,b.bike_cc as bike_cc, b.type_of_service as type_of_service from doorstep_booking b,tbloutlet ou where b.outlet=ou.address and b.outlet = '$ad'");
 /* $query=mysqli_query($conn,"SELECT booking.*,tbloutlet.* from booking,tbloutlet where booking.outlet='$ad'"); */
 $cnt=1;
 while($rows=mysqli_fetch_array($query))
@@ -131,6 +134,8 @@ while($rows=mysqli_fetch_array($query))
 <td><?php echo htmlentities($rows['check_in']);?></td>
 <td><?php echo htmlentities($rows['title']);?></td>
 <td><?php echo htmlentities($rows['name']);?></td>
+<td><?php echo htmlentities($rows['address']);?></td>
+<td><?php echo htmlentities($rows['location']);?></td>
 <td><?php echo htmlentities($rows['email']);?>
 <td><?php echo htmlentities($rows['phone']);?></td>
 <td><?php echo htmlentities($rows['type_of_bike']);?></td>
@@ -139,6 +144,7 @@ while($rows=mysqli_fetch_array($query))
 <td><?php echo htmlentities($rows['bike_cc']);?></td>
 <td><img src="../bb/<?php echo htmlentities($rows['rc']);?>"></td>
 <td><?php echo htmlentities($rows['type_of_service']);?></td>
+<td><?php echo htmlentities($rows['immidate']);?></td>
 
 </tr>
 

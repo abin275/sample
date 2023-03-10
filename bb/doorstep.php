@@ -21,17 +21,11 @@ if(isset($_POST['submit'])){
     // $rc=$_POST['rc'];
  
 
-    $rc=$_FILES["rc"]["name"];
-    $temp1 = explode(".", $_FILES["rc"]["name"]);
-    $newfilename1 = round(microtime(true)) . '.' .end($temp1);
-    move_uploaded_file($_FILES["rc"]['tmp_name'],"uploads/" .$newfilename1);                  
-    $loc1="uploads/".$newfilename1;
-
  
-    $bike_pic=$_FILES["bike_pic"]["name"];
-    $temp = explode(".", $_FILES["bike_pic"]["name"]);
+    $rc=$_FILES["rc"]["name"];
+    $temp = explode(".", $_FILES["rc"]["name"]);
     $newfilename = round(microtime(true)) . '.' .end($temp);
-    move_uploaded_file($_FILES["bike_pic"]['tmp_name'],"uploads/" .$newfilename);                  
+    move_uploaded_file($_FILES["rc"]['tmp_name'],"uploads/" .$newfilename);                  
     $loc="uploads/".$newfilename;
 
     $immidate=$_POST['immidate'];
@@ -39,7 +33,7 @@ if(isset($_POST['submit'])){
     //checking empty condition
     if($title=='' or $name=='' or  $address=='' or $location=='' or
     $email=='' or $phone=='' or $o=='' or $type_of_bike=='' or 
-    $bike_name==''or $bike_number=='' or $bike_cc=='' or $type_of_service=='' or $check_in=='' or $time==''  or $rc==''  or $bike_pic=='' or $immidate==''){
+    $bike_name==''or $bike_number=='' or $bike_cc=='' or $type_of_service=='' or $check_in=='' or $time==''  or $rc=='' or $immidate==''){
         echo "<script>alert('Please fill all the fields.')</script>";
         exit();
     }else{
@@ -50,10 +44,10 @@ if(isset($_POST['submit'])){
     $insert_products="INSERT INTO `doorstep_booking`(`title`, 
     `name`,`address`,`location`, `email`, `phone`, `outlet`, `type_of_bike`,
     `bike_name`, `bike_number`, `bike_cc`, `type_of_service`,
-    `check_in`, `rc`, `bike_pic`,`immidate`, `status`) VALUES ('$title','$name','$address','$location',
+    `check_in`, `rc`, `immidate`, `status`) VALUES ('$title','$name','$address','$location',
     '$email','$phone','$o','$type_of_bike',
     '$bike_name','$bike_number','$bike_cc',
-    '$type_of_service','$check_in', '$loc1', '$loc', '$immidate', 0)";
+    '$type_of_service','$check_in', '$loc', '$immidate', 0)";
 
     $result_query=mysqli_query($conn,$insert_products);
     if($result_query){
@@ -233,15 +227,12 @@ if(isset($_POST['submit'])){
                                             
                                </div>
 
-                               <div class="form-group" >
+                                            <div class="form-group" >
                                             <label for="img" style="font-size : 15px">Insert RC Book Image:</label>
                                              <input type="file" id="rc" name="rc" style="font-size : 15px">
                                             </div>
 
-                                            <div class="form-group" >
-                                            <label for="img" style="font-size : 15px">Insert Bike Image For Prototype Modeling:</label>
-                                             <input type="file" id="bike_pic" name="bike_pic" style="font-size : 15px">
-                                            </div>
+
                                             <div class="form-group">
                                             
                                             <label for="IMMIDATE OR NOT">IMMIDATE OR NOT:</label>

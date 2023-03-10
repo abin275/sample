@@ -339,6 +339,22 @@ if ($resop->num_rows > 0) {
 <?php }}?>
                               </select>
                             </div>
+
+                            <label class="col-sm-3 col-form-label">Select Month</label>
+                            <div class="col-sm-9">
+                               <select name="month" placeholder="date"  class="form-control">
+							   <?php $op="SELECT DISTINCT month FROM tbl_month";
+$resop= $conn->query($op);
+if ($resop->num_rows > 0) {
+  // output data of each row
+  while($rowp = $resop->fetch_assoc()) {?>         
+<option value="<?php echo $rowp['month']?>"><?php echo $rowp['month'] ?></option>
+<?php }}?>
+                              </select>
+                            </div>
+
+
+
                           </div>
                         </div>
                         

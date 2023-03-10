@@ -381,7 +381,7 @@ VALUES ('$product_category',' $product_title','$product_size','$description','$p
                                                 <div class="col-lg-12 col-md-12 mt-2">
                                                     <div class="form-group text-start">
                                                         <label class="form-label fw-normal fs-5">QUANTITY</label>
-                                                        <input type="text" class="form-control" name="quantity" placeholder="Enter Quantity">
+                                                        <input type="number" class="form-control" name="quantity" placeholder="Enter Quantity" min="1">
                                                     </div>
                                                 </div>
 

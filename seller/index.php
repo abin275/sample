@@ -28,13 +28,13 @@ include_once "../connection.php";
       <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
         <ul class="navbar-nav mr-lg-2">
           <li class="nav-item ml-0">
-            <h4 class="mb-0"> Seller Dashboard</h4>
+            <h4 class="mb-0"> Oultet Dashboard</h4>
           </li>
           <li class="nav-item">
             <div class="d-flex align-items-baseline">
               <p class="mb-0">Home</p>
               <i class="typcn typcn-chevron-right"></i>
-              <p class="mb-0">Main Dahboard</p>
+              <p class="mb-0">Main Dashboard</p>
             </div>
           </li>
           <li>
@@ -271,7 +271,13 @@ include_once "../connection.php";
           <li class="nav-item">
             <a class="nav-link" href="manage-order.php">
               <i class="typcn typcn-device-desktop menu-icon"></i>
-              <span class="menu-title">Orders</span>
+              <span class="menu-title">Bike Services</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="manage-door.php">
+              <i class="typcn typcn-device-desktop menu-icon"></i>
+              <span class="menu-title">Doorstep Bike Services</span>
             </a>
           </li>
           <li class="nav-item">

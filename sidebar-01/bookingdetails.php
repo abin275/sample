@@ -222,7 +222,7 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
             <th>CHECK_IN_DATE</th>
             <th>ARRAVING TIME</th>
             <th>RC BOOK PHOTO</th>
-            <th>BIKE PHOTO</th>
+            <th>Landmark</th>
             <th>ACTION</th>
             <th>Service Status</th>
         
@@ -278,12 +278,11 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
                 <td>
                     <?php echo $row['time'] ?>
                 </td>
+               
                 <td>
-                <img src="../bb/<?php echo $row['rc'] ?>" style="width: 100px;height: 100px;">
+                  <img src="../bb/<?php echo $row['rc'] ?>" style="width: 100px;height: 100px;">
                 </td>
-                <td>
-                  <img src="../bb/<?php echo $row['bike_pic'] ?>" style="width: 100px;height: 100px;">
-                </td>
+                <td style="width: 100px; height: 100px;"><iframe src='https://www.google.com/maps?q=<?php echo $row["latitude"]; ?>, <?php echo $row["longitude"]; ?>&h1=es,z=14&output=embed' width="" height="" ></iframe></td>
                <td> 
                 <button class="btn btn-danger" id="con" name="conform" value="<?=$row['booking_id']?>" onclick="fnConfirm()">Confirm</button>
                </td>
@@ -317,7 +316,8 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
             <th>CHECK_IN_DATE</th>
             <th>ARRAVING TIME</th>
             <th>RC BOOK PHOTO</th>
-            <th>BIKE PHOTO</th>
+            <th>Landmark</th>
+    
             <th>ACTION</th>
             <!-- <th>Service Status</th> -->
         
@@ -373,12 +373,13 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
                 <td>
                     <?php echo $row['time'] ?>
                 </td>
+                
                 <td>
-                <img src="../bb/<?php echo $row['rc'] ?>" style="width: 100px;height: 100px;">
+                  <img src="../bb/<?php echo $row['rc'] ?>" style="width: 100px;height: 100px;">
                 </td>
-                <td>
-                  <img src="../bb/<?php echo $row['bike_pic'] ?>" style="width: 100px;height: 100px;">
                 </td>
+                <td style="width: 100px; height: 100px;"><iframe src='https://www.google.com/maps?q=<?php echo $row["latitude"]; ?>, <?php echo $row["longitude"]; ?>&h1=es,z=14&output=embed' width="" height="" ></iframe></td>
+               <td>
                <td> 
                 <button class="btn btn-danger" id="con" name="conform" value="<?=$row['booking_id']?>" onclick="fnConfirm()">Confirm</button>
                </td>

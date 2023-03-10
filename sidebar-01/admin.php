@@ -79,6 +79,9 @@ include "../connection.php";
                          <li>
                          <a href="../prev.php">Report generation</a>
                          </li>
+                         <li>
+                         <a href="../salesReport.php">Sales report</a>
+                         </li>
 
                          <li>
                         <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Pages</a>

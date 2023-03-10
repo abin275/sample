@@ -3,25 +3,28 @@ include('session.php');
 include('connection.php');
 
 ?>
+
+
+<!DOCTYPE html>
 <html lang="en">
   <head>
-  <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
-
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="sidebar-01/css/style.css">
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <title>REPORT</title>
+     <title>REPORT</title>
     <!-- plugins:css -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="../../assets/vendors/mdi/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="../../assets/vendors/flag-icon-css/css/flag-icon.min.css">
     <link rel="stylesheet" href="vendor.bundle.base.css">
     <!-- endinject -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="sidebar-01/css/style.css">
     <!-- Plugin css for this page -->
     <!-- End Plugin css for this page -->
     <!-- inject:css -->
@@ -31,11 +34,9 @@ include('connection.php');
     <!-- End layout styles -->
    <link rel="icon" type="image/png" href="../../../favicons/favicon-16x16.png" sizes="16x16">
   </head>
-  <body>
+   <style>
   
-  <style>
-
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;500&display=swap');
+ @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;500&display=swap');
 
 * {
     box-sizing: border-box;
@@ -107,9 +108,82 @@ table>tbody>tr:nth-child(even) {
 table>tbody>tr:hover{
     filter: drop-shadow(0px 2px 6px #0002);
 }
-#a{
+.stop {
+	font-family: Arial;
+	color: #FFFFFF;
+	font-size: 16px;
+	border-radius: 8px;
+	border: 0px #c81414 solid;
+	background: linear-gradient(180deg, #ff0000 5%, #c81414 100%);
+	text-shadow: 0px 1px 1px #ffffff;
+	box-shadow: 0px 10px 14px -7px #616174;
+	cursor: pointer;
+	display: inline-flex;
+	align-items: center;
 	text-decoration:none;
-	color:black;
+}
+.stop:hover {
+	background: linear-gradient(180deg, #c81414 5%, #ff0000 100%);
+	color: #FFFFFF;
+}
+.stop-icon {
+	padding: 10px 10px;
+}
+.stop-icon svg {
+	vertical-align: middle;
+	position: relative;
+	font-size: 21px;
+	top: 0px;
+	left: -2px;
+}
+.stop-text {
+	padding: 10px 5px;
+	
+}
+.stop-text span{
+	display: block;
+	position: relative;
+	transform: rotate(0deg);
+	top: 0px;
+	left: -9px;
+}
+.start {
+	font-family: Arial;
+	color: #FFFFFF;
+	font-size: 16px;
+	text-decoration:none;
+	border-radius: 8px;
+	border: 0px #24a6a2 solid;
+	background: linear-gradient(180deg, #48d1cc 5%, #24a6a2 100%);
+	text-shadow: 0px 1px 1px #ffffff;
+	box-shadow: 0px 10px 14px -7px #616174;
+	cursor: pointer;
+	display: inline-flex;
+	align-items: center;
+}
+.start:hover {
+	background: linear-gradient(180deg, #24a6a2 5%, #48d1cc 100%);
+		color: #FFFFFF;
+}
+.start-icon {
+	padding: 10px 10px;
+}
+.start-icon svg {
+	vertical-align: middle;
+	position: relative;
+	font-size: 21px;
+	top: 0px;
+	left: -2px;
+}
+.start-text {
+	padding: 10px 5px;
+}
+.start-text span{
+	display: block;
+	position: relative;
+	transform: rotate(0deg);
+	top: 0px;
+	left: -9px;
 }
 img {
     display: inline-block;
@@ -121,37 +195,8 @@ img {
     box-shadow: 0 2px 6px #0003;
 }
 
-.save{
-	
-	 font-size: 15px;
-    color: #fff;
-    width:10%;
-	height:45px;
-	float:right;
-	border-radius:5px;
-	margin-top:5px;
-    background:green;
-    border: none;
-    padding: 14px 15px;
-    font-weight: 500;
-    transition: .3s ease;
-    -webkit-transition: .3s ease;
-    -moz-transition: .3s ease;
-    -ms-transition: .3s ease;
-    -o-transition: .3s ease;
-
-}
-
-#scroll{
-  
-    width:100%; 
-    overflow:auto; 
-    position:relative;
-    height:720px;
-
-}
-</style>
-<body>
+  </style>
+  <body>
     <div class="wrapper d-flex align-items-stretch">
       <!-- partial:../../partials/_sidebar.html -->
       <div class="wrapper d-flex align-items-stretch">
@@ -266,80 +311,43 @@ img {
         <!-- partial -->
         <div class="main-panel">
           <div class="content-wrapper">
+            <div class="page-header">
+              <h3 class="page-title">REPORTS</h3>
+             
+            </div>
             
-            <div class="row">
-               <div class="col-sm-12 stretch-card grid-margin">
-                <div class="card">
-                 <div class="row">
-          <div class="col-md-12 mb-3">
-            <div class="card">
-              <div class="card-header">
-                <span><i class="bi bi-table me-2"></i></span>REPORT
-              </div>
-              <div class="card-body">
-                <div class="table-responsive">
-                  <table
-                    id="example"
-                    class="table table-striped data-table"
-                    style="width: 100%"
-                  >
-                   <thead>
-	<tr>
-	<th>year</th>
-  <th>Month</th>
-    <th>Id</th>
-    <th>Name</th>
-	<th>Price</th>
-</tr>
-</thead>
-<tbody>
-
-
- <?php
-  $year= mysqli_real_escape_string($conn, $_POST["year"]);
-  $month= mysqli_real_escape_string($conn, $_POST["month"]);
-  $sql= "SELECT * FROM tbl_accessories WHERE year ='$year' AND month='$month'";
-$result = $conn->query($sql);
-if ($result->num_rows > 0) {
-  // output data of each row
-  while($row = $result->fetch_assoc()) {
-
-?>
-  <tr>
-    
-	<td><?php echo $row['year'];?></td>
-	<td><?php echo $row['month'];?></td>
-    <td><?php echo $row['accessories_id'];?></td>
-	<td><?php echo $row['name'];?></td>
-	<td><?php echo $row['price'];?></td>
-	
-  </tr>
-<?php
-}}
-?>
-	 </tbody>
-</table> 
- </div>
- </div>
-
-              </div>
+                      
+            <div class="span9">
+            <div class="content">
+                <div class="module">
+                    <div class="module-head">
+                        <div class="container-fluid">
+                            <!-- HTML form for entering year and month -->
+                            <form method="get" action="report.php">
+                                <label for="year">Year:</label>
+                                <input type="number" id="year" name="year" required>
+                                <label for="month">Month:</label>
+                                <input type="number" id="month" name="month" required>
+                                <input type="submit" value="Generate report">
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-              </div>
-            </div>
-              
+            </div><!--/.content-->
     <!-- plugins:js -->
-    <script src="../../../assets/vendors/js/vendor.bundle.base.js"></script>
+    <script src="../../assets/vendors/js/vendor.bundle.base.js"></script>
     <!-- endinject -->
     <!-- Plugin js for this page -->
     <!-- End plugin js for this page -->
     <!-- inject:js -->
-    <script src="../../../assets/js/off-canvas.js"></script>
-    <script src="../../../assets/js/hoverable-collapse.js"></script>
-    <script src="../../../assets/js/misc.js"></script>
-    <script src="../../../assets/js/settings.js"></script>
-    <script src="../../../assets/js/todolist.js"></script>
+    <script src="../../assets/js/off-canvas.js"></script>
+    <script src="../../assets/js/hoverable-collapse.js"></script>
+    <script src="../../assets/js/misc.js"></script>
+    <script src="../../assets/js/settings.js"></script>
+    <script src="../../assets/js/todolist.js"></script>
     <!-- endinject -->
+    <!-- Custom js for this page -->
+    <!-- End custom js for this page -->
   </body>
 </html>

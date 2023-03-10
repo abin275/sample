@@ -1,29 +1,41 @@
 <?php
-include('session.php');
-include('connection.php');
+session_start();
+include "connection.php";
+ $email=$_SESSION["email"];
+ $uid=$_SESSION["email"];
+if(!isset($_SESSION["email"]))  
+{
+    header("Location:user_login.php");
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <title>trials </title>  
+
+
 </head>
-<body>
-<!-- bootstrap css -->
-<link rel="stylesheet" href="css/bootstrap.min.css">
+
+      <!-- bootstrap css -->
+
+
+
+      <link rel="stylesheet" href="http://localhost/sample//css/bootstrap.min.css">
    <!-- style css -->
-   <link rel="stylesheet" href="css/style.css">
+   <link rel="stylesheet" href="http://localhost/sample//css/style.css">
    <!-- Responsive-->
-   <link rel="stylesheet" href="css/responsive.css">
+   <link rel="stylesheet" href="http://localhost/sample//css/responsive.css">
    <!-- fevicon -->
-   <link rel="icon" href="images/fevicon.png" type="image/gif" />
+   <link rel="icon" href="http://localhost/sample//images/fevicon.png" type="image/gif" />
    <!-- Scrollbar Custom CSS -->
-   <link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css">
+   <link rel="stylesheet" href="http://localhost/sample//css/jquery.mCustomScrollbar.min.css">
    <!-- Tweaks for older IEs-->
    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
    <!--[if lt IE 9]>
      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+<!--      <link rel="stylesheet" href="sidebar-01/css/style.css"> -->
 </head>
 <!-- body -->
 
@@ -44,7 +56,7 @@ include('connection.php');
                    
                                </div>
                                <li class="nav-item active" width="auto">
-                                        <a class="nav-link " href="first.php" style="font-size: 30px;font-weight:bolder">Home</a>
+                                        <a class="nav-link " href="..//first.php" style="font-size: 30px;font-weight:bolder">Home</a>
                                     </li>
                            </div>
                        </div>
@@ -55,6 +67,10 @@ include('connection.php');
                        <span class="navbar-toggler-icon"></span>
                        </button>
                            <div class="collapse navbar-collapse" id="navbarsExample04">
+                           <div class="card-body">
+            <!-- <a href="admin_dashboard.php"><button class="button-54">Dashboard</button></a> -->
+            
+            
                                <ul class="navbar-nav mr-auto">
                                
                                </ul>
@@ -65,12 +81,65 @@ include('connection.php');
            </div>
        </div>
    </header>
+
+<div class="container mt-3">
+<nav class="navbar-breadcrumb col-xl-12 col-12 d-flex flex-row p-0">
+        
+        <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
+          
+          <ul class="navbar-nav navbar-nav-right">
+            <li class="nav-item nav-search d-none d-md-block mr-0">
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search....." aria-label="search" aria-describedby="search" >
+                
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="search">
+                    <i class="fa fa-search"></i>
+                  </span>
+                </div> </li>
+          </ul>
+                </div>
+                
+          <ul class="navbar-nav ml-auto">
+              <li class="nav-item dropdown">
+                  <a class="nav-link" data-toggle="dropdown" href="#">
+                  <div class="input-group">
+                      <?= $_SESSION['email'] ?>&emsp;
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="search">
+                            <i class="fa fa-user"></i>
+                        </span>
+                      </div> 
+                  </div>
+                      <!-- <i style='font-size:20px' class='fa fa-bars'></i> </a> -->
+                  <div class="dropdown-menu dropdown-menu-right">
+                      <a class="dropdown-item" href="change-password.php">Change Password</a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="../logout.php">Log Out</a>
+                  </div>
+              </li>
+          </ul>
+  
+  
+          
+              
+           
+        </div>
+      </nav>
+</div>
+   
+
+
+
+
+
+<div class="container mt-2">
 <div class="span9">
 <div class="content">
 <div class="module">
 <div class="module-head">
     
-<h3>Your Orders</h3>
+<h1>YOUR ORDERS</h1>
 </div>
 <!-- <div class="module-body table"> -->
 <?php if(isset($_GET['del']))
@@ -81,7 +150,7 @@ include('connection.php');
 </div>
 <?php } ?>
 <br />  
-<table cellpadding="0" cellspacing="0" border="0" class="datatable-1 table table-bordered table-striped display" width="100%">
+<table cellpadding="0" cellspacing="0" border="0" class="datatable-1 table table-bordered table-dark display" width="100%">
 <thead>  
 <tr>
 <th>SI.NO</th>
@@ -96,20 +165,25 @@ include('connection.php');
 </thead>
 <tbody>
 <?php
-$query=mysqli_query($conn,"SELECT *from tbl_accessories,orders,order_items where  order_items.order_id =orders.id and tbl_accessories.accessories_id=order_items.product_id");
+$query1=mysqli_query($conn,"select * from tbluser_registration where email='$email'");
+while($row=mysqli_fetch_array($query1))
+{
+    $user_id=$row['registration_id'];
+
+$query=mysqli_query($conn,"SELECT *from tbl_accessories,orders,order_items where  order_items.order_id =orders.id and orders.user_id='$user_id' and tbl_accessories.accessories_id=order_items.product_id");
 $cnt=1;
 while($row=mysqli_fetch_array($query))
 {
 ?>
 <tr>
 <td><?php echo htmlentities($cnt);?></td>
-<td><img width='100px' height='10px'src='bb/uploads/name"<?php echo htmlentities($row["image"]);?>'></td>
+<td ><img width='100px' height='10px' src="../uploads/<?php echo $row['image']; ?>"></td> 
 <td><?php echo htmlentities($row['name']);?></td>
-<td><?php echo htmlentities($row['quantity']);?></td>
+<td ><?php echo htmlentities($row['quantity']);?></td>
 <td><?php echo htmlentities($row['total_price']);?></td>
 <td><?php echo htmlentities($row['order_date']);?></td>
 </tr>
-<?php $cnt=$cnt+1; }?>
+<?php $cnt=$cnt+1; }}?>
 </tbody>
 </table>
 </div>
@@ -117,8 +191,13 @@ while($row=mysqli_fetch_array($query))
 </div><!--/.content-->
 </div><!--/.span9-->
 </div>
-</div><!--/.container-->
-</div><!--/.wrapper-->
+
+
+
+
+
+
+
 
 
 
@@ -173,6 +252,10 @@ while($row=mysqli_fetch_array($query))
         </div>
     </footer>
     <!-- end footer -->
+
+
+
+    
     <!-- Javascript files-->
     <script src="js/jquery.min.js "></script>
     <script src="js/popper.min.js "></script>

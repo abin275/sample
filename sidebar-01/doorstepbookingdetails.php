@@ -222,7 +222,6 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
             <th>CHECK_IN_DATE</th>
             <th>ARRAVING TIME</th>
             <th>RC BOOK PHOTO</th>
-            <th>BIKE PHOTO</th>
             <th>IMMIDATE OR NOT</th>
             <th>ACTION</th>
             <th>Service Status</th>
@@ -285,11 +284,9 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
                 <td>
                     <?php echo $row['time'] ?>
                 </td>
+                
                 <td>
-                <img src="../bb/<?php echo $row['rc'] ?>" style="width: 100px;height: 100px;">
-                </td>
-                <td>
-                  <img src="../bb/<?php echo $row['bike_pic'] ?>" style="width: 100px;height: 100px;">
+                  <img src="../bb/<?php echo $row['rc'] ?>" style="width: 100px;height: 100px;">
                 </td>
                 <td>
                     <?php echo $row['immidate'] ?>
@@ -329,7 +326,6 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
             <th>CHECK_IN_DATE</th>
             <th>ARRAVING TIME</th>
             <th>RC BOOK PHOTO</th>
-            <th>BIKE PHOTO</th>
             <th>IMMIDATE OR NOT</th>
             <th>ACTION</th>
             <!-- <th>Service Status</th> -->
@@ -392,11 +388,9 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
                 <td>
                     <?php echo $row['time'] ?>
                 </td>
+        
                 <td>
-                <img src="../bb/<?php echo $row['rc'] ?>" style="width: 100px;height: 100px;">
-                </td>
-                <td>
-                  <img src="../bb/<?php echo $row['bike_pic'] ?>" style="width: 100px;height: 100px;">
+                  <img src="../bb/<?php echo $row['rc'] ?>" style="width: 100px;height: 100px;">
                 </td>
                 <td>
                     <?php echo $row['immidate'] ?>
