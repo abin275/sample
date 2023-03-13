@@ -309,6 +309,20 @@ include_once "../connection.php";
             </div>
           </li> -->
           <li class="nav-item">
+            <a class="nav-link" href="dataanalysis.php">
+              <i class="typcn typcn-device-desktop menu-icon"></i>
+              <span class="menu-title">Sales analysis</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="fav.php">
+              <i class="typcn typcn-device-desktop menu-icon"></i>
+              <span class="menu-title">Favourite product analysis</span>
+            </a>
+          </li>
+         
+
+          <li class="nav-item">
             <a class="nav-link" href="../logout.php">
               <i class=" typcn typcn-power-outline"></i>
               <span class="menu-title">Logout</span>

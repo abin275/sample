@@ -1,7 +1,34 @@
 <?php
 include "../session.php";
 include "../connection.php";
+$email=$_SESSION["email"];
+if(!isset($_SESSION["email"])) 
+{
+    header("Location:../user_login.php");
+}
+
+else{
+     if(isset($_POST['submit'])) {
+    $category=$_POST['tbl_category'];
+    $select = "SELECT * FROM tbl_category WHERE category_name ='$category' ";
+    $result=$conn->query($select);
+    if($result->num_rows>0)
+        {
+            $_SESSION['msg']="Category  alredy Created !!";     
+        } 
+     else{  
+        $sql=mysqli_query($conn,"insert into tbl_category(category_name) values('$category')");
+        $_SESSION['msg']="Category Created !!";
+     }
+        }
+    if(isset($_GET['del']))
+    {
+    mysqli_query($conn," UPDATE tbl_category SET status=1 where  category_id = '".$_GET['id']."'");
+    $_SESSION['delmsg']="Category deleted !!";
+    }
+}
 ?>
+
 <html lang="en">
 
 <head>
@@ -13,6 +40,33 @@ include "../connection.php";
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/style.css">
+   
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.css" 
+    integrity="sha512-nNlU0WK2QfKsuEmdcTwkeh+lhGs6uyOxuUs+n+0oXSYDok5qy0EI0lt01ZynHq6+p/tbgpZ7P+yUb+r71wqdXg==" 
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="style.css">
+    <link type="text/css" href="../admin/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link type="text/css" href="../admin/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
+    <link type="text/css" href="../admin/css/theme.css" rel="stylesheet">
+    <link type="text/css" href="../admin/images/icons/css/font-awesome.css" rel="stylesheet">
+    <link type="text/css" href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600' rel='stylesheet'>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+      
+ <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+   
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  
+
+  
+         <link type="text/css" href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style2.css">
+<style>
+.divScroll {
+overflow:scroll;
+height:500px;
+width:1200px;}
+</style>
 </head>
 
 <body>
@@ -83,7 +137,7 @@ include "../connection.php";
                          <a href="../salesReport.php">Sales report</a>
                          </li>
                          <li>
-                         <a href="dataanalysis.php">Sales Analysis</a>
+                         <a href="dataanalysis.php">sale analysis</a>
                          </li>
                          <li>
                          <a href="fav.php">Mostly carted items</a>
@@ -117,7 +171,6 @@ include "../connection.php";
 
             </div>
         </nav>
-
         <!-- Page Content  -->
         <div id="content" class="p-4 p-md-5">
 
@@ -151,8 +204,42 @@ include "../connection.php";
                 </div>
             </nav>
 
-            <h2 class="mb-4">Welcome Admin</h2>
-            <div class="container-xxl position-relative bg-white d-flex p-0">
+<!----> 
+<script type="text/javascript">
+ google.load("visualization", "1", {packages:["corechart"]});
+ google.setOnLoadCallback(drawChart);
+ function drawChart() {
+ var data = google.visualization.arrayToDataTable([
+
+ ['order_items','Number'],
+ <?php 
+      $query = "SELECT count(order_items.product_id) AS number, tbl_accessories.name FROM tbl_accessories INNER JOIN order_items WHERE tbl_accessories.accessories_id=order_items.product_id GROUP BY order_items.product_id";
+
+       $exec = mysqli_query($conn,$query);
+       while($row = mysqli_fetch_array($exec)){
+
+       echo "['".$row['name']."',".$row['number']."],";
+       }
+       ?> 
+ 
+ ]);
+
+ var options = {
+ title: 'Sales Analysis',
+  pieHole: 0,
+          pieSliceTextStyle: {
+            color: 'black',
+          },
+          legend: 'none'
+ };
+ var chart = new google.visualization.BarChart(document.getElementById("columnchart12"));
+ chart.draw(data,options);
+ }
+  
+</script>
+
+<!---->
+<div class="container-xxl position-relative bg-white d-flex p-0">
                 <!-- Content Start -->
                 <div class="content">
 
@@ -160,91 +247,63 @@ include "../connection.php";
                     <!--Gradient card box-->
                     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
                     <div class="container">
-                        <div class="row mt-3">
-                            <div class="col-md-4 col-xl-3">
-                                <div class="card bg-c-blue order-card" style="background: linear-gradient(45deg, #eff180, #f38597); width: 300px; height:150px;">
-                                    <div class="card-block">
-                                    <h6 class="m-b-20">CUSTOMERS</h6>
-                                <h2 class="text-right"><i class="fa fa-users f-left"></i><span> <?php   
-                                    $login_query=mysqli_query($conn,"SELECT * FROM tbluser_registration");
-                                    $count=mysqli_num_rows($login_query);
-                                    echo $count;
-                                    ?></span></h2>
-                                <p class="m-b-0">Completed Orders
-                                    
-                                    </span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
 
+                
+<div class="span9">
+<div class="content">
+<div class="module">
+<div class="module-head">
+<div class="container-fluid">
+ <div id="columnchart12" style="width: 100%; height: 500px;"></div>
+ </div>
+</div>
+</div>
+</div>
+</div><!--/.content-->
+</div><!--/.span9-->
+</div>
+</div><!--/.container-->
+</div><!--/.wrapper-->
+</div><!--/.span9-->
+</div>
+</div>
+<script src="scripts/jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="scripts/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>
+<script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="scripts/flot/jquery.flot.js" type="text/javascript"></script>
+<script src="scripts/datatables/jquery.dataTables.js"></script>
+<!-- <script src="validation.js"></script> -->
+<script>
+$(document).ready(function() {
+$('.datatable-1').dataTable({
+"pageLength": 5,
+"lengthMenu": [5, 10, 20, 25, 50]
+});
+$('.dataTables_paginate').addClass("btn-group datatable-pagination");
+$('.dataTables_paginate > a').wrapInner('<span />');
+$('.dataTables_paginate > a:first-child').append('<i class="icon-chevron-left shaded"></i>');
+$('.dataTables_paginate > a:last-child').append('<i class="icon-chevron-right shaded"></i>');
+});
 
-                            <div class="col-md-4 col-xl-3 ms-5">
-                                <div class="card bg-c-yellow order-card " style="background: linear-gradient(45deg, #5ce9cc, #9085ed); width: 300px; height:150px;margin-left:80px">
-                                    <div class="card-block">
-                                        <h6 class="m-b-20">PRODUCTS</h6>
-                                        <h2 class="text-right"><i class="fa fa-refresh f-left"></i><span> <?php   
-                                    $login_query=mysqli_query($conn,"SELECT * FROM tbl_accessories");
-                                    $count=mysqli_num_rows($login_query);
-                                    echo $count;
-                                    ?></span></h2>
-                                        <p class="m-b-0">Completed Orders<span class="f-right">
-                                     
-                                    </span></p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-4 col-xl-3 ms-5">
-                                <div class="card bg-c-pink order-card " style="background: linear-gradient(45deg, #5730d7, #21f2f5); width: 300px; height:150px; margin-left:120px">
-                                    <div class="card-block">
-                                        <h6 class="m-b-20">BOOKING SERVICES</h6>
-                                        <h2 class="text-right"><i class="fa fa-cart-plus f-left"></i><span> <?php   
-                                    $login_query=mysqli_query($conn,"SELECT * FROM booking");
-                                    $count=mysqli_num_rows($login_query);
-                                    echo $count;
-                                    ?></span></h2>
-                                        <p class="m-b-0">Completed Orders<span class="f-right"> 
-                                   
-                                    </span></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--Gradient Card Box End -->
-                    <!-- <div class="container-fluid pt-4 px-4">
-                        
-                    </div>
-                    
-                    <div class="container-fluid pt-4 px-4">
-                        
-                    </div> -->
-
-                </div>
-
-                <!--<a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>-->
-
-            </div>
-
-        </div>
-    </div>
-
-    <script src="js/jquery.min.js"></script>
-    <script src="js/popper.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/main.js"></script>
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/chart/chart.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/waypoints/waypoints.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-    <script src="lib/tempusdominus/js/moment.min.js"></script>
-    <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
-    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
-    <script src="js/main.js"></script>
-    <div id="torrent-scanner-popup" style="display: none;"></div>
+</script>
+<script>
+window.onload = function () {
+    document.getElementById("download")
+        .addEventListener("click", () => {
+            const invoice = this.document.getElementById("invoice");
+            console.log(invoice);
+            console.log(window);
+            var opt = {
+                margin: 1,
+                filename: 'report.pdf',
+                image: { type: 'jpeg', quality: 0.99 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'in', format: 'a3', orientation: 'p' }
+            };
+            html2pdf().from(invoice).set(opt).save();
+        })
+}
+</script>
 </body>
-
+<?php ?>
 </html>
