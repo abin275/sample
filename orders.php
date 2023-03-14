@@ -86,24 +86,23 @@ include('connection.php');
         <p class="lead w-lg-50 mx-auto" style="font-size: 30px;font-weight:bolder;color:green">Order has been placed successfully.</p><br>
         <p class="w-lg-50 mx-auto" style="font-size: 28px;font-weight:bolder;color:darkred;"><br> We will immediatelly process it and it will be delivered in 5 - 10 business days.</p>
     
-
-
-
-
-
-
-
-
-
-
-        
-
-
         <!-- <input type="submit"id="btn" name="submit" class="btn btn-primary"> -->
         <li class="nav-item ">
-        <a class="nav-link  btn btn-primary mt-5" href="contact.php">Give Feedback</a>
-        </li>             
+    <a class="nav-link  btn btn-primary mt-5" href="contact.php">Give Feedback</a>
+   </li>             
     </div> 
+
+
+
+
+
+
+
+
+
+
+
+    
         </div>
     </div>
 </div>

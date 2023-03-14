@@ -47,8 +47,8 @@ if (isset($_POST['submit'])) {
             else
             echo'<script>alert("Error in placing order!")</script>';
         }
-        
-        echo'<script>alert("Order is placed successfully!")</script>';
+        header("location:orders.php");
+        /* echo'<script>alert("Order is placed successfully!")</script>'; */
         
         
     }

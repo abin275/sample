@@ -14,12 +14,14 @@ include('connection.php');
 	<style>
 		table {
 			border-collapse: collapse;
-			width: 100%;
+			width: 50%;
 			margin-bottom: 20px;
+            margin-left: 100px;
+            margin-right: 100px;
 		}
 		table, th, td {
 			border: 1px solid black;
-			padding: 5px;
+			padding: 4px;
 			text-align: center;
 		}
 		th {

@@ -7,6 +7,14 @@ if(!isset($_SESSION["email"]))
 {
     header("Location:user_login.php");
 }
+
+$query1=mysqli_query($conn,"select * from tbluser_registration where email='$email'");
+while($row=mysqli_fetch_array($query1))
+{
+    $user_id=$row['registration_id'];
+
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -133,62 +141,153 @@ if(!isset($_SESSION["email"]))
 
 
 
-<div class="container mt-2">
-<div class="span9">
-<div class="content">
-<div class="module">
-<div class="module-head">
+    <div class="container mt-2">
+        <div class="span9">
+            <div class="content">
+                <div class="module">
+                    <div class="module-head">
     
-<h1>YOUR ORDERS</h1>
-</div>
-<!-- <div class="module-body table"> -->
-<?php if(isset($_GET['del']))
-{?>
-<div class="alert alert-error">
-<button type="button" class="close" data-dismiss="alert">×</button>
-<strong>Oh snap!</strong> <?php echo htmlentities($_SESSION['delmsg']);?><?php echo htmlentities($_SESSION['delmsg']="");?>
-</div>
-<?php } ?>
-<br />  
-<table cellpadding="0" cellspacing="0" border="0" class="datatable-1 table table-bordered table-dark display" width="100%">
-<thead>  
-<tr>
-<th>SI.NO</th>
-<th>IMAGES</th>
-<th>PRODUCT</th>
-<th>QUANTITY</th>
-<th>AMOUNT </th>
-<th>ORDER DATE AND TIME</th>
-<th>VIEW</th>
-</tr>
-</thead>
-</tr>
-</thead>
-<tbody>
-<?php
-$query1=mysqli_query($conn,"select * from tbluser_registration where email='$email'");
-while($row=mysqli_fetch_array($query1))
-{
-    $user_id=$row['registration_id'];
+                        <h1>Order Details</h1>
+                    </div>
 
-$query=mysqli_query($conn,"SELECT *from tbl_accessories,orders,order_items where  order_items.order_id =orders.id and orders.user_id='$user_id' and tbl_accessories.accessories_id=order_items.product_id");
-$cnt=1;
-while($row=mysqli_fetch_array($query))
-{
-?>
-<tr>
-<td><?php echo htmlentities($cnt);?></td>
-<td ><img width='100px' height='10px' src="../uploads/<?php echo $row['image']; ?>"></td> 
-<td><?php echo htmlentities($row['name']);?></td>
-<td ><?php echo htmlentities($row['quantity']);?></td>
-<td><?php echo htmlentities($row['total_price']);?></td>
-<td><?php echo htmlentities($row['order_date']);?></td>
-<td><a href="viewOrders.php?ord_id=<?php echo htmlentities($row['order_id']);?>" class="btn btn-success">View Details</td>
-</tr>
-<?php $cnt=$cnt+1; }}?>
-</tbody>
-</table>
-</div>
+                    <!-- cart table -->
+                    <div class="container">
+                        <div class="col-md-12">
+                        <button id="pdfButton"><b>Download Details</b></button>
+                        <div class="card" id="generatePDF">
+                            <div class="card-header fw-bold" style="background-color: #1F74BA;">
+                                <span class="text-white fs-4">View Order</span>
+                
+                                <a href="orders.php" class="btn btn-warning float-end"><i class="fa fa-reply"></i>Back</a>
+                            </div>
+                    
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h4>Delivery Details</h4>
+                                        <hr>
+                            
+                                        <?php
+                                        if(isset($_GET['ord_id']))
+                                        {
+                                            $ord_id=$_GET['ord_id'];
+                                    
+                                            $get_price = "SELECT total_amount FROM orders WHERE id='$ord_id'";
+                                            $result_price=mysqli_query($conn,$get_price);  
+                                            $ord_price=mysqli_fetch_assoc($result_price);
+
+
+                                            $query=mysqli_query($conn,"SELECT *from tbl_accessories,orders,order_items where  order_items.order_id =orders.id and orders.user_id='$user_id' and tbl_accessories.accessories_id=order_items.product_id  and orders.id='$ord_id'");
+                                            while($row=mysqli_fetch_array($query))
+                                            {
+                                    
+                        
+                                        
+                                        ?>
+                                        <div class="row">
+                                            <div class="col-md-12 mb-2">
+                                                <label class="fw-bold">Order ID</label>
+                                                <div class="border p-1">
+                                                    <?php echo $ord_id; ?>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-12 mb-2">
+                                                <label class="fw-bold">Order Date</label>
+                                                <div class="border p-1">
+                                                    <?php echo $row['order_date']; ?>
+                                                </div>
+                                            </div>
+
+                                    
+
+                                            <div class="col-md-12 mb-2">
+                                                <label class="fw-bold">Email</label>
+                                                <div class="border p-1">
+                                                    <?php echo  $email; ?>
+                                                </div>
+                                            </div>
+
+                                    
+
+                                    
+                                        </div> 
+                                        <?php } }?> 
+                                    </div>
+                        
+
+                                    <div class="col-md-6">                            
+                                        <h4>Order Details</h4>                          
+                                        <hr> 
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Product Name</th>
+                                                    <th>Product Image</th>
+                                                    <th>Quantity</th>
+                                                    
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php if(isset($_GET['ord_id']))
+                                                {
+                                                    $ord_id=$_GET['ord_id'];
+
+                                        
+                                         
+                                        
+
+                                                    $query=mysqli_query($conn,"SELECT *from tbl_accessories,orders,order_items where  order_items.order_id =orders.id and orders.user_id='$user_id' and tbl_accessories.accessories_id=order_items.product_id and orders.id='$ord_id'");
+                                                    while($row=mysqli_fetch_array($query))
+                                                    {
+
+                                          
+                                        
+                                       
+                                                ?>
+                                    
+                                                <tr>
+                                                    <td><?php echo htmlentities($row['name']);?></td>
+                                                    <td><img width='100px' height='10px' src="../uploads/<?php echo $row['image']; ?>"></td>
+                                                    <td><?php echo htmlentities($row['quantity']);?></td>
+                                                    
+                                                    
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                            <?php }} ?>
+                                        </table>
+                            
+                                    <hr>
+                                    <h4>Total Price: <span class="float-end fw-bold">Rs.<?php echo $ord_price['total_amount']; ?></span></h4>
+                                    <hr>
+                            
+                            
+                            
+                                </div>
+                        
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <script>
+      var button = document.getElementById("pdfButton");
+      var makepdf = document.getElementById("generatePDF");
+      button.addEventListener("click", function () {
+         var mywindow = window.open("", "PRINT", "height=600,width=600");
+         mywindow.document.write(makepdf.innerHTML);
+         mywindow.document.close();
+         mywindow.focus();
+         mywindow.print();
+         return true;
+      });
+   </script>
+
+
+
+        </div>
 </div>
 </div><!--/.content-->
 </div><!--/.span9-->
