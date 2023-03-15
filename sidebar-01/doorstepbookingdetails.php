@@ -84,14 +84,42 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
                         </ul>
                     </li>  
                     <li>
-                    <a href="admin.php">admin</a>
-                     </li>
+                    <a href="admin.php">ADMIN DASHBOARD</a>
+                         </li>
                             <li>
-                                <a href="registeruser.php">Registered Users</a>
+                            <a href="registeruser.php">REGISTERED USERS</a>
                             </li>
-                            
                             <li>
-                                <a href="productdetails.php">Product Details</a>
+                            <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">PRODUCT BASED</a>
+                            <ul class="collapse list-unstyled" id="pageSubmenu">
+                            <li>
+                            <a href="pro.php">Add Product</a>
+                            </li>
+                            <li>
+                            <a href="productdetails.php">Product Details</a>
+                            </li>
+                            <li>
+                            <a href="\sample\bb\cat.php">insert categories</a>
+                            </li>
+                            <li>
+                            <a href="\sample\bb\se.php">insert second catagories</a>
+                            </li>
+                            <li>
+                            <a href="\sample\bb\co.php">insert color</a>
+                            </li>
+                            <li>
+                            <a href="\sample\bb\sp.php">insert specifications</a>
+                            </li>
+                            <li>
+                            <a href="\sample\bb\qu.php">insert quantity</a>
+                            </li>
+                            </ul>
+                            </li>
+                            <li>
+                            <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">SERVICES & BOOKING BASED</a>
+                            <ul class="collapse list-unstyled" id="pageSubmenu">
+                            <li>
+                            <a href="outlet_insert.php">Add outlets</a>
                             </li>
                             <li>
                                 <a href="bookingdetails.php">Booking Details</a>
@@ -99,63 +127,47 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
                             <li>
                                 <a href="doorstepbookingdetails.php">Doorstep Booking Details</a>
                             </li>
-                            <li>
-                                <a href="contactdetails.php">Complaint Details</a>
+                            </ul>
                             </li>
                             <li>
-                           <a href="outlet_insert.php">Add outlets</a>
-                          </li>
-                             <li>
-                           <a href="pro.php">Add Product</a>
-                          </li>
-                          <li>
-                           <a href="jobentering.php">Enter jobs</a>
-                          </li>
-                          <li>
-                           <a href="bill.php">Generate bill</a>
-                          </li>
-                          <li>
-                         <a href="\sample\bb\cat.php">insert categories</a>
-                         </li>
-                         <li>
-                         <a href="\sample\bb\se.php">insert second catagories</a>
-                         </li>
-                          <li>
-                         <a href="\sample\bb\co.php">insert color</a>
-                         </li>
-                         <li>
-                         <a href="\sample\bb\sp.php">insert specifications</a>
-                         </li>
-                         <li>
-                         <a href="\sample\bb\qu.php">insert quantity</a>
-                         </li>
-
-
-
-                        
-                    <li>
-                        <a href="#">About</a>
-                    </li>
-                    <li>
-                        <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Pages</a>
-                        <ul class="collapse list-unstyled" id="pageSubmenu">
+                            <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">JOB BASED</a>
+                            <ul class="collapse list-unstyled" id="pageSubmenu">
                             <li>
-                                <a href="#">Page 1</a>
+                            <a href="jobentering.php">Enter jobs</a>
                             </li>
                             <li>
-                                <a href="#">Page 2</a>
+                            <a href="viewjobers.php">Job applayers Details</a>
+                            </li>
+                            </ul>
                             </li>
                             <li>
-                                <a href="#">Page 3</a>
+                            <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">REPORTS</a>
+                            <ul class="collapse list-unstyled" id="pageSubmenu">                          
+                            <li>
+                            <a href="../prev.php">Report generation</a>
                             </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#">test</a>
-                    </li>
-                    <li>
-                        <a href="#">test</a>
-                    </li>
+                            <li>
+                            <a href="../salesReport.php">Sales report</a>
+                            </li>
+                            <li>
+                            <a href="bill.php">Generate bill</a>
+                            </li>
+                            </ul>
+                            </li>
+                            <li>
+                            <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">DATA VISUALIZATION</a>
+                            <ul class="collapse list-unstyled" id="pageSubmenu">
+                            <li>
+                            <a href="dataanalysis.php">Sales Analysis</a>
+                            </li>
+                            <li>
+                            <a href="fav.php">Mostly carted items</a>
+                            </li>
+                            </ul>
+                            </li>
+                            <li>
+                            <a href="contactdetails.php">Feedback Details</a>
+                            </li>
                 </ul>
 
                 <div class="footer">
