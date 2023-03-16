@@ -34,8 +34,8 @@ include "../connection.php";
                             <a href="registeruser.php">REGISTERED USERS</a>
                             </li>
                             <li>
-                            <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">PRODUCT BASED</a>
-                            <ul class="collapse list-unstyled" id="pageSubmenu">
+                            <a href="#pageSubmenu1" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">PRODUCT BASED</a>
+                            <ul class="collapse list-unstyled" id="pageSubmenu1">
                             <li>
                             <a href="pro.php">Add Product</a>
                             </li>
@@ -60,8 +60,8 @@ include "../connection.php";
                             </ul>
                             </li>
                             <li>
-                            <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">SERVICES & BOOKING BASED</a>
-                            <ul class="collapse list-unstyled" id="pageSubmenu">
+                            <a href="#pageSubmenu2" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">SERVICES & BOOKING BASED</a>
+                            <ul class="collapse list-unstyled" id="pageSubmenu2">
                             <li>
                             <a href="outlet_insert.php">Add outlets</a>
                             </li>
@@ -74,8 +74,8 @@ include "../connection.php";
                             </ul>
                             </li>
                             <li>
-                            <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">JOB BASED</a>
-                            <ul class="collapse list-unstyled" id="pageSubmenu">
+                            <a href="#pageSubmenu3" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">JOB BASED</a>
+                            <ul class="collapse list-unstyled" id="pageSubmenu3">
                             <li>
                             <a href="jobentering.php">Enter jobs</a>
                             </li>
@@ -85,8 +85,8 @@ include "../connection.php";
                             </ul>
                             </li>
                             <li>
-                            <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">REPORTS</a>
-                            <ul class="collapse list-unstyled" id="pageSubmenu">                          
+                            <a href="#pageSubmenu4" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">REPORTS</a>
+                            <ul class="collapse list-unstyled" id="pageSubmenu4">                          
                             <li>
                             <a href="../prev.php">Report generation</a>
                             </li>
@@ -99,8 +99,8 @@ include "../connection.php";
                             </ul>
                             </li>
                             <li>
-                            <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">DATA VISUALIZATION</a>
-                            <ul class="collapse list-unstyled" id="pageSubmenu">
+                            <a href="#pageSubmenu5" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">DATA VISUALIZATION</a>
+                            <ul class="collapse list-unstyled" id="pageSubmenu5">
                             <li>
                             <a href="dataanalysis.php">Sales Analysis</a>
                             </li>

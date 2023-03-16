@@ -336,8 +336,9 @@ Check Out
                                     </td>
                                     
                                     <!-- <td><input type="hidden" id = "entryid" name="entry" value="<?php echo $row1['entry_id']; ?>"> </td> -->
-                                    <!-- <td class="column-5"><button type="submit" value="Update" name="update" class="btn btn-outline-dark btn-sm">Update</button></td> -->
                                     <td class="column-6">₹ <?php echo $row1['price']*$row1['quantity']; ?></td>
+                                    <td class="column-5"><a href="cart.php?rementry=<?php echo $row1['cart_id'];?>"><button type="button" id="button1" onClick="window.location.reload()" class="btn btn-outline-dark btn-sm">Remove</button></a></td> -->
+                                    
                                 </tr>
                                 <?php
                           }
@@ -477,7 +478,7 @@ if(isset($_GET['rementry']))
 {
   $entry = $_GET['rementry'];
     
-  $delete="DELETE FROM cart where entry_id=$entry";
+  $delete="DELETE FROM tblcart where cart_id=$entry";
   mysqli_query($conn,$delete); 
     
     
