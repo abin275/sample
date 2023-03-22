@@ -8,7 +8,7 @@ if(isset($_POST['submit'])){
     $product_location=$_POST['location'];
     $email=$_POST['email'];
     
-    $password=$_POST['password'];
+    $password=md5($_POST['password']);
     $phone=$_POST['phone'];
     $name = $_FILES['img']['name'];
     $temp = $_FILES['img']['tmp_name'];
@@ -271,7 +271,7 @@ VALUES ('$product_name','$product_address','$product_location','$phone','$finalI
                                         <div class="col-lg-12 col-md-12 mt-2">
                                             <div class="form-group text-start">
                                                 <label class="form-label fw-normal fs-5">Email</label>
-                                                <input type="text" class="form-control" name="email" placeholder="phone number">
+                                                <input type="text" class="form-control" name="email" placeholder="Enter email">
                                             </div>
                                         </div>
 
@@ -279,7 +279,7 @@ VALUES ('$product_name','$product_address','$product_location','$phone','$finalI
                                         <div class="col-lg-12 col-md-12 mt-2">
                                             <div class="form-group text-start">
                                                 <label class="form-label fw-normal fs-5">Password</label>
-                                                <input type="text" class="form-control" name="password" placeholder="phone number">
+                                                <input type="text" class="form-control" name="password" placeholder="Enter Password">
                                             </div>
                                         </div>
 

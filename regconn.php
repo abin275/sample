@@ -11,7 +11,7 @@ if(isset($_POST["save"]))
     $gender = $_POST['gender'];
     $email = $_POST['email'];
     $phone = $_POST['phone'];
-    $password =$_POST['password'];
+    $password =md5($_POST['password']);
     $sql2="SELECT name FROM tbluser_registration WHERE name='$name'";
     $sql="SELECT email FROM tbluser_registration WHERE email='$email'";
     $sql1="SELECT phone FROM tbluser_registration WHERE phone='$phone'";

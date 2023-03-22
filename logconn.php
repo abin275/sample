@@ -6,8 +6,9 @@ if(isset($_POST['login']))
 {
     $email = mysqli_real_escape_string($conn, $_POST['email']);
     $password = mysqli_real_escape_string($conn, $_POST['password']);
+    $pass=md5($password);
 
-    $query = "SELECT * FROM tbl_login where email='$email' and password='$password'";
+    $query = "SELECT * FROM tbl_login where email='$email' and password='$pass'";
     //echo $query;
     $query_run = mysqli_query($conn, $query);
 

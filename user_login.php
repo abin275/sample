@@ -66,7 +66,7 @@ font-weight:bold;
                                 <div class="g-recaptcha" data-sitekey="6LeJfmYkAAAAACc0jyfOxznvSMpkbWGVdTFbaJ2_"></div>
                                 
                                 <input id="submit" type="submit" id="c" class="btn btn-warning col-12 mb-3" value="LOGIN" name="login">
-                                <small ><a href="user_forgetpassword.php">Forgot Password?<a></small>
+                                <small ><a href="forgot_password.php">Forgot Password?<a></small>
 
                             </form>
 
