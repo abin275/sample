@@ -18,7 +18,7 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
     if($del)
     {
         mysqli_close($conn); // Close connection
-        header("location:bookingdetails.php"); // redirects to all records page
+        header("location:../seller/manage-order.php"); // redirects to all records page
         exit;	
     }
     else

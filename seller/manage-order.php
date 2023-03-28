@@ -98,6 +98,7 @@ width:1200px;}
 <th>Bike_cc</th>
 <th>RC Book details </th>
 <th>Type_of_service</th>
+<th colspan=2>Action</th>
 </tr>
 </thead>
 <tbody>
@@ -118,7 +119,7 @@ width:1200px;}
 
 $ad=$_SESSION['ad'];
   
-$query=mysqli_query($conn,"SELECT b.name as name, b.bike_cc as bike_cc, b.bike_name as bike_name, b.type_of_bike as type_of_bike, b.title as title, b.email as email, b.time as time, b.check_in as check_in, b.phone as phone,b.rc as rc, b.bike_number as bike_number,b.bike_cc as bike_cc, b.type_of_service as type_of_service from booking b,tbloutlet ou where b.outlet=ou.address and b.outlet = '$ad'");
+$query=mysqli_query($conn,"SELECT b.status as status, b.booking_id as booking_id, b.name as name, b.bike_cc as bike_cc, b.bike_name as bike_name, b.type_of_bike as type_of_bike, b.title as title, b.email as email, b.time as time, b.check_in as check_in, b.phone as phone,b.rc as rc, b.bike_number as bike_number,b.bike_cc as bike_cc, b.type_of_service as type_of_service from booking b,tbloutlet ou where b.outlet=ou.address and b.outlet = '$ad'");
 /* $query=mysqli_query($conn,"SELECT booking.*,tbloutlet.* from booking,tbloutlet where booking.outlet='$ad'"); */
 $cnt=1;
 while($rows=mysqli_fetch_array($query))
@@ -140,6 +141,23 @@ while($rows=mysqli_fetch_array($query))
 <td><img src="../bb/<?php echo htmlentities($rows['rc']);?>"></td>
 <td><?php echo htmlentities($rows['type_of_service']);?></td>
 
+<td> 
+<button type="button" class="btn btn-danger btn-sm btn-icon-text">
+                            <?php
+                              if($rows['status']==0){
+                                echo "<span class='badge_active'><a href='?type=status&operation=onprogress&id=".$rows['booking_id']."' style='color:white;text-decoration:none;'>Pending</a></span>";
+                              } 
+                              else if($rows['status']==1){
+                                echo "<span class='badge_deactive'><a href='?type=status&operation=completed&id=".$rows['booking_id']."' style='color:white;text-decoration:none;'>On Progress</a></span>";
+                              }
+                              else if($rows['status']==2){
+                                echo "<span class='badge_deactive'><a href='?type=status&operation=completed&id=".$rows['booking_id']."' style='color:white;text-decoration:none;'>Completed</a></span>";
+                              }
+
+                            ?>
+                                                  
+                            </button>
+</td>
 </tr>
 
 <?php $cnt=$cnt+1; 
@@ -172,6 +190,8 @@ $('.dataTables_paginate > a:first-child').append('<i class="icon-chevron-left sh
 $('.dataTables_paginate > a:last-child').append('<i class="icon-chevron-right shaded"></i>');
 });
 
+
+
 </script>
 <script>
 window.onload = function () {
@@ -192,4 +212,30 @@ window.onload = function () {
 }
 </script>
 </body>
-<?php ?>
+<?php 
+if(isset($_GET['type']) && $_GET['type']!=''){
+    $type=($_GET['type']);
+  
+    if($type=='status'){
+      $operation=($_GET['operation']);
+      $id=($_GET['id']);
+  
+      if($operation=='pending'){
+        $status='1';
+      }
+      else if($operation=='onprogress') {
+        $status='2';
+      }
+      else if($operation=='completed')
+      {
+        $status='2';
+      }
+      else{
+        $status='0';
+      }
+      $update_status="UPDATE booking set status='$status'where booking_id='$id'";
+      mysqli_query($conn,$update_status);
+  
+    }
+  } 
+?>

@@ -289,25 +289,7 @@ VALUES ('$product_category',' $product_title','$product_size','$description','$p
                                                 </div>
 
                                         
-                                                <div class="col-lg-12 col-md-12 mt-2">
-                                                    <div class="form-group text-start">
-                                                        <label class="form-label fw-normal fs-5"for="pet-select">Product Specification</label>
-
-                                                        <select class="form-select form-control" name="specification" id="pet-select">
-                                                            <option value="">Select specification</option>
-                                                            <?php
-                                                            $result=mysqli_query($conn,"select * from tbl_spec");                                             
-                                                            while($row=mysqli_fetch_array($result)){
-                                                            ?>
-                                               
-                                                            <option style="overflow-wrap: break-word;"value="<?php echo $row['specifications'];?>"><?php echo $row["specifications"];?></option>
-                                                            <?php
-                                                            }
-                                                            ?>
-                                            
-                                                        </select>
-                                                    </div>
-                                                </div>
+                                                
 
                                                 <!-- categories -->
                                                 <div class="col-xl-6 col-lg-12 col-md-12 mt-2">
@@ -363,7 +345,34 @@ VALUES ('$product_category',' $product_title','$product_size','$description','$p
 
                                                 </script>
 
+                                                <div class="col-lg-12 col-md-12 mt-2">
+                                                    <div class="form-group text-start">
+                                                        <label class="form-label fw-normal fs-5"for="pet-select">Product Specification</label>
 
+                                                        <select class="form-select form-control" name="specification" id="pet_select">
+                                                            
+                                            
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <script>
+                                                $(document).ready(function() {
+                                                $('#subcategory_dropdown').on('change', function() {
+                                                var second_id = this.value;
+                                                $.ajax({
+                                                url: "prod_by_cat.php",
+                                                type: "POST",
+                                                data:'second_id='+second_id,
+                                                cache: false,
+                                                success: function(html){
+                                                $("#pet_select").html(html);
+                                                }
+                                                });       
+                                                });    
+                                                });
+                                            
+
+                                                </script>
                                                 <div class="col-xl-6 col-lg-12 col-md-12 mt-2">
                                                     <div class="form-group select-group text-start">
                                                         <label class="form-label fw-normal fs-5">PRICE</label>

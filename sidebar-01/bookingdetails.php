@@ -50,23 +50,7 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
             
         });
         */
-        function fnConfirm(){
-            alert();
-            var ID = $(this).val();
-                if(ID){
-                    
-                    $.ajax({
-                        type:'POST',
-                        url:'bookingmail.php',
-                        data:'id='+ID,
-                        success:function(html){
-                        $('#con').html= "Email Sent"; 
-                        }
-                    }); 
-                }else{
-                   
-                }
-        }
+        
 
     </script>
 </head>
@@ -209,6 +193,7 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
     <thead>
         <tr>
             <th>BOOKING_ID</th>
+            <th>CUSTOMER_ID</th>
             <th>TITLE</th>
             <th>NAME</th>
             <th>EMAIL</th>
@@ -231,6 +216,8 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
     <tbody>
 
         <?php
+             $sql = "SELECT * from tbl_login ";
+
      $sql = "SELECT * from booking where status = 0";
     
      $result = $conn->query($sql);
@@ -241,6 +228,8 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
             <tr>
             <td>
              <?php echo $row['booking_id'] ?>
+                </td> <td>
+             <?php echo $row['login_id'] ?>
                 </td>
                 <td>
                     <?php echo $row['title'] ?>
@@ -303,6 +292,7 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
     <thead>
         <tr>
             <th>BOOKING_ID</th>
+            <th>CUSTOMER_ID</th>
             <th>TITLE</th>
             <th>NAME</th>
             <th>EMAIL</th>
@@ -336,6 +326,9 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
             <tr>
             <td>
              <?php echo $row['booking_id'] ?>
+                </td>
+                <td>
+             <?php echo $row['login_id'] ?>
                 </td>
                 <td>
                     <?php echo $row['title'] ?>
