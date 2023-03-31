@@ -371,7 +371,7 @@ include('sidebar-01/show.php');
                                         </div>
                                     </div>
                                     <div class="items-link items-link2 f-right">
-                                        <a href="bb\jobapply.php?job_id=<?php echo $row['job_id']; ?>">Apply</a>
+                                        <a href="user_login.php">Apply</a>
                                         <!-- <span>7 hours ago</span> -->
                                     </div>
                                 </div>

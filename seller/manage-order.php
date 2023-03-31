@@ -1,11 +1,13 @@
 <?php
 include "../connection.php";
 include "index.php";
+
 $email=$_SESSION["email"];
 if(!isset($_SESSION["email"])) 
 {
     header("Location:../login.php");
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -98,7 +100,8 @@ width:1200px;}
 <th>Bike_cc</th>
 <th>RC Book details </th>
 <th>Type_of_service</th>
-<th colspan=2>Action</th>
+<th>Action</th>
+<th>Bill</th>
 </tr>
 </thead>
 <tbody>
@@ -155,8 +158,14 @@ while($rows=mysqli_fetch_array($query))
                               }
 
                             ?>
-                                                  
+                                                
                             </button>
+                            </td>
+                            <td>
+                              <form action="../sidebar-01/bill.php" method="POST">
+                              <button type="submit" name="booking_id" value="<?php echo $rows['booking_id'];?>" >Bill </button></form>
+                              <!-- <a href="../sidebar-01/bill.php" class="btn btn-danger">bill</a> -->
+                           <!--  <button class="btn btn-danger"  name="bill" style="height:40px">bill</button> --> 
 </td>
 </tr>
 

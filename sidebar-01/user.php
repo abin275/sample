@@ -33,7 +33,7 @@ include "../session.php";
                             </ul>
                         </li>
                         <li>
-                            <a href="#">MY WISH LIST</a>
+                            <a href="cbookingdetails.php">BOOKING DETAILS</a>
                         </li>
                         <li>
                             <a href="\sample\cart.php">CART</a>

@@ -2,17 +2,35 @@
 <?php
 include('connection.php');
 
+if(isset($_GET['job_id'])){
+    $id=$_GET['job_id'];
+    $sql="SELECT * from tbl_postjobs where job_id=$id";
+    $result = $conn-> query($sql);
+
+    if ($result-> num_rows > 0){
+    while($row = $result-> fetch_assoc()){
+        $job_name=$row['name'];
+        $loc=$row['location'];
+        $addr=$row['address'];
+
+    }
+    }
+}
+
 if(isset($_POST['submit'])){
     $name=$_POST['name'];
     $address=$_POST['address'];
     $email=$_POST['email'];
     $phone=$_POST['phone'];
     $birth=$_POST['birth'];
-    $p=$_POST['p'];
+   
     $x=$_POST['x'];
     $q=$_POST['q'];
-    $s=$_POST['s'];
-    $date=date("Y/m/d");
+   
+    $job_id=$_POST['jid'];;
+   /*  $jname=$_POST['jname'];
+    $jaddress=$_POST['jaddr'];
+    $jloc=$_POST['jloc']; */
     // $rc=$_POST['rc'];
  
 
@@ -27,8 +45,8 @@ if(isset($_POST['submit'])){
 
     //checking empty condition
     if($name=='' or $address=='' or 
-    $email=='' or $phone=='' or $birth=='' or $p=='' or 
-    $x==''or $q=='' or $s=='' or $date=='' or $cv==''){
+    $email=='' or $phone=='' or $birth==''  or 
+    $x==''or $q=='' or   $cv==''){
         echo "<script>alert('Please fill all the fields.')</script>";
         exit();
     }else{
@@ -37,14 +55,15 @@ if(isset($_POST['submit'])){
 
     //insert query
     $insert_products="INSERT INTO  `jobers`(
-    `name`,`address`, `email`, `phone`, `birth`, `position`,
-    `experience`, `education`, `skills`,`date`,`cv`,`status`) VALUES ('$name','address',
-    '$email','$phone','$birth','$p',
-    '$x','$q','$s','date','$loc', 0)";
+    `jober_name`,`jober_address`, `email`, `jober_phone`, `birth`, 
+    `experience`, `education`,`cv`,`status`,`job_id`) VALUES ('$name','address',
+    '$email','$phone','$birth',
+    '$x','$q','$loc', 0,'$job_id')";
 
     $result_query=mysqli_query($conn,$insert_products);
     if($result_query){
-        echo "<script>alert('Successfully inserted the products.')</script>";
+        echo "<script>alert('Successfully inserted the products.')
+        window.location.href='../careers.php'</script>";
     }
    
 }
@@ -104,7 +123,32 @@ if(isset($_POST['submit'])){
                         </div>
                         <div class="panel-body">
 						<form id='userreg' action="jobapply.php" name="form" method="post" enctype="multipart/form-data">
-                        
+                            
+                            <div class="form-group">
+                              <label for="name">Job name:</label>
+                                <input  type= "text" id="name" value="<?php echo $job_name; ?>" name="jname" class="form-control" placeholder="ENTER NAME" octavalidate="R,ALPHA_SPACES" readonly> 
+                                            
+                            </div>
+
+                            <div class="form-group">
+                              <label for="name">Address:</label>
+                                <input  type= "text" id="name" value="<?php echo $loc; ?>" name="jaddr" class="form-control" placeholder="ENTER NAME" octavalidate="R,ALPHA_SPACES" readonly> 
+                                            
+                            </div>
+
+                            <div class="form-group">
+                              <label for="name">Location:</label>
+                                <input  type= "text" id="name" value="<?php echo $addr; ?>" name="jloc" class="form-control" placeholder="ENTER NAME" octavalidate="R,ALPHA_SPACES" readonly> 
+                                            
+                            </div>
+
+                            <div class="form-group">
+                              
+                                <input  type= "hidden" id="name" value="<?php echo $id; ?>" name="jid" class="form-control" placeholder="ENTER NAME" octavalidate="R,ALPHA_SPACES" readonly> 
+                                            
+                            </div>
+                            
+
 							  <div class="form-group">
                               <label for="name">NAME:</label>
                                 <input  type= "text" id="name" class="form-control" name="name" placeholder="ENTER NAME" octavalidate="R,ALPHA_SPACES" > 
@@ -127,10 +171,7 @@ if(isset($_POST['submit'])){
                                 <label for="date of birth">DATE OF BIRTH:</label>
                                 <input type= "text" id="birth" class="form-control" name="birth" placeholder="ENTER DATE OF BIRTH" octavalidate="R" > 
                                 </div>
-                                <div class="form-group">
-                                <label for="position">APPLIED POSITION & PLACE:</label>
-                                <input type= "text" id="p" class="form-control" name="p" placeholder="ENTER APPLIED POSITION" octavalidate="R,ALPHA_SPACES" > 
-                                </div>
+                                
                                 <div class="form-group">
                                 <label for="experiences">PREVIOUS EXPERENCES:</label>
                                 <input type= "text" id="x" class="form-control" name="x" placeholder="ENTER PREVIOUS EXPERENCES" octavalidate="R,ALPHA_SPACES" > 
@@ -139,10 +180,7 @@ if(isset($_POST['submit'])){
                                 <label for="qualification">EDUCATION QUALIFICATION (CURRENT):</label>
                                 <input type= "text" id="q" class="form-control" name="q" placeholder="ENTER EDUCATION QUALIFICATION" octavalidate="R,ALPHA_SPACES" > 
                                 </div>
-                                <div class="form-group">
-                                <label for="skills">SKILLS:</label>
-                                <input type= "text" id="s" class="form-control" name="s" placeholder="ENTER SKILLS" octavalidate="R,ALPHA_SPACES" > 
-                                </div>
+                                
                                 
 
                                 <div class="form-group" >

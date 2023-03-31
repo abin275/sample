@@ -246,6 +246,7 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
     <thead>
         <tr>
             <th>APPLAYING_ID</th>
+            <th>JOB ID</th>
             <th>NAME</th>
             <th>ADDRESS</th>
             <th>EMAIL</th>
@@ -254,7 +255,7 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
             <th>APPLAYED POSITION AND PLACE WHERE</th>
             <th>PREVIOUS EXPERIENCES</th>
             <th>EDUCATION QUALIFICATION</th>
-            <th>SKILLS</th>
+       
             <th>CV</th>
             <th>ACTION</th>
             <th>Service Status</th>
@@ -264,7 +265,10 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
     <tbody>
 
         <?php
-     $sql = "SELECT * from jobers where status = 0";
+
+    
+
+     $sql = "SELECT * from jobers,tbl_postjobs where jobers.job_id=tbl_postjobs.job_id AND status = 0";
     
      $result = $conn->query($sql);
      if ($result->num_rows > 0) {
@@ -275,25 +279,27 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
             <td>
              <?php echo $row['jobers_id'] ?>
                 </td>
-                
                 <td>
-                    <?php echo $row['name'] ?>
+                    <?php echo $row['job_id'] ?>
                 </td>
                 <td>
-                    <?php echo $row['address'] ?>
+                    <?php echo $row['jober_name'] ?>
+                </td>
+                <td>
+                    <?php echo $row['jober_address'] ?>
                 </td>
                 
                 <td>
                     <?php echo $row['email'] ?>
                 </td>
                 <td>
-                    <?php echo $row['phone'] ?>
+                    <?php echo $row['jober_phone'] ?>
                 </td>
                 <td>
                     <?php echo $row['birth'] ?>
                 </td>
                 <td>
-                    <?php echo $row['position'] ?>
+                    <?php echo $row['name'] ?>
                 </td>
                 <td>
                     <?php echo $row['experience'] ?>
@@ -301,9 +307,7 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
                 <td>
                     <?php echo $row['education'] ?>
                 </td>
-                <td>
-                    <?php echo $row['skills'] ?>
-                </td>
+                
                 
                 <td>
                   <img src="../bb/<?php echo $row['cv'] ?>" style="width: 100px;height: 100px;">
@@ -323,12 +327,13 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
     </tbody>
 </table> <br> <br>
 
-<h2>Service Completed Bikes</h2> <br> <br> 
+<h2>Get Posted</h2> <br> <br> 
 
 <table class="paleBlueRows">
     <thead>
         <tr>
         <th>APPLAYING_ID</th>
+            <th>JOB ID</th>
             <th>NAME</th>
             <th>ADDRESS</th>
             <th>EMAIL</th>
@@ -337,9 +342,9 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
             <th>APPLAYED POSITION AND PLACE WHERE</th>
             <th>PREVIOUS EXPERIENCES</th>
             <th>EDUCATION QUALIFICATION</th>
-            <th>SKILLS</th>
             <th>CV</th>
-            <th>ACTION</th>
+      
+            
             <!-- <th>Service Status</th> -->
         
         </tr>
@@ -358,25 +363,27 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
             <td>
              <?php echo $row['jobers_id'] ?>
                 </td>
-                
                 <td>
-                    <?php echo $row['name'] ?>
+                    <?php echo $row['job_id'] ?>
                 </td>
                 <td>
-                    <?php echo $row['address'] ?>
+                    <?php echo $row['jober_name'] ?>
+                </td>
+                <td>
+                    <?php echo $row['jober_address'] ?>
                 </td>
                 
                 <td>
                     <?php echo $row['email'] ?>
                 </td>
                 <td>
-                    <?php echo $row['phone'] ?>
+                    <?php echo $row['jober_phone'] ?>
                 </td>
                 <td>
                     <?php echo $row['birth'] ?>
                 </td>
                 <td>
-                    <?php echo $row['position'] ?>
+                    <?php echo $row['name'] ?>
                 </td>
                 <td>
                     <?php echo $row['experience'] ?>
@@ -384,16 +391,12 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
                 <td>
                     <?php echo $row['education'] ?>
                 </td>
-                <td>
-                    <?php echo $row['skills'] ?>
-                </td>
+                
                 
                 <td>
                   <img src="../bb/<?php echo $row['cv'] ?>" style="width: 100px;height: 100px;">
                 </td>
-               <td> 
-                <button class="btn btn-danger" id="con" name="conform" value="<?=$row['jobers_id']?>" onclick="fnConfirm()">Confirm</button>
-               </td>
+              
             </tr>
             <?php
      }

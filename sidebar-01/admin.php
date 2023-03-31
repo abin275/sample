@@ -80,6 +80,9 @@ include "../connection.php";
                             <a href="jobentering.php">Enter jobs</a>
                             </li>
                             <li>
+                            <a href="addedjobs.php">Jobs Added</a>
+                            </li>
+                            <li>
                             <a href="viewjobers.php">Job applayers Details</a>
                             </li>
                             </ul>

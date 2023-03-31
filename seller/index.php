@@ -308,7 +308,9 @@ include_once "../connection.php";
               </ul>
             </div>
           </li> -->
-          <li class="nav-item">
+
+          
+          <!-- <li class="nav-item">
             <a class="nav-link" href="dataanalysis.php">
               <i class="typcn typcn-device-desktop menu-icon"></i>
               <span class="menu-title">Sales analysis</span>
@@ -319,7 +321,7 @@ include_once "../connection.php";
               <i class="typcn typcn-device-desktop menu-icon"></i>
               <span class="menu-title">Favourite product analysis</span>
             </a>
-          </li>
+          </li> -->
          
 
           <li class="nav-item">

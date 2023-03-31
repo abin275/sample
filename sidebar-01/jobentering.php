@@ -9,15 +9,15 @@ if(isset($_POST['submit'])){
     $phone=$_POST['phone'];
     $salary=$_POST['salary'];
     $jobtype=$_POST['jobtype'];
-    $name = $_FILES['img']['name'];
-    $temp = $_FILES['img']['tmp_name'];
+//     $name = $_FILES['img']['name'];
+//     $temp = $_FILES['img']['tmp_name'];
 
-    $location="../uploads/";
-    $image=$location.$name;
+//     $location="../uploads/";
+//     $image=$location.$name;
     
-    $target_dir="../uploads/";
-    $finalImage=$target_dir.$name;
-   move_uploaded_file ($temp, $finalImage);
+//     $target_dir="../uploads/";
+//     $finalImage=$target_dir.$name;
+//    move_uploaded_file ($temp, $finalImage);
 
     //accessing images
     // $product_image1=$_FILES['img1']['name'];
@@ -25,7 +25,7 @@ if(isset($_POST['submit'])){
     // $temp_image1=$_FILES['img1']['tmp_name'];
    
     //checking empty condition
-    if($product_name=='' or $product_address=='' or $product_location=='' or $phone=='' or $salary=='' or $jobtype=='' or $finalImage=='' ){
+    if($product_name=='' or $product_address=='' or $product_location=='' or $phone=='' or $salary=='' or $jobtype=='' ){
         echo "<script>alert('Please fill all the fields.')</script>";
         exit();
     }else{
@@ -82,8 +82,8 @@ if(isset($_POST['submit'])){
 // }
 //
 // $product_category=="SELECT 'category_id' FROM `tbl_category`";
- $insert_products="INSERT INTO tbl_postjobs(`name`, `address`, `location`, `phone`, `salary`, `jobtype`, `image`) 
-VALUES (' $product_name','$product_address','$product_location','$phone', '$salary', '$jobtype','$finalImage')";
+ $insert_products="INSERT INTO tbl_postjobs(`name`, `address`, `location`, `phone`, `salary`, `jobtype`) 
+VALUES (' $product_name','$product_address','$product_location','$phone', '$salary', '$jobtype')";
 
     $result_query=mysqli_query($conn,$insert_products);
     if($result_query){
@@ -313,14 +313,14 @@ VALUES (' $product_name','$product_address','$product_location','$phone', '$sala
                                             </div>
                                         </div>
 
-                                        <div class="form-group text-start" >
+                                        <!-- <div class="form-group text-start" >
                                             <label for="img" style="font-size : 15px">Select image:</label>
                                              <input type="file" id="img" name="img" style="font-size : 15px">
                                             </div>
-                                        </div>
+                                        </div> -->
 
                                         <div class="col-lg-12 col-md-12 mt-2">
-                                            <button type="submit" class="btn btn-success col-lg-12 col-md-12" name="submit">CONFIRM PRODUCT</button>
+                                            <button type="submit" class="btn btn-success col-lg-12 col-md-12" name="submit">SUBMIT</button>
                                         </div>
                                         
                                         <!-- <div class="col-lg-12 col-md-12 mt-2">

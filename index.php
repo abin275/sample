@@ -76,7 +76,7 @@ include "google_translater.php";
                                             <a class="nav-link " href="service centers.html ">Service Centers</a>
                                         </li>
                                         <li class="nav-item ">
-                                            <a class="nav-link " href="careers.php ">Careers</a>
+                                            <a class="nav-link " href="carrer2.php ">Careers</a>
                                         </li>
 
                                         <li class="nav-item ">
