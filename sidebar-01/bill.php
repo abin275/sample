@@ -1,6 +1,7 @@
 <?php
 include "../session.php";
 include "../connection.php";
+$id = $_GET['id'];
 ?>
 <head><script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
@@ -103,8 +104,8 @@ if($rows=mysqli_fetch_array($query1))
 
 }}
     
-$d=$_SESSION['book'];
-$query=mysqli_query($conn,"SELECT b.status as status, b.booking_id as booking_id, b.name as name, b.bike_cc as bike_cc, b.bike_name as bike_name, b.type_of_bike as type_of_bike, b.title as title, b.email as email, b.time as time, b.check_in as check_in, b.phone as phone,b.rc as rc, b.bike_number as bike_number,b.bike_cc as bike_cc, b.type_of_service as type_of_service from booking b,tbloutlet ou where b.outlet=ou.address and b.booking_id='$d' and b.outlet = '".$_SESSION['ad']."'");
+
+$query=mysqli_query($conn,"SELECT b.status as status, b.name as name, b.bike_cc as bike_cc, b.bike_name as bike_name, b.type_of_bike as type_of_bike, b.title as title, b.email as email, b.time as time, b.check_in as check_in, b.phone as phone,b.rc as rc, b.bike_number as bike_number, b.bike_cc as bike_cc, b.type_of_service as type_of_service from booking b, tbloutlet ou where b.outlet=ou.address and b.booking_id = $id and b.outlet =  '".$_SESSION['ad']."'");
 
 
 
@@ -189,9 +190,9 @@ $query=mysqli_query($conn,"SELECT b.status as status, b.booking_id as booking_id
               <tr>
               <td>Customer name</td>
               <td><i class="fas fa-dollar-sign"></i> 
-              <input  type= "hidden" id="name" class="form-control" style="width: 300px;" name="customer_id" value=" <?php echo $rows['booking_id'];?>"> 
+              <input  type= "hidden" class="form-control" style="width: 300px;" name="customer_id" value=" <?php echo $id;?>"> 
 
-              <input  type= "text" id="name" name="customer_name"class="form-control" style="width: 300px;" name="name" value=" <?php echo $rows['name'];?>" placeholder="Enter Customer name "> 
+              <input type= "text"  name="customer_name"class="form-control" style="width: 300px;" value=" <?php echo $rows['name'];?>" placeholder="Enter Customer name "> 
              
               </td>
               </tr>
@@ -199,20 +200,20 @@ $query=mysqli_query($conn,"SELECT b.status as status, b.booking_id as booking_id
               <tr>
               <td>Bike Number</td>
               <td><i class="fas fa-dollar-sign"></i> 
-              <input  type= "text" id="name" name="bike_number" class="form-control" style="width: 300px;" value=" <?php echo $rows['bike_name'];?>" name="name" placeholder="Enter Bike Number"> 
+              <input  type= "text"  name="bike_number" class="form-control" style="width: 300px;" value=" <?php echo $rows['bike_name'];?>"  placeholder="Enter Bike Number"> 
               </td>
               </tr>
 
               <tr>
               <td>Customer phone number</td>
               <td><i class="fas fa-dollar-sign"></i> 
-              <input  type= "text" id="name"name="phone" class="form-control" style="width: 300px;" name="name" value=" <?php echo   $_SESSION['book'];?>" placeholder="Enter Phone Number"> 
+              <input  type= "text" name="phone" class="form-control" style="width: 300px;" value=" <?php echo $rows['phone'];?>" placeholder="Enter Phone Number"> 
               </td>
               </tr>
 
 
                         <tr><td><label>Type Of Bike*</label></td>
-                        <td><input  type= "text" id="name"name="type_of_bike" class="form-control" style="width: 300px;" name="name" value=" <?php echo $rows['type_of_bike'];?>" placeholder="Enter Phone Number"> </td></tr>
+                        <td><input  type= "text" id="name"name="type_of_bike" class="form-control" style="width: 300px;"  value=" <?php echo $rows['type_of_bike'];?>" placeholder="Enter Phone Number"> </td></tr>
 
 
                        <td> <label>Service</label></td>
@@ -225,7 +226,7 @@ $query=mysqli_query($conn,"SELECT b.status as status, b.booking_id as booking_id
 
 
                         <td> <label>Type Of Services</label></td>
-                        <td><input  type= "text" id="name" name="type_of_services" class="form-control" style="width: 300px;" name="name" value=" <?php echo $rows['type_of_service'];?>" placeholder="Enter Phone Number">  </td></tr>
+                        <td><input  type= "text" id="name" name="type_of_services" class="form-control" style="width: 300px;" value=" <?php echo $rows['type_of_service'];?>" placeholder="Enter Phone Number">  </td></tr>
 
 
 
@@ -245,7 +246,7 @@ $query=mysqli_query($conn,"SELECT b.status as status, b.booking_id as booking_id
             style="font-size: 30px; color: red; font-weight: 400;font-family: Arial, Helvetica, sans-serif;">
             Total:
             <span><i class="fas fa-dollar-sign"></i>
-            <input  type= "text" id="name" name="total" class="form-control" style="width: 300px;" name="name" placeholder="Enter amount"> 
+            <input  type= "text" name="total" class="form-control" style="width: 300px;" name="amount" placeholder="Enter amount"> 
                                  </td>
                                  </span></p>
         </div>

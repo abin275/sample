@@ -15,12 +15,12 @@ use PHPMailer\PHPMailer\PHPMailer;
       $mail->isSMTP();                                           //Send using SMTP
       $mail->Host       = 'smtp.gmail.com';                      //Set the SMTP server to send through
       $mail->SMTPAuth   = true;                                  //Enable SMTP authentication
-      $mail->Username   = 'trialsfrontieronline@gmail.com';                 //SMTP username
-      $mail->Password   = 'zejdnmzchovtgpkk';                    //SMTP password
+      $mail->Username   = 'frontier12trials@gmail.com';                 //SMTP username
+      $mail->Password   = 'cucrulkzhbhzwsam';                    //SMTP password
       $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;           //Enable implicit TLS encryption
       $mail->Port       = 465;                                   //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
   
-      $mail->setFrom('trialsfrontieronline@gmail.com', 'a');
+      $mail->setFrom('frontier12trials@gmail.com', 'a');
       $mail->addAddress($email);    
   
       //Content
@@ -50,7 +50,7 @@ if(isset($_POST['check_mail']))
         if($update_token_run)
         {
             send_password_mail($email, $token);
-            echo "<script> alert('Link is sent to mail'); </script>";
+            echo "<script> alert('Your application submitted successfully.Futher information get you shortly'); </script>";
         }
         else{
             echo "<script> alert('Wrong'); </script>";

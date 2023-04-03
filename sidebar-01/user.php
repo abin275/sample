@@ -1,5 +1,6 @@
 <?php
 include "../session.php";
+
 ?>
     <html lang="en">
 
@@ -33,7 +34,7 @@ include "../session.php";
                             </ul>
                         </li>
                         <li>
-                            <a href="cbookingdetails.php">BOOKING DETAILS</a>
+                            <a href="cbookingdetails.php?booking_id='.$id.' ">BOOKING DETAILS</a>
                         </li>
                         <li>
                             <a href="\sample\cart.php">CART</a>

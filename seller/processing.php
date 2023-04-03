@@ -2,9 +2,9 @@
     include_once "../connection.php";
     
 	$id = $_GET['id'];
-    $query="UPDATE order_items SET or_status=2 where id = $id"; // delete query;
+    $query="UPDATE booking SET status=1 where booking_id = $id"; // delete query;
 
-    $data=mysqli_query($con,$query);
+    $data=mysqli_query($conn,$query);
 
     if($data){
         echo" pending";

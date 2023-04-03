@@ -141,97 +141,7 @@ $email=$_SESSION["email"];
 
             <!-- <h2 class="mb-4"></h2> -->
 <h1 id="h1">Booking Detail</h1><br> <br>
-<h2>Service Pending Bikes</h2> <br> <br>
 
-<table class="paleBlueRows">
-    <thead>
-        <tr>
-        <th>#</th>
-            <th>CUSTOMER_ID</th>
-            <th>TITLE</th>
-            <th>NAME</th>
-            <th>EMAIL</th>
-            <th>PHONE</th>
-            <th>OUTLET</th>
-            <th>TYPE_OF_BIKE</th>
-            <th>BIKE_NAME</th>
-            <th>BIKE_NUMBER</th>
-            <th>BIKE_CC</th>
-            <th>TYPE_OF_SERVICE</th>
-            <th>CHECK_IN_DATE</th>
-            <th>ARRAVING TIME</th>
-            <th>RC BOOK PHOTO</th>
-           
-        </tr>
-    </thead>
-    <tbody>
-
-        <?php
-
-             $sql = mysqli_query($conn,"SELECT * from tbl_login,booking where booking.status= 0 AND tbl_login.login_id=booking.login_id AND tbl_login.email='$email'");
-        $cnt=1;
-      while($row =mysqli_fetch_array($sql)) {
-        ?>
-            <tr>
-            <td>
-             <?php echo htmlentities($cnt);?>
-                </td>
-             <td>
-             <?php echo $row['login_id'] ?>
-                </td>
-                <td>
-                    <?php echo $row['title'] ?>
-                </td>
-                <td>
-                    <?php echo $row['name'] ?>
-                </td>
-                <td>
-                    <?php echo $row['email'] ?>
-                </td>
-                <td>
-                    <?php echo $row['phone'] ?>
-                </td>
-                <td>
-                    <?php echo $row['outlet'] ?>
-                </td>
-                <td>
-                    <?php echo $row['type_of_bike'] ?>
-                </td>
-                <td>
-                    <?php echo $row['bike_name'] ?>
-                </td>
-                <td>
-                    <?php echo $row['bike_number'] ?>
-                </td>
-                <td>
-                    <?php echo $row['bike_cc'] ?>
-                </td>
-                <td>
-                    <?php echo $row['type_of_service'] ?>
-                </td>
-                <td>
-                    <?php echo $row['check_in'] ?>
-                </td>
-                <td>
-                    <?php echo $row['time'] ?>
-                </td>
-               
-                <td>
-                  <img src="../bb/<?php echo $row['rc'] ?>" style="width: 100px;height: 100px;">
-                </td>
-               
-            </tr>
-            <?php 
-            $cnt=$cnt+1;
-     }
-     
-        ?>
-    </tbody>
-</table> <br> <br>
-
-
-
-<h2>Service Completed Bikes</h2> <br> <br> 
 
 <table class="paleBlueRows">
     <thead>
@@ -251,7 +161,8 @@ $email=$_SESSION["email"];
             <th>CHECK_IN_DATE</th>
             <th>ARRAVING TIME</th>
             <th>RC BOOK PHOTO</th>
-            <th>Bill</th>
+            <th>STATUS</th>
+            
         
         </tr>
     </thead>
@@ -259,7 +170,7 @@ $email=$_SESSION["email"];
 
         <?php
 
-$sql1 = mysqli_query($conn,"SELECT * from tbl_login,booking where booking.status= 2 AND tbl_login.login_id=booking.login_id AND tbl_login.email='$email'");
+$sql1 = mysqli_query($conn,"SELECT * from tbl_login,booking where  tbl_login.login_id=booking.login_id AND tbl_login.email='$email'");
 $cnt=1;
 while($rows=mysqli_fetch_array($sql1)) {
         ?>
@@ -310,12 +221,27 @@ while($rows=mysqli_fetch_array($sql1)) {
                 <td>
                   <img src="../bb/<?php echo $rows['rc'] ?>" style="width: 100px;height: 100px;">
                 </td>
+                  
                 <td>
-               
-                              <a href="../sidebar-01/payservice.php" class="btn btn-danger">bill</a>
-                           <!--  <button class="btn btn-danger"  name="bill" style="height:40px">bill</button> --> 
-</td>
+                <?php 
+                $id=$_GET['booking_id'];
+                if($rows['status']==0)
+                {
+                echo "PENDING";
+                }
+                elseif($rows['status']==1)
+                {
+                echo "ON PROGRESS";
+                }
+                else
+                {
+                 echo "COMPLETED<br><br>";
                 
+                 echo "<span class='badge_active'><a href='../sidebar-01/bill.php?booking_id=".$id." '>Bill</a></span>";
+                }
+                ?>
+                            </td>
+          
                
             </tr>
             <?php

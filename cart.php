@@ -321,23 +321,34 @@ Check Out
                                     </td>
                                     <td class="column-2"><?php echo $row1['name']?></td>
                                     <td class="column-3">₹ <?php echo $row1['price']?></td>
-                                    <td class="column-4">
+                                    <!-- <td class="column-4">
                                         <div class="wrap-num-product flex-w m-l-auto m-r-0">
                                             <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
                                                 <i class="fs-16 zmdi zmdi-minus"></i>
                                             </div>
 
-                                            <input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product1" value="<?php echo $row1['quantity']?>">
+                                            <input class="mtext-104 cl3 txt-center num-product" min="1" type="number" name="num-product1" value="<?php echo $row1['quantity']?>">
 
                                             <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
                                                 <i class="fs-16 zmdi zmdi-plus"></i>
                                             </div>
                                         </div>
                                     </td>
+                                     -->
+                                     <form action="" method="POST">
+                                     <td class="column-4">
+               
+                  <input type="hidden" name="cart_id" value="<?php echo $row1['cart_id']; ?>">
+                  <input type="number" min="1" max="10" name="quantity" value="<?php echo $row1['quantity']?>">
+                  <td class="column-6">₹ <?php echo $row1['price']*$row1['quantity']; ?></td>
+              
+            </td>
                                     
-                                    <!-- <td><input type="hidden" id = "entryid" name="entry" value="<?php echo $row1['entry_id']; ?>"> </td> -->
-                                    <td class="column-6">₹ <?php echo $row1['price']*$row1['quantity']; ?></td>
-                                    <td class="column-5"><a href="cart.php?rementry=<?php echo $row1['cart_id'];?>"><button type="button" id="button1" onClick="window.location.reload()" class="btn btn-outline-dark btn-sm">Remove</button></a></td> -->
+                                    
+                                    <td><button type="submit" name="update-cart" value="update" class="option-btn">Update</button></td>
+                                    </form>
+                                    <td class="column-5"><a href="cart.php?rementry=<?php echo $row1['cart_id'];?>">
+                                    <button type="button" id="button1" onClick="window.location.reload()" class="btn btn-outline-dark btn-sm">Remove</button></a></td>
                                     
                                 </tr>
                                 <?php
@@ -454,22 +465,18 @@ Proceed to Checkout
 
 
 <?php
-    if(isset($_POST['update']))
+if(isset($_POST['update-cart']))
 {
-  $entry = $_POST['entry'];
-    $sl="select price from cart where entry_id='$entry'";
+    $entry = $_POST['cart_id'];
+    $sl="select price from tblcart where cart_id=$entry";
     $result1 = $conn-> query($sl);
-      if ($result1-> num_rows > 0){
-      while($row = $result1-> fetch_assoc()){ 
+    if ($result1-> num_rows > 0){
+    while($row = $result1-> fetch_assoc()){ 
         $price=$row['price'];
-    
     $p_quantity=$_POST['quantity'];
-   
-    $net_total=intval($price)*intval($p_quantity); 
-    $update="UPDATE cart set cart_quantity= $p_quantity, net_total = $net_total where entry_id='$entry'";
-        mysqli_query($conn,$update);  
-    
-    
+     
+    $update="UPDATE tblcart set quantity= $p_quantity where cart_id=$entry";
+        mysqli_query($conn,$update);      
 }
 }
 }

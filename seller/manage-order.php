@@ -145,25 +145,26 @@ while($rows=mysqli_fetch_array($query))
 <td><?php echo htmlentities($rows['type_of_service']);?></td>
 
 <td> 
-<button type="button" class="btn btn-danger btn-sm btn-icon-text">
-                            <?php
-                              if($rows['status']==0){
-                                echo "<span class='badge_active'><a href='?type=status&operation=onprogress&id=".$rows['booking_id']."' style='color:white;text-decoration:none;'>Pending</a></span>";
-                              } 
-                              else if($rows['status']==1){
-                                echo "<span class='badge_deactive'><a href='?type=status&operation=completed&id=".$rows['booking_id']."' style='color:white;text-decoration:none;'>On Progress</a></span>";
-                              }
-                              else if($rows['status']==2){
-                                echo "<span class='badge_deactive'><a href='?type=status&operation=completed&id=".$rows['booking_id']."' style='color:white;text-decoration:none;'>Completed</a></span>";
-                              }
 
-                            ?>
+                                     
+<?php 
+                    
+                    if($rows['status']==0)                     
+                        echo                                   
+"<a href=processing.php?id=".$rows['booking_id']."><button class='btn btn-primary' onclick='myFunction1()' >Pending</button></a>";
+                    else if($rows['status']=="1") 
+                        echo 
+"<a href=deliverd.php?id=".$rows['booking_id']."><button class='btn btn-btn btn-danger' onclick='myFunction2()' >On progress</button></a>";
+                    else 
+echo" 
+completed";
+  ?>
                                                 
                             </button>
                             </td>
                             <td>
-                              <form action="../sidebar-01/bill.php" method="POST">
-                              <button type="submit" name="booking_id" value="<?php echo $rows['booking_id'];?>" >Bill </button></form>
+                            
+                              <a href="../sidebar-01/bill.php?id=<?php echo $rows['booking_id'];?>"><button name="booking_id" value="" >Bill </button></a>
                               <!-- <a href="../sidebar-01/bill.php" class="btn btn-danger">bill</a> -->
                            <!--  <button class="btn btn-danger"  name="bill" style="height:40px">bill</button> --> 
 </td>

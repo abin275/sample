@@ -16,8 +16,13 @@ if(isset($_GET['job_id'])){
     }
     }
 }
-
-if(isset($_POST['submit'])){
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+//Load Composer's autoloader
+require '../sidebar-01/vendor/autoload.php';
+$msg="";
+if(isset($_POST['submit'])){ 
     $name=$_POST['name'];
     $address=$_POST['address'];
     $email=$_POST['email'];
@@ -62,11 +67,44 @@ if(isset($_POST['submit'])){
 
     $result_query=mysqli_query($conn,$insert_products);
     if($result_query){
-        echo "<script>alert('Successfully inserted the products.')
-        window.location.href='../careers.php'</script>";
+            echo" active";
+            /*echo '<script type="text/javascript">window.onload = function () { alert("successfully activated"); }
+                </script>';*/
+                $mail = new PHPMailer(true);
+    
+                try {
+                //Server settings
+                $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
+                $mail->isSMTP();                                            //Send using SMTP
+                $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
+                $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+                $mail->Username   = 'frontier12trials@gmail.com';                 //SMTP username
+                $mail->Password   = 'cucrulkzhbhzwsam';                              //SMTP password
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
+                $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+            
+                //Recipients
+                $mail->setFrom('frontier12trials@gmail.com');
+                $mail->addAddress($email);    
+            
+            
+                //Content
+                $mail->isHTML(true);                                  //Set email format to HTML
+                $mail->Subject = 'no reply';
+                $mail->Body    = 'your application has successfully submited further details will be updated';
+                $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+            
+                $mail->send();
+                echo 'Message has been sent';
+            } catch (Exception $e) {
+               $msg= "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+            }
+            echo "</div>";
+            echo "<script>alert('Successfully inserted the products.')
+            window.location.href='../careers.php'</script>";
+        }
     }
    
-}
 ?>
 
 
