@@ -148,15 +148,15 @@ $email=$_SESSION["email"];
         <tr>
             <th>#</th>
             <th>CUSTOMER_ID</th>
-            <th>TITLE</th>
+            
             <th>NAME</th>
             <th>EMAIL</th>
-            <th>PHONE</th>
+            
             <th>OUTLET</th>
-            <th>TYPE_OF_BIKE</th>
+           
             <th>BIKE_NAME</th>
             <th>BIKE_NUMBER</th>
-            <th>BIKE_CC</th>
+          
             <th>TYPE_OF_SERVICE</th>
             <th>CHECK_IN_DATE</th>
             <th>ARRAVING TIME</th>
@@ -181,33 +181,25 @@ while($rows=mysqli_fetch_array($sql1)) {
                 <td>
              <?php echo $rows['login_id'] ?>
                 </td>
-                <td>
-                    <?php echo $rows['title'] ?>
-                </td>
+               
                 <td>
                     <?php echo $rows['name'] ?>
                 </td>
                 <td>
                     <?php echo $rows['email'] ?>
                 </td>
-                <td>
-                    <?php echo $rows['phone'] ?>
-                </td>
+               
                 <td>
                     <?php echo $rows['outlet'] ?>
                 </td>
-                <td>
-                    <?php echo $rows['type_of_bike'] ?>
-                </td>
+               
                 <td>
                     <?php echo $rows['bike_name'] ?>
                 </td>
                 <td>
                     <?php echo $rows['bike_number'] ?>
                 </td>
-                <td>
-                    <?php echo $rows['bike_cc'] ?>
-                </td>
+               
                 <td>
                     <?php echo $rows['type_of_service'] ?>
                 </td>
@@ -224,7 +216,7 @@ while($rows=mysqli_fetch_array($sql1)) {
                   
                 <td>
                 <?php 
-                $id=$_GET['booking_id'];
+               
                 if($rows['status']==0)
                 {
                 echo "PENDING";
@@ -237,7 +229,7 @@ while($rows=mysqli_fetch_array($sql1)) {
                 {
                  echo "COMPLETED<br><br>";
                 
-                 echo "<span class='badge_active'><a href='../sidebar-01/bill.php?booking_id=".$id." '>Bill</a></span>";
+                 echo "<span class='badge_active'><a href='../sidebar-01/bill2.php?booking_id=".$rows['booking_id']." '>Bill</a></span>";
                 }
                 ?>
                             </td>

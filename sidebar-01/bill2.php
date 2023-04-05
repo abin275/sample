@@ -1,7 +1,7 @@
 <?php
 include "../session.php";
 include "../connection.php";
-$id = $_GET['id'];
+$id = $_GET['booking_id'];
 ?>
 <head><script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
@@ -49,63 +49,64 @@ $id = $_GET['id'];
  */
 </style>
 <?php
-if(isset($_POST['submit'])){
+// if(isset($_POST['submit'])){
 
-  $outlet=$_POST['outlet'];
-  $customer_id=$_POST['customer_id'];
-  $customer_name=$_POST['customer_name'];
-  $bike_number=$_POST['bike_number'];
-  $phone=$_POST['phone'];
-  $type_of_bike=$_POST['type_of_bike'];
-  $service=$_POST['service'];
-  $type_of_services=$_POST['type_of_services'];
-  $total=$_POST['total'];
-  // $date=$_POST['date'];
+//   $outlet=$_POST['outlet'];
+//   $customer_id=$_POST['customer_id'];
+//   $customer_name=$_POST['customer_name'];
+//   $bike_number=$_POST['bike_number'];
+//   $phone=$_POST['phone'];
+//   $type_of_bike=$_POST['type_of_bike'];
+//   $service=$_POST['service'];
+//   $type_of_services=$_POST['type_of_services'];
+//   $total=$_POST['total'];
+//   // $date=$_POST['date'];
 
 
-  if($outlet=='' or $customer_id==''  or $customer_name=='' or $bike_number=='' or $phone=='' or $type_of_bike=='' or $service=='' or $type_of_services=='' or $total=='' ){
-    echo "<script>alert('Please fill all the fields.')</script>";
-    exit();
-}else{
-    // move_uploaded_file($temp_image1,"./images/$product_image1");
-}
-$insert_products="INSERT INTO bill_services(`outlet`, `customer_id`, `bike_number`, `phone`, `type_of_bike`, `service`, `type_of_services`, `total`) 
-VALUES ('$outlet','$customer_id', '$bike_number', '$phone', '$type_of_bike','$service','$type_of_services', '$total')";
+//   if($outlet=='' or $customer_id==''  or $customer_name=='' or $bike_number=='' or $phone=='' or $type_of_bike=='' or $service=='' or $type_of_services=='' or $total=='' ){
+//     echo "<script>alert('Please fill all the fields.')</script>";
+//     exit();
+// }else{
+//     // move_uploaded_file($temp_image1,"./images/$product_image1");
+// }
+// $insert_products="INSERT INTO bill_services(`outlet`, `customer_id`, `bike_number`, `phone`, `type_of_bike`, `service`, `type_of_services`, `total`) 
+// VALUES ('$outlet','$customer_id', '$bike_number', '$phone', '$type_of_bike','$service','$type_of_services', '$total')";
 
-    $result_query=mysqli_query($conn,$insert_products);
-    if($result_query){
-        echo "<script>alert('Successfully inserted the products.')</script>";
-    }
+//     $result_query=mysqli_query($conn,$insert_products);
+//     if($result_query){
+//         echo "<script>alert('Successfully inserted the products.')</script>";
+//     }
    
-}
-if(isset($_POST["booking_id"])){
-  $booking_id=$_POST['booking_id'];
-  $_SESSION['book']="$booking_id";
-}
+// }
+// if(isset($_POST["booking_id"])){
+//   $booking_id=$_POST['booking_id'];
+//   $_SESSION['book']="$booking_id";
+// }
 
-$email=$_SESSION["email"];
-if(!isset($_SESSION["email"])) 
-{
-    header("Location:../login.php");
-}
-$query1=mysqli_query($conn,"SELECT * from booking");
-if($rows=mysqli_fetch_array($query1))
-    {
-       $email=$_SESSION["email"];
+// $email=$_SESSION["email"];
+// if(!isset($_SESSION["email"])) 
+// {
+//     header("Location:../login.php");
+// }
+// $query1=mysqli_query($conn,"SELECT * from booking");
+// if($rows=mysqli_fetch_array($query1))
+//     {
+//        $email=$_SESSION["email"];
 
-       $sql=mysqli_query($conn,"SELECT * from tbloutlet where email='$email'");
-       if($row=mysqli_fetch_array($sql))
-{
-   $address=$row['address'];
-   $name=$row['name'];
-  $_SESSION['ad']="$address";
-   $_SESSION['name']="$name";
+//        $sql=mysqli_query($conn,"SELECT * from tbloutlet where email='$email'");
+//        echo mysqli_num_rows($sql);
+//        if($row=mysqli_fetch_array($sql))
+// {
+//    $address=$row['address'];
+//    $name=$row['name'];
+//   $_SESSION['ad']="$address";
+//    $_SESSION['name']="$name";
 
 
-}}
+// }}
     
 
-$query=mysqli_query($conn,"SELECT b.status as status, b.name as name, b.bike_cc as bike_cc, b.bike_name as bike_name, b.type_of_bike as type_of_bike, b.title as title, b.email as email, b.time as time, b.check_in as check_in, b.phone as phone,b.rc as rc, b.bike_number as bike_number, b.bike_cc as bike_cc, b.type_of_service as type_of_service from booking b, tbloutlet ou where b.outlet=ou.address and b.booking_id = $id and b.outlet =  '".$_SESSION['ad']."'");
+$query=mysqli_query($conn,"SELECT b.*,b2.*,o.name as oname FROM `bill_services` b,booking b2,tbloutlet o WHERE b.customer_id=$id AND o.name=b.outlet AND b2.booking_id=b.customer_id");
 $query2=mysqli_fetch_assoc($query)
 
 
@@ -186,7 +187,7 @@ $query2=mysqli_fetch_assoc($query)
           <tbody>
           <form action="" method="POST">
                         <td> <label>Outlet</label></td>
-                        <td> <input type="text" name="outlet" value="<?php echo $_SESSION['name'];?>"></td></tr>
+                        <td> <input type="text" name="outlet" value="<?php echo $query2['oname'];?>"></td></tr>
 
               <tr>
               <td>Customer name</td>
@@ -218,16 +219,12 @@ $query2=mysqli_fetch_assoc($query)
 
 
                        <td> <label>Service</label></td>
-                       <td> <select name="service" id="f"  class="form-control" style="width: 300px;" octavalidate="R" >
-											 <option value selected ></option>
-                       <option value="SERVICE CENTER OUTLET">SERVICE CENTER OUTLET</option>
-                       <option value="DOOR STEP SERVICES">DOOR STEP SERVICES</option>
-											 </select></td></tr>
+                       <td> <td><input  type= "text" id="name"name="type_of_bike" class="form-control" style="width: 300px;"  value=" <?php echo $query2['service'];?>" placeholder="Enter Phone Number"> </td></tr></tr>
 
 
 
                         <td> <label>Type Of Services</label></td>
-                        <td><input  type= "text" id="name" name="type_of_services" class="form-control" style="width: 300px;" value=" <?php echo $query2['type_of_service'];?>" placeholder="Enter Phone Number">  </td></tr>
+                        <td><input  type= "text" id="name"name="type_of_bike" class="form-control" style="width: 300px;"  value=" <?php echo $query2['type_of_services'];?>" placeholder="Enter Phone Number"> </tr></tr>
 
 
 
@@ -247,8 +244,8 @@ $query2=mysqli_fetch_assoc($query)
             style="font-size: 30px; color: red; font-weight: 400;font-family: Arial, Helvetica, sans-serif;">
             Total:
             <span><i class="fas fa-dollar-sign"></i>
-            <input  type= "text" name="total" class="form-control" style="width: 300px;" name="amount" placeholder="Enter amount"> 
-                                 </td>
+            <input  type= "text" name="total" class="form-control" style="width: 300px;" name="amount" value="<?php echo $query2['total'];?>"> 
+                                 
                                  </span></p>
         </div>
 
@@ -259,8 +256,54 @@ $query2=mysqli_fetch_assoc($query)
  
       </div>
     <div class="col-lg-12 col-md-12 mt-2">
-    <button type="submit" class="btn btn-success col-lg-12 col-md-12" name="submit">SUBMIT</button>
+    
+    <script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap.bundle.min.js"></script>
+        <script src="js/Headroom.js"></script>
+        <script src="js/jQuery.headroom.js"></script>
+        <script src="js/slick.min.js"></script>
+        <script src="js/custom.js"></script>
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.min.js'></script>
 
+
+</script>
+                                <?php
+$apiKey="rzp_test_XaAAlWqBVMC0Yn";
+?>
+
+<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+
+<form action="stock.php" method="POST">
+<script
+    src="https://checkout.razorpay.com/v1/checkout.js"
+    data-key="<?php echo $apiKey; ?>" // Enter the Test API Key ID generated from Dashboard → Settings → API Keys
+    data-amount="<?php echo $grand_total  * 100;?>" // Amount is in currency subunits. Hence, 29935 refers to 29935 paise or ₹299.35.
+    data-currency="INR"// You can accept international payments by changing the currency code. Contact our Support Team to enable International for your account
+    data-id="order_CgmcjRh9ti2lP7"// Replace with the order_id generated by you in the backend.
+    data-buttontext="Pay Now"
+    data-name="Fragrance IND"
+    data-description="Everything’s better with a bit of fragrance."
+    data-image="https://st4.depositphotos.com/31445094/41249/v/1600/depositphotos_412499652-stock-illustration-perfume-icon-design-template-isolated.jpg"
+    data-prefill.name="Minu Joe"
+    data-prefill.email=""
+    data-theme.color="#F37254"
+    
+></script>
+<input type="hidden" custom="Hidden Element" name="hidden" class="btn btn-primary">
+</form>
+<!--gateway end-->
+
+<style>
+    .razorpay-payment-button{
+        background-color: #0DCAF0;
+        color: white;
+        font-size: 18px;padding: 8px 10px;font-weight: bold;
+        border-radius: 12px; border: none;text-align: center; 
+    }
+</style>
+    </body>
+</html>
     </form>
     </div>
     </div>
