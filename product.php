@@ -176,7 +176,7 @@ include('connection.php');
                                 </div>
                             </div>
                             <div class="col-md-12 ">
-                                <a class="read_more " href="more.php">See More</a>
+                                <a class="read_more " name="product" href="more.php">See More</a>
                             </div>
                         </div>
                     </div>

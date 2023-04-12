@@ -125,7 +125,8 @@ include('sidebar-01/show.php');
                         <div class="row ">
                             <?php
                                 include_once "connection.php";
-                                $sql="SELECT * from tbloutlet";
+                                $date = date("Y-m-d");
+                                $sql="SELECT * from tbloutlet t, tbl_slots s where s.outlet_id = t.outlet_id and s.date = '$date' and s.slot_status = 1";
                                 $result = $conn-> query($sql);
 
                                 if ($result-> num_rows > 0){
@@ -141,7 +142,8 @@ include('sidebar-01/show.php');
                                     
 
                                 </div>
-                               <a href="service centers.html" style="text-decoration:none;"> <button type="submit" value="booknow" name="booknow" class="btn custom-btn cart-btn" data-bs-toggle="modal" data-bs-target="">Book Now</button></a>
+                               <a href="bb/b.php?outlet=<?php echo $row['address'];?>" style="text-decoration:none;"> <button type="submit" value="service" name="service" class="btn custom-btn cart-btn">Service Center Book Now</button></a>
+                               <a href="bb/doorstep.php?outlet=<?php echo $row['address'];?>" style="text-decoration:none;"> <button type="submit" value="doorstep" name="doorstep" class="btn custom-btn cart-btn">Doorstep Service Book Now</button></a>
                             </div>
                             <?php
                             }

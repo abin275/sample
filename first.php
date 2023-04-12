@@ -71,7 +71,7 @@ include('connection.php');
                                         <a class="nav-link " href="service centers.html ">Service Centers</a>
                                     </li>
                                     <li class="nav-item ">
-                                        <a class="nav-link " href="careers.php ">Careers</a>
+                                        <a class="nav-link " name="career" href="careers.php ">Careers</a>
                                     </li>
                                     <!--
                                     <li class="nav-item ">

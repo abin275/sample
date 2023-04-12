@@ -162,6 +162,21 @@ include "google_translater.php";
                                 styles such as Sports, Adventure Touring & Track Racing.</p>
                         </div>
                     </div>
+                    <div class="col-md-6 ">
+                        <div class="box_text ">
+                            <i><img src="images/moto2.jpg " alt="# "/></i>
+                            <h3>IMMEDATE DOORSTEP SERVICE CENTERS</h3>
+                            <p>For immedate services like, lost in roads, not starting, fauls sound from engine etc. We know how difficult itto us, out of your busy schedules,
+                                to wait long and carry our bike in another van to workshop, and pay exorbitant charges. We, at Trials forinter, persevere to make your life easier by booking the immedate service via online we will come to that spot and repair your bike, at affordable prices, and in just a few easy steps. </p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 ">
+                        <div class="box_text ">
+                            <i><img src="images/moto7.jpg " alt="# "/></i>
+                            <h3>CARRIERS A JOB PORTAL</h3>
+                            <p> </p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

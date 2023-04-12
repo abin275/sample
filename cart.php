@@ -68,7 +68,7 @@ if(isset($_GET['id'])){
 <title>PHP registration form</title>
 
 <!-- Bootstrap -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
+<!-- <link rel="preconnect" href="https://fonts.googleapis.com">
 
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;700;900&display=swap" rel="stylesheet">
@@ -81,7 +81,23 @@ if(isset($_GET['id'])){
 <link rel="stylesheet" href="css/navstyle.css">
 <link rel="stylesheet"href="css/buttonstyle.css">
 <link rel="stylesheet"href="cartstyle.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+
+
+
+
+<link rel="stylesheet" href="css/bootstrap.min.css">
+   <!-- style css -->
+   <link rel="stylesheet" href="css/style.css">
+   <!-- Responsive-->
+   <link rel="stylesheet" href="css/responsive.css">
+   <!-- fevicon -->
+   <link rel="icon" href="images/fevicon.png" type="image/gif" />
+   <!-- Scrollbar Custom CSS -->
+   <link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css">
+   <!-- Tweaks for older IEs-->
+   <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
 </head>
 <body>
 
@@ -92,34 +108,91 @@ if(isset($_GET['id'])){
         </section>
     
         <main>
-        <nav class="navbar navbar-inverse" style="background:#04B745;">
+        <!-- <nav class="navbar navbar-inverse" style="background:#04B745;">
     <div class="container-fluid">
       <div class="navbar-header"> <a class="navbar-brand" href="#" style="color:#FFFFFF;">Shopping Cart</a> </div>
     </div>
-  </nav>
-            <nav class="navbar navbar-expand-lg">
-                <div class="container">
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-
-                    <a class="navbar-brand" href="index.php">
-                        <strong><span>TRIALS</span>FRONTIER</strong>
-                    </a>
-
-                    <div class="d-lg-none">
-                        <a href="sign-in.html" class="bi-person custom-icon me-3"></a>
-
-                        <a href="product-detail.html" class="bi-bag custom-icon"></a>
-                    </div>
-
-                    <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul class="navbar-nav mx-auto">
-                            <li class="nav-item">
-                                <a class="nav-link" href="index.php">Home</a>
+  </nav> -->
+  <body class="main-layout inner_posituong contact_page">
+   <!-- header -->
+   <header>
+       <!-- header inner -->
+       <div class="header">
+           <div class="container-fluid">
+               <div class="row">
+                   <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col logo_section">
+                       <div class="full">
+                           <div class="center-desk">
+                               <div class="logo">
+                               <li class="nav-item">
+                       <a class="nav-link" href="first.php">TRIALS FRONTIER</a>
+                   </li> 
+                   
+                               </div>
+                               <li class="nav-item active" width="auto">
+                                        <a class="nav-link " href="#" style="font-size: 30px;font-weight:bolder">SHOPPING CART</a>
+                                    </li>
+                           </div>
+                       </div>
+                   </div>
+                   <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9">
+                       <nav class="navigation navbar navbar-expand-md navbar-dark ">
+                           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+                       <span class="navbar-toggler-icon"></span>
+                       </button>
+                           <div class="collapse navbar-collapse" id="navbarsExample04">
+                               <ul class="navbar-nav mr-auto">
+                               <li class="nav-item">
+                                        <a class="nav-link " href="first.php"><i class="bi bi-shop-window"></i> Home</a>
+                                    </li>
+                               <li class="nav-item">
+                                <a class="nav-link" href="product.php"><i class="bi bi-shop-window"></i> Shop</a>
                             </li>
 
                             <li class="nav-item">
+                                <a class="nav-link" href="checkout.php">
+                                    <i class="bi bi-key"></i> Checkout</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="">
+                                    <i class="bi bi-heart-fill"></i> Wishlist</a>
+                            </li>
+                            <?php if( isset($_SESSION['email']) && !empty($_SESSION['email']) )
+                            { ?>
+                            <li class="nav-item">
+                                    <a class="nav-link" href="logout.php"> <i class="bi bi-box-arrow-right"></i> Logout</a>
+                                </li>
+                            <?php }
+                            else{ ?>
+                                
+                                <li class="nav-item">
+                                <a class="nav-link" href="user_login.php"><i class="bi bi-box-arrow-in-left"></i>Login</a>
+                            </li>
+                         <?php } ?>
+                      </ul>
+                      <li class="nav-item">
+                        <div class="d-none d-lg-block">
+                        <?php if( isset($_SESSION['email'])&& !empty($_SESSION['email']) )
+                        { ?>
+                            <a href=" " style="font-size:15px;display:flex;float:right;font-weight:bolder" class="bi-person custom-icon me-3"> WELCOME -<?php echo htmlentities($_SESSION['email']);?></a>
+                        <?php }
+                        else{ ?>
+                            <a href=" " class="bi-person custom-icon me-3"></a> 
+                                
+                         <?php } ?>
+                            <a href="product-detail.html" class="bi-bag custom-icon"></a>
+                    </div>
+                               </ul>
+                           </div>
+                           
+                       </nav>
+                   </div>
+               </div>
+           </div>
+       </div>
+   </header>
+
+                            <!-- <li class="nav-item">
                                 <a class="nav-link" href="product.php"><i class="bi bi-shop-window"></i> Shop</a>
                             </li>
 
@@ -154,16 +227,20 @@ if(isset($_GET['id'])){
                                 
                          <?php } ?>
                             <a href="product-detail.html" class="bi-bag custom-icon"></a>
-                    </div>
+                    </div> -->
                 </div>
             </div>
             </nav> 
-
+            <nav class="navbar navbar-inverse" style="background:#04B745;">
+    <div class="container-fluid">
+      <div class="navbar-header"> <a class="navbar-brand" href="#" style="color:#FFFFFF;"></a> </div>
+    </div>
+  </nav>
 <div class="container" style="width:600px;">
  
   <nav class="navbar navbar-inverse" style="background:#04B745;">
     <div class="container-fluid pull-left" style="width:300px;">
-      <div class="navbar-header"> <a class="navbar-brand" href="#" style="color:#FFFFFF;">Products</a> </div>
+      <div class="navbar-header"> <a class="navbar-brand" href="#" style="color:#FFFFFF;">PRODUCTS</a> </div>
     </div>
     <div class="pull-right" style="margin-top:7px;margin-right:7px;"><a href="cart.php?action=emptyall" class="btn btn-info">Empty cart</a></div>
   </nav>
@@ -361,16 +438,16 @@ Check Out
 </div>
 
 <div class="flex-w flex-sb-m bor15 p-t-18 p-b-15 p-lr-40 p-lr-15-sm">
-<div class="flex-w flex-m m-r-20 m-tb-5">
+<!-- <div class="flex-w flex-m m-r-20 m-tb-5">
 <input class="stext-104 cl2 plh4 size-117 bor13 p-lr-20 m-r-10 m-tb-5" type="text" name="coupon" placeholder="Coupon Code">
 <div class="flex-c-m stext-101 cl2 size-118 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-5">
 Apply coupon
 </div>
-</div>
+</div> -->
 
-<div class="flex-c-m stext-101 cl2 size-119 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-10">
+<!-- <div class="flex-c-m stext-101 cl2 size-119 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-10">
 Update Cart
-</div>
+</div> -->
 </div>
 </div>
 </div>

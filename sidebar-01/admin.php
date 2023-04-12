@@ -31,7 +31,7 @@ include "../connection.php";
                          <a href="admin.php">ADMIN DASHBOARD</a>
                          </li>
                             <li>
-                            <a href="registeruser.php">REGISTERED USERS</a>
+                            <a href="registeruser.php" name="register">REGISTERED USERS</a>
                             </li>
                             <li>
                             <a href="#pageSubmenu1" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">PRODUCT BASED</a>
@@ -105,7 +105,7 @@ include "../connection.php";
                             <a href="#pageSubmenu5" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">DATA VISUALIZATION</a>
                             <ul class="collapse list-unstyled" id="pageSubmenu5">
                             <li>
-                            <a href="dataanalysis.php">Sales Analysis</a>
+                            <a href="dataanalysis.php" name="analysis">Sales Analysis</a>
                             </li>
                             <li>
                             <a href="fav.php">Mostly carted items</a>
@@ -113,7 +113,7 @@ include "../connection.php";
                             </ul>
                             </li>
                             <li>
-                            <a href="contactdetails.php">Feedback Details</a>
+                            <a href="contactdetails.php" name="feed">Feedback Details</a>
                             </li>
 
                             <!-- <li>

@@ -102,7 +102,9 @@ if(isset($_POST['submit'])){
                  
                                  
             <div class="row">
-                
+            <?php
+                $outlet = $_GET['outlet'];
+                ?>
                 <div class="col-md-9 col-sm-9">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
@@ -148,15 +150,9 @@ if(isset($_POST['submit'])){
                                 <input type= "tel" id="phone" class="form-control" name="phone" placeholder="ENTER PHONE NUMBER" octavalidate="R,DIGITS" > 
                                 </div>
                                 <div class="form-group">
-                                            <label>SELECT OUTLET</label>
-                                            <select name="o" id="o" class="form-control" octavalidate="R" >
-												<option value selected ></option>
-                                                <option value="kottyam">kottyam</option>
-                                                <option value="kanjirappally">kanjirappally</option>
-                                                <option value="pathanamthitta">pathanamthitta</option>
-                                            
-                                            </select>
-                              </div>
+                                <label for="o">OUTLET:</label>
+                                <input type="text" id="o" class="form-control" name="o" value = "<?php echo $outlet;?>" readonly> 
+                                </div>
 							   
                         <!-- </div>
                         

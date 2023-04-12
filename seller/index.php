@@ -271,13 +271,13 @@ include_once "../connection.php";
           <li class="nav-item">
             <a class="nav-link" href="manage-order.php">
               <i class="typcn typcn-device-desktop menu-icon"></i>
-              <span class="menu-title">Bike Services</span>
+              <span class="menu-title" name="orders">Bike Services</span>
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="manage-door.php">
               <i class="typcn typcn-device-desktop menu-icon"></i>
-              <span class="menu-title">Doorstep Bike Services</span>
+              <span class="menu-title" name="door">Doorstep Bike Services</span>
             </a>
           </li>
           <li class="nav-item">

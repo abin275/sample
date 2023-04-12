@@ -66,6 +66,9 @@ width:1200px;}
 <div class="span35">
 <div class="content">
 <div class="module">
+<div class="col-md-12 text-right mb-3">
+               <a href="./manage-slots.php"> <button class="btn btn-primary">Manage Slots</button></a>
+            </div>
 <div class="module-head">
 <div class="col-md-12 text-right mb-3">
                 <button class="btn btn-primary" id="download"> Take a pdf</button>
@@ -183,6 +186,82 @@ completed";
 </div>
 </div><!--/.container-->
 </div><!--/.wrapper-->
+</br></br>
+
+<div class="divScroll">           
+<div class="span35">
+<div class="content">
+<div class="module">
+
+<h3>AVAILABLE SLOTS</h3>
+</div>
+<!-- <div class="module-body table"> -->
+
+
+<br />  
+<div id="invoice">
+<table cellpadding="0" cellspacing="0" border="0" class="datatable-1 table table-bordered table-striped display" width="10%">
+
+<thead> 
+<tr>
+<th>#</th>
+<th>Date</th>
+<th>Number of Slots</th>
+<th>Slot Status</th>
+<th>Action</th>
+
+</tr>
+</thead>
+<tbody>
+<?php
+$date = date("Y-m-d");
+ $query1=mysqli_query($conn,"SELECT * from tbl_slots s, tbloutlet t where s.outlet_id = t.outlet_id and t.email = '$email'and s.date = '$date'");
+$cnt=1;
+while($rows=mysqli_fetch_array($query1))
+{
+   
+?>
+<tr>
+<td><?php echo htmlentities($cnt);?></td>
+<td><?php echo htmlentities($rows['date']);?></td>
+<td><?php echo htmlentities($rows['slot_num']);?></td>
+<td><?php if($rows['slot_status'] == 1)
+echo "Active"; 
+else if($rows['slot_status'] == 0)
+{
+  echo "Inactive";
+}
+else if($rows['slot_status'] == 2)
+{
+  echo "Cancelled";
+}
+  ?></td>
+<td><button type="button" class="btn btn-danger btn-sm btn-icon-text">
+                            <?php
+                              if($rows['slot_status']==1){
+                                echo "<span class='badge_active'><a href='?types=status&operation=cancel&id=".$rows['slot_id']."' style='color:white;text-decoration:none;'>Cancel</a></span>";
+                              } 
+                              else if($rows['slot_status']==2){
+                                echo "<span class='badge_active'><a href='?types=status&operation=reopen&id=".$rows['slot_id']."' style='color:white;text-decoration:none;'>Re-Open</a></span>";
+                              } 
+                            ?>
+                                                
+                            </button></td>
+</tr>
+
+<?php $cnt=$cnt+1; 
+}
+?>
+</tbody>
+</table>
+
+
+</div>
+</div><!--/.content-->
+</div><!--/.span9-->
+</div>
+</div><!--/.container-->
+</div><!--/.wrapper-->
 <script src="../admin/scripts/jquery-1.9.1.min.js" type="text/javascript"></script>
 <script src="../admin/scripts/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>
 <script src="../admin/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
@@ -248,4 +327,37 @@ if(isset($_GET['type']) && $_GET['type']!=''){
   
     }
   } 
+  if(isset($_GET['types']) && $_GET['types']!=''){
+    $type=($_GET['types']);
+  
+    if($type=='status'){
+      $operation=($_GET['operation']);
+      $id=($_GET['id']);
+  
+      if($operation=='cancel'){
+        $status='2';
+      }
+      else if($operation=='reopen'){
+        $status='1';
+      }
+      $update_status="UPDATE tbl_slots set slot_status=$status where slot_id= $id";
+      mysqli_query($conn,$update_status);
+  
+    }
+  } 
+  if(isset($_POST['upload']))
+  {
+    $outlet = $_POST['outlet'];
+    $slot = $_POST['slot'];
+    $date = $_POST['date'];
+    $sq = "SELECT outlet_id FROM tbloutlet where email = '$outlet'";
+    $result = $conn-> query($sq);
+    if ($result-> num_rows > 0){
+    while($row = $result-> fetch_assoc()){
+      $outlet1 = $row['outlet_id'];
+    $sql = mysqli_query($conn, "INSERT INTO tbl_slots (outlet_id, date, slot_num, slot_status) VALUES ($outlet1, '$date', $slot,1)");
+     
+    }
+  }
+}
 ?>

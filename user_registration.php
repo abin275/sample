@@ -67,7 +67,8 @@ session_start();
                                 </div>
                                 <div class="form-group">
                                 <label for="password">PASSWORD:</label>
-                                <input  type= "password" id="password" class="form-control" name="password" placeholder="ENTER PASSWORD" octavalidate="R"> 
+                                <input  type= "password" id="password" class="form-control" name="password" placeholder="ENTER PASSWORD" pattern=
+"^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})"> 
                                 </div>
                                 <!-- <div class="form-group">
                                 <label for="cpassword">CONFIRM PASSWORD:</label>
