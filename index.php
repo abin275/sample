@@ -174,7 +174,9 @@ include "google_translater.php";
                         <div class="box_text ">
                             <i><img src="images/moto7.jpg " alt="# "/></i>
                             <h3>CARRIERS A JOB PORTAL</h3>
-                            <p> </p>
+                            <p>This helps a person who are looking for a job, that is related to mechanic, bike service centers etc.
+                               This platform helps to find the right opertunity for expressing and improving your skills and talents. 
+                               And also others can post their job and posts about their company and its startergies, by informing them to our platform through proper mail. </p>
                         </div>
                     </div>
                 </div>

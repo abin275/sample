@@ -187,14 +187,14 @@ $query2=mysqli_fetch_assoc($query)
           <tbody>
           <form action="" method="POST">
                         <td> <label>Outlet</label></td>
-                        <td> <input type="text" name="outlet" value="<?php echo $query2['oname'];?>"readonly></td></tr>
+                        <td> <input type="text" name="outlet" value="<?php echo $query2['oname'];?>"></td></tr>
 
               <tr>
               <td>Customer name</td>
               <td><i class="fas fa-dollar-sign"></i> 
-              <input  type= "hidden" class="form-control" style="width: 300px;" name="customer_id" value=" <?php echo $id;?>"readonly> 
+              <input  type= "hidden" class="form-control" style="width: 300px;" name="customer_id" value=" <?php echo $id;?>"> 
 
-              <input type= "text"  name="customer_name"class="form-control" style="width: 300px;" value=" <?php echo $query2['name'];?>" placeholder="Enter Customer name "readonly> 
+              <input type= "text"  name="customer_name"class="form-control" style="width: 300px;" value=" <?php echo $query2['name'];?>" placeholder="Enter Customer name "> 
              
               </td>
               </tr>
@@ -202,30 +202,31 @@ $query2=mysqli_fetch_assoc($query)
               <tr>
               <td>Bike Number</td>
               <td><i class="fas fa-dollar-sign"></i> 
-              <input  type= "text"  name="bike_number" class="form-control" style="width: 300px;" value=" <?php echo $query2['bike_name'];?>"  placeholder="Enter Bike Number"readonly> 
+              <input  type= "text"  name="bike_number" class="form-control" style="width: 300px;" value=" <?php echo $query2['bike_name'];?>"  placeholder="Enter Bike Number"> 
               </td>
               </tr>
 
               <tr>
               <td>Customer phone number</td>
               <td><i class="fas fa-dollar-sign"></i> 
-              <input  type= "text" name="phone" class="form-control" style="width: 300px;" value=" <?php echo $query2['phone'];?>" placeholder="Enter Phone Number"readonly> 
+              <input  type= "text" name="phone" class="form-control" style="width: 300px;" value=" <?php echo $query2['phone'];?>" placeholder="Enter Phone Number"> 
               </td>
               </tr>
 
 
                         <tr><td><label>Type Of Bike*</label></td>
-                        <td><input  type= "text" id="name"name="type_of_bike" class="form-control" style="width: 300px;"  value=" <?php echo $query2['type_of_bike'];?>" placeholder="Enter Phone Number"readonly> </td></tr>
+                        <td><input  type= "text" id="name"name="type_of_bike" class="form-control" style="width: 300px;"  value=" <?php echo $query2['type_of_bike'];?>" placeholder="Enter Phone Number"> </td></tr>
 
 
                        <tr><td> <label>Service</label></td>
-                       <td><input  type= "text" id="name"name="type_of_bike" class="form-control" style="width: 300px;"  value=" <?php echo $query2['service'];?>" placeholder="Enter Phone Number"readonly> </td></tr>
+                       <td> <td><input  type= "text" id="name"name="type_of_bike" class="form-control" style="width: 300px;"  value=" <?php echo $query2['service'];?>" placeholder="Enter Phone Number"> </td></tr>
 
 
 
                        <tr> <td> <label>Type Of Services</label></td>
-                        <td><input  type= "text" id="name"name="type_of_bike" class="form-control" style="width: 300px;"  value=" <?php echo $query2['type_of_services'];?>" placeholder="Enter Phone Number"readonly> </tr>
-
+                        <td><input  type= "text" id="name"name="type_of_bike" class="form-control" style="width: 300px;"  value=" <?php echo $query2['type_of_services'];?>" placeholder="Enter Phone Number"> </tr>
+                        
+                        <input  hidden type= "text" id="bill_id" name="bill_id" class="form-control" value=" <?php echo $query2['bill_id'];?>">
 
 
 
@@ -244,7 +245,7 @@ $query2=mysqli_fetch_assoc($query)
             style="font-size: 30px; color: red; font-weight: 400;font-family: Arial, Helvetica, sans-serif;">
             Total:
             <span><i class="fas fa-dollar-sign"></i>
-            <input  type= "text" name="total" class="form-control" style="width: 300px;" name="amount" value="<?php echo $query2['total'];?>"readonly> 
+            <input  type= "text" class="form-control" style="width: 300px;" name="amount" value="<?php echo $query2['total'];?>"> 
                                  
                                  </span></p>
         </div>
@@ -253,6 +254,7 @@ $query2=mysqli_fetch_assoc($query)
 
       
       <p class="fw-bold mt-3">SIGNATURE:</p>
+      <button type="submit" id="payment" name="payment" class="btn btn-primary" value="Done">Done</button>
 </form>
       </div>
     <div class="col-lg-12 col-md-12 mt-2">
@@ -268,41 +270,9 @@ $query2=mysqli_fetch_assoc($query)
 
 
 </script>
-                                <?php
-$apiKey="rzp_test_XaAAlWqBVMC0Yn";
-$grand_total = $query2['total'];
-?>
 
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 
-<form action="bill-done.php?booking_id=<?php echo $id;?>" method="POST">
-<script
-    src="https://checkout.razorpay.com/v1/checkout.js"
-    data-key="<?php echo $apiKey; ?>" // Enter the Test API Key ID generated from Dashboard → Settings → API Keys
-    data-amount="<?php echo $grand_total  * 100;?>" // Amount is in currency subunits. Hence, 29935 refers to 29935 paise or ₹299.35.
-    data-currency="INR"// You can accept international payments by changing the currency code. Contact our Support Team to enable International for your account
-    data-id="order_CgmcjRh9ti2lP7"// Replace with the order_id generated by you in the backend.
-    data-buttontext="Pay Now"
-    data-name="Fragrance IND"
-    data-description="Everything’s better with a bit of fragrance."
-    data-image="https://st4.depositphotos.com/31445094/41249/v/1600/depositphotos_412499652-stock-illustration-perfume-icon-design-template-isolated.jpg"
-    data-prefill.name="Minu Joe"
-    data-prefill.email=""
-    data-theme.color="#F37254"
-    
-></script>
-<button type="submit" id="payment" class="btn btn-primary" value="Pay Now">Pay Now</button>
-</form>
-<!--gateway end-->
-
-<style>
-    .razorpay-payment-button{
-        background-color: #fff;
-        color: white;
-        font-size: 18px;padding: 8px 10px;font-weight: bold;
-        border-radius: 12px; border: none;text-align: center; 
-    }
-</style>
     </body>
 </html>
   
@@ -335,3 +305,16 @@ window.onload = function () {
         })
 }
 </script>
+<?php
+if(isset($_POST['payment']))
+{
+ $bill = $_POST['bill_id'];
+ $amount = $_POST['amount'];
+ $transaction = md5(rand());
+ $sql2 = mysqli_query($conn, "INSERT INTO bills_paid (bill_id, booking_id, service_type, transaction_id, amount) VALUES ($bill, $id, 'Service Center', '$transaction', $amount)");
+ if($sql2)
+ {
+    header("location:cbookingdetails.php");
+ }
+}
+?>

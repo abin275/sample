@@ -166,10 +166,38 @@ completed";
                             </button>
                             </td>
                             <td>
-                            
-                              <a href="../sidebar-01/bill.php?id=<?php echo $rows['booking_id'];?>"><button name="booking_id" value="" >Bill </button></a>
+                              <?php
+                            if($rows['status']=="2") 
+                            {
+                              $booking = $rows['booking_id'];
+                              $sq = "SELECT * FROM booking b, bill_services s where s.booking_id = b.booking_id and b.booking_id = $booking";
+                              $result = $conn-> query($sq);
+                              if ($result-> num_rows > 0){
+                              $sql = "SELECT * FROM booking b, bills_paid p where b.booking_id = p.booking_id and b.booking_id = $booking";
+                              $result = $conn-> query($sql);
+                              if ($result-> num_rows <= 0){
+                              ?>
+                                <span class='badge_active'>Bill Generated</span>
+                            <?php
+                              }
+                             else
+                             {
+                                 echo "<span class='badge_active'>Paid</span>"; 
+                             }
+                            }
+                            else
+                            {
+                              ?>
+                              <a href="../sidebar-01/bill.php?id=<?php echo $rows['booking_id'];?>"><button name="booking_id" value="" > Generate Bill</button></a>
+                              <?php
+                            }
+                            ?>
+                              
                               <!-- <a href="../sidebar-01/bill.php" class="btn btn-danger">bill</a> -->
                            <!--  <button class="btn btn-danger"  name="bill" style="height:40px">bill</button> --> 
+                           <?php
+                           }
+                           ?>
 </td>
 </tr>
 

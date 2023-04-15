@@ -384,7 +384,7 @@ Check Out
 </tr>
 
 <?php
-                        $sql1="SELECT * from tbl_accessories,tblcart where tblcart.accessories_id=tbl_accessories.accessories_id and user_id='$uid' and tblcart.is_checked_out=0";
+                        $sql1="SELECT * from tbl_accessories,tblcart where tblcart.accessories_id=tbl_accessories.accessories_id and tblcart.user_id='$uid' and tblcart.is_checked_out=0";
                        
                         $res = $conn-> query($sql1);
                         if ($res-> num_rows > 0){
@@ -412,7 +412,7 @@ Check Out
                                         </div>
                                     </td>
                                      -->
-                                     <form action="" method="POST">
+                                     <form action=" " method="POST" enctype="multipart/form-data">
                                      <td class="column-4">
                
                   <input type="hidden" name="cart_id" value="<?php echo $row1['cart_id']; ?>">
@@ -422,7 +422,7 @@ Check Out
             </td>
                                     
                                     
-                                    <td><button type="submit" name="update-cart" value="update" class="option-btn">Update</button></td>
+                                    <td><button type="submit" name="update" class="option-btn">Update</button></td>
                                     </form>
                                     <td class="column-5"><a href="cart.php?rementry=<?php echo $row1['cart_id'];?>">
                                     <button type="button" id="button1" onClick="window.location.reload()" class="btn btn-outline-dark btn-sm">Remove</button></a></td>
@@ -535,28 +535,21 @@ Proceed to Checkout
 </div>
 </div>
 </div>
-</form>
+
 
 <!-- Footer -->
 
 
 
 <?php
-if(isset($_POST['update-cart']))
+if(isset($_POST['update']))
 {
     $entry = $_POST['cart_id'];
-    $sl="select price from tblcart where cart_id=$entry";
-    $result1 = $conn-> query($sl);
-    if ($result1-> num_rows > 0){
-    while($row = $result1-> fetch_assoc()){ 
-        $price=$row['price'];
-    $p_quantity=$_POST['quantity'];
-     
-    $update="UPDATE tblcart set quantity= $p_quantity where cart_id=$entry";
+    $p_quantity = $_POST['quantity'];
+    $update = "UPDATE tblcart SET quantity = $p_quantity WHERE cart_id = '$entry'";
         mysqli_query($conn,$update);      
 }
-}
-}
+
 
 if(isset($_GET['rementry']))
 {

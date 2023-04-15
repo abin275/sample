@@ -228,9 +228,18 @@ while($rows=mysqli_fetch_array($sql1)) {
                 else
                 {
                  echo "COMPLETED<br><br>";
-                
+                 $booking = $rows['booking_id'];
+                 $sql = "SELECT * FROM booking b, bills_paid p where b.booking_id = p.booking_id and b.booking_id = $booking";
+                 $result = $conn-> query($sql);
+                 if ($result-> num_rows <= 0){
+                 
                  echo "<span class='badge_active'><a href='../sidebar-01/bill2.php?booking_id=".$rows['booking_id']." '>Bill</a></span>";
                 }
+                else
+                {
+                    echo "<span class='badge_active'>Paid</span>"; 
+                }
+            }
                 ?>
                             </td>
           

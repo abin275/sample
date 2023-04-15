@@ -39,4 +39,16 @@ else
     echo "Error deleting record"; // display error message if not delete
     
 }
+
+if(isset($_POST['submit']))
+{
+ $bill = $_POST['bill_id'];
+ $amount = $_POST['amount'];
+ $transaction = md5(rand());
+ $sql2 = mysqli_query($conn, "INSERT INTO bills_paid (bill_id, booking_id, service_type, transaction_id, amount) VALUES ($bill, $id, 'Service Center', '$transaction', $amount)");
+ if($sql2)
+ {
+    header("location:cbookingdetails.php");
+ }
+}
 ?>

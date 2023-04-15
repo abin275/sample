@@ -60,6 +60,7 @@ if(isset($_POST['submit'])){
   $service=$_POST['service'];
   $type_of_services=$_POST['type_of_services'];
   $total=$_POST['total'];
+  
   // $date=$_POST['date'];
 
 
@@ -69,7 +70,7 @@ if(isset($_POST['submit'])){
 }else{
     // move_uploaded_file($temp_image1,"./images/$product_image1");
 }
-$insert_products="INSERT INTO bill_services(`outlet`, `customer_id`, `bike_number`, `phone`, `type_of_bike`, `service`, `type_of_services`, `total`) 
+$insert_products="INSERT INTO bill_services(`outlet`, `booking_id`, `bike_number`, `phone`, `type_of_bike`, `service`, `type_of_services`, `total`) 
 VALUES ('$outlet','$customer_id', '$bike_number', '$phone', '$type_of_bike','$service','$type_of_services', '$total')";
 
     $result_query=mysqli_query($conn,$insert_products);
@@ -105,7 +106,7 @@ if($rows=mysqli_fetch_array($query1))
 }}
     
 
-$query=mysqli_query($conn,"SELECT b.status as status, b.name as name, b.bike_cc as bike_cc, b.bike_name as bike_name, b.type_of_bike as type_of_bike, b.title as title, b.email as email, b.time as time, b.check_in as check_in, b.phone as phone,b.rc as rc, b.bike_number as bike_number, b.bike_cc as bike_cc, b.type_of_service as type_of_service from booking b, tbloutlet ou where b.outlet=ou.address and b.booking_id = $id and b.outlet =  '".$_SESSION['ad']."'");
+$query=mysqli_query($conn,"SELECT b.status as status,b.booking_id as booking_id, b.name as name, b.bike_cc as bike_cc, b.bike_name as bike_name, b.type_of_bike as type_of_bike, b.title as title, b.email as email, b.time as time, b.check_in as check_in, b.phone as phone,b.rc as rc, b.bike_number as bike_number, b.bike_cc as bike_cc, b.type_of_service as type_of_service from booking b, tbloutlet ou where b.outlet=ou.address and b.booking_id = $id and b.outlet =  '".$_SESSION['ad']."'");
 $query2=mysqli_fetch_assoc($query)
 
 
@@ -192,6 +193,7 @@ $query2=mysqli_fetch_assoc($query)
               <td>Customer name</td>
               <td><i class="fas fa-dollar-sign"></i> 
               <input  type= "hidden" class="form-control" style="width: 300px;" name="customer_id" value=" <?php echo $id;?>"> 
+              <input  type= "hidden" class="form-control" style="width: 300px;" name="book_id" value=" <?php echo $query2['booking_id'];?>"> 
 
               <input type= "text"  name="customer_name"class="form-control" style="width: 300px;" value=" <?php echo $query2['name'];?>" placeholder="Enter Customer name "> 
              
