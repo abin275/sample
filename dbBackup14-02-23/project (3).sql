@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 14, 2023 at 11:50 AM
--- Server version: 10.4.21-MariaDB
--- PHP Version: 8.0.12
+-- Generation Time: Apr 15, 2023 at 06:29 PM
+-- Server version: 10.4.25-MariaDB
+-- PHP Version: 8.1.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,15 +24,90 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `address`
+--
+
+CREATE TABLE `address` (
+  `customer_id` int(11) NOT NULL,
+  `pincode` varchar(6) NOT NULL,
+  `housename` varchar(20) NOT NULL,
+  `city` varchar(20) NOT NULL,
+  `district` varchar(20) NOT NULL,
+  `login_id` int(11) NOT NULL,
+  `locality` varchar(44) NOT NULL,
+  `postoffice` varchar(44) NOT NULL,
+  `state` varchar(22) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bills_paid`
+--
+
+CREATE TABLE `bills_paid` (
+  `payment_id` int(20) NOT NULL,
+  `bill_id` int(20) NOT NULL,
+  `booking_id` int(20) NOT NULL,
+  `service_type` varchar(30) NOT NULL,
+  `transaction_id` varchar(30) NOT NULL,
+  `amount` int(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `bills_paid`
+--
+
+INSERT INTO `bills_paid` (`payment_id`, `bill_id`, `booking_id`, `service_type`, `transaction_id`, `amount`) VALUES
+(3, 6, 35, 'Service Center', '8e4d48f4df478a61d5b8bde089bb0f', 2000),
+(4, 9, 38, 'Service Center', '326145ce347ed080086fa48e0461ad', 300),
+(5, 9, 38, 'Service Center', '75a06a2540f6f3663672ac18687d02', 300),
+(6, 9, 38, 'Service Center', 'be79529e5141bb5e32249b5ae0e06a', 300),
+(7, 9, 38, 'Service Center', '6318f7c9f6fe72b99f20f4aac1789c', 300);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bill_services`
+--
+
+CREATE TABLE `bill_services` (
+  `bill_id` int(20) NOT NULL,
+  `outlet` varchar(20) NOT NULL,
+  `booking_id` int(50) NOT NULL,
+  `bike_number` varchar(50) NOT NULL,
+  `phone` varchar(20) NOT NULL,
+  `type_of_bike` varchar(200) NOT NULL,
+  `service` varchar(200) NOT NULL,
+  `type_of_services` varchar(200) NOT NULL,
+  `total` varchar(50) NOT NULL,
+  `date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `bill_services`
+--
+
+INSERT INTO `bill_services` (`bill_id`, `outlet`, `booking_id`, `bike_number`, `phone`, `type_of_bike`, `service`, `type_of_services`, `total`, `date`) VALUES
+(6, 'bikehub', 35, ' crux', ' 7890765489', ' ORDINORY BIKE', 'SERVICE CENTER OUTLET', ' ORDINORY SERVICES', '2000', '2023-04-12 06:24:41'),
+(7, 'bikehub', 29, ' bmw', ' 9656784386', ' SUPER BIKE', 'DOOR STEP SERVICES', ' TOURING SET UP', '777', '2023-04-12 13:28:37'),
+(8, 'bikehub', 35, ' crux', ' 7890765489', ' ORDINORY BIKE', 'SERVICE CENTER OUTLET', ' ORDINORY SERVICES', '2', '2023-04-12 05:13:01'),
+(9, 'bikehub', 38, ' ninja 1000 rr', ' 9089090911', ' SUPER BIKE', 'SERVICE CENTER OUTLET', ' MODIFICATION', '300', '2023-04-12 13:11:15');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `booking`
 --
 
 CREATE TABLE `booking` (
   `booking_id` int(50) NOT NULL,
+  `login_id` int(20) NOT NULL,
   `title` varchar(50) NOT NULL,
   `name` varchar(50) NOT NULL,
   `email` varchar(50) NOT NULL,
-  `phone` int(50) NOT NULL,
+  `phone` varchar(50) NOT NULL,
+  `outlet` varchar(50) NOT NULL,
   `type_of_bike` varchar(50) NOT NULL,
   `bike_name` varchar(50) NOT NULL,
   `bike_number` varchar(50) NOT NULL,
@@ -41,7 +116,8 @@ CREATE TABLE `booking` (
   `check_in` varchar(50) NOT NULL,
   `time` timestamp(6) NOT NULL DEFAULT current_timestamp(6) ON UPDATE current_timestamp(6),
   `rc` varchar(100) NOT NULL,
-  `bike_pic` varchar(100) NOT NULL,
+  `longitude` varchar(300) NOT NULL,
+  `latitude` varchar(300) NOT NULL,
   `status` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -49,10 +125,86 @@ CREATE TABLE `booking` (
 -- Dumping data for table `booking`
 --
 
-INSERT INTO `booking` (`booking_id`, `title`, `name`, `email`, `phone`, `type_of_bike`, `bike_name`, `bike_number`, `bike_cc`, `type_of_service`, `check_in`, `time`, `rc`, `bike_pic`, `status`) VALUES
-(11, 'Mr.', 'jocky', 'jocky@gmail.com', 2147483647, 'ORDINORY BIKE', 'splinder', 'kl 04 a 456', 1000, 'ORDINORY SERVICES', '2022-10-11', '2022-11-01 07:22:06.154390', 'rc (1).jpg', 'download.jpg', '1'),
-(22, 'Miss.', 'leo', 'leo@gmail.com', 2147483647, 'OFF-ROAD BIKE', 'himalayan', 'kl 11 s 312', 400, 'TOURING SET UP', '2022-10-25', '2022-11-01 07:15:35.612466', 'uploads/1666975749.jpg', 'uploads/1666975749.jpg', '1'),
-(25, 'Miss.', 'abc', 'jose@gmail.com', 2147483647, 'ORDINORY BIKE', 'bmw', 'kl 03 g 77', 400, 'ENGINE SERVICE', '2022-02-02', '2022-11-02 10:43:46.157827', 'uploads/1667385826.jpg', 'uploads/1667385826.jpg', '0');
+INSERT INTO `booking` (`booking_id`, `login_id`, `title`, `name`, `email`, `phone`, `outlet`, `type_of_bike`, `bike_name`, `bike_number`, `bike_cc`, `type_of_service`, `check_in`, `time`, `rc`, `longitude`, `latitude`, `status`) VALUES
+(29, 262, 'Miss.', 'aswathi', 'aswathi@gmail.com', '9656784386', 'kanjirappally', 'SUPER BIKE', 'bmw', 'kl 05 e 331', 1000, 'TOURING SET UP', '2023-03-02', '2023-04-04 09:11:14.109734', 'uploads/1677684390.jpg', '', '', '2'),
+(30, 261, 'Mr.', 'ram', 'ram@gmail.com', '8909876567', 'kottyam', 'ORDINORY BIKE', 'splinder', 'kl 04 a 456', 100, 'ENGINE SERVICE', '2023-03-03', '2023-04-01 07:22:09.500603', 'uploads/1677684654.jpg', '', '', '2'),
+(31, 260, 'Prof.', 'aby', 'aby@gmail.com', '9223467080', 'pathanamthitta', 'TOURING BIKE', 'himalayan', 'kl 03 g 77', 400, 'TOURING SET UP', '2023-03-08', '2023-04-04 06:33:17.954666', 'uploads/1677684809.jpg', '', '', '2'),
+(34, 261, 'Mr.', 'sagar', 'sagar@gmail.com', '898856701', 'kottyam', 'OFF-ROAD BIKE', 'african twin', 'kl 07 e 003', 1000, 'OFF-ROAD SET UP', '2023-03-11', '2023-04-01 07:34:45.714227', 'uploads/1678343838.jpg', '', '', '1'),
+(35, 262, 'Mr.', 'shino', 'shino@gmail.com', '7890765489', 'kanjirappally', 'ORDINORY BIKE', 'crux', 'kl 09 g 97', 110, 'ORDINORY SERVICES', '2023-03-16', '2023-04-04 07:15:01.516484', 'uploads/1678356980.jpg', '', '', '2'),
+(38, 262, 'Miss.', 'shaa', 'sha@gmail.com', '9089090911', 'kanjirappally', 'SUPER BIKE', 'ninja 1000 rr', 'kl 05 V 0077', 1000, 'MODIFICATION', '2023-03-17', '2023-04-12 06:30:03.127193', 'uploads/1678361129.jpg', '', '', '2'),
+(40, 260, 'Dr.', 'sabu', 'sabu@gmail.com', '9994567899', 'pathanamthitta', 'TOURING BIKE', 'ktm adv', 'kl 03 g 999', 350, 'TOURING SET UP', '2023-03-24', '2023-03-31 09:46:45.511484', 'uploads/1678426860.jpg', '', '', '2');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `doorstep_booking`
+--
+
+CREATE TABLE `doorstep_booking` (
+  `d_id` int(20) NOT NULL,
+  `title` varchar(20) NOT NULL,
+  `name` varchar(20) NOT NULL,
+  `address` varchar(50) NOT NULL,
+  `location` varchar(50) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `phone` varchar(20) NOT NULL,
+  `outlet` varchar(50) NOT NULL,
+  `type_of_bike` varchar(50) NOT NULL,
+  `bike_name` varchar(50) NOT NULL,
+  `bike_number` varchar(50) NOT NULL,
+  `bike_cc` varchar(20) NOT NULL,
+  `type_of_service` varchar(50) NOT NULL,
+  `check_in` varchar(50) NOT NULL,
+  `time` timestamp(6) NOT NULL DEFAULT current_timestamp(6) ON UPDATE current_timestamp(6),
+  `rc` varchar(50) NOT NULL,
+  `immidate` varchar(50) NOT NULL,
+  `status` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `doorstep_booking`
+--
+
+INSERT INTO `doorstep_booking` (`d_id`, `title`, `name`, `address`, `location`, `email`, `phone`, `outlet`, `type_of_bike`, `bike_name`, `bike_number`, `bike_cc`, `type_of_service`, `check_in`, `time`, `rc`, `immidate`, `status`) VALUES
+(5, 'Dr.', 'rahul', 'kottyam skyline appartment ', 'kottyam near sree temple', 'rahul@gmail.com', '9808897067', 'kottyam', 'ORDINORY BIKE', 'bullect', 'kl 05 e 331', '350', 'NOT STARTING', '2023-03-02', '2023-03-09 06:05:18.891568', 'uploads/1677685378.jpg', 'yes', '0'),
+(6, 'Mrs.', 'jyothi', 'heaven po kotyam', 'near kotyam grammapanjyath', 'jy@gmail.com', '8790908121', 'kottyam', 'ORDINORY BIKE', 'himalayan', 'kl 05 w 001', '400', 'NOT STARTING', '2023-03-02', '2023-03-09 06:05:31.347747', 'uploads/1677685502.jpg', 'yes', '1');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `jobers`
+--
+
+CREATE TABLE `jobers` (
+  `jobers_id` int(20) NOT NULL,
+  `jober_name` varchar(50) NOT NULL,
+  `jober_address` varchar(50) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `jober_phone` int(20) NOT NULL,
+  `birth` varchar(20) NOT NULL,
+  `experience` varchar(50) NOT NULL,
+  `education` varchar(50) NOT NULL,
+  `date` timestamp(6) NOT NULL DEFAULT current_timestamp(6) ON UPDATE current_timestamp(6),
+  `cv` varchar(250) NOT NULL,
+  `status` int(20) NOT NULL,
+  `job_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `jobers`
+--
+
+INSERT INTO `jobers` (`jobers_id`, `jober_name`, `jober_address`, `email`, `jober_phone`, `birth`, `experience`, `education`, `date`, `cv`, `status`, `job_id`) VALUES
+(10, 'shaa', 'address', 'admin@gmail.com', 1234567890, '15-11-2002', 'yes', 'mechanical enginnering', '2023-04-01 05:10:56.529675', 'uploads/1680064856.pdf', 1, 2),
+(11, 'gfdhthtfhb', 'address', 'jose@gmail.com', 1234567891, '15-11-2002', 'yes', 'tenth', '2023-04-01 06:18:36.495799', 'uploads/1680329916.pdf', 0, 1),
+(12, 'gfdhthtfhb', 'address', 'jose@gmail.com', 1234567891, '15-11-2002', 'yes', 'tenth', '2023-04-01 06:24:16.025364', 'uploads/1680330256.pdf', 0, 1),
+(13, 'dffdgd', 'address', 'jose@gmail.com', 1234567890, '20-04-2000', 'no', 'tenth', '2023-04-01 06:24:48.381418', 'uploads/1680330288.pdf', 0, 1),
+(14, 'dffdgd', 'address', 'jose@gmail.com', 1234567890, '20-04-2000', 'no', 'tenth', '2023-04-01 06:28:00.720319', 'uploads/1680330481.pdf', 0, 1),
+(15, 'abin', 'address', 'admin@gmail.com', 2147483647, '15-11-2002', 'no', 'mechanical enginnering', '2023-04-01 06:28:25.149616', 'uploads/1680330505.pdf', 0, 1),
+(16, 'abin', 'address', 'admin@gmail.com', 2147483647, '15-11-2002', 'no', 'mechanical enginnering', '2023-04-01 06:35:14.193716', 'uploads/1680330914.pdf', 0, 1),
+(17, 'gggh', 'address', 'god@gmail.com', 2147483647, '20-04-2000', 'yes', 'mechanical enginnering', '2023-04-01 06:35:58.789622', 'uploads/1680330959.pdf', 0, 1),
+(18, 'abin', 'address', 'admin@gmail.com', 1234567890, '15-11-2002', 'no', 'mechanical enginnering', '2023-04-03 08:53:58.563771', 'uploads/1680512039.pdf', 0, 1),
+(19, 'abin', 'address', 'omkv12345@gmail.com', 2147483647, '20-04-2000', 'yes', 'mechanical enginnering', '2023-04-03 09:16:45.930497', 'uploads/1680513406.pdf', 0, 2);
 
 -- --------------------------------------------------------
 
@@ -70,9 +222,23 @@ CREATE TABLE `orders` (
   `customer_address` varchar(250) DEFAULT NULL,
   `payment_mode` tinyint(4) NOT NULL DEFAULT 1 COMMENT '1 = Cash on Delivery',
   `total_amount` decimal(10,2) NOT NULL DEFAULT 0.00,
-  `order_status` tinyint(4) NOT NULL DEFAULT 1 COMMENT 'pending',
-  `stat` tinyint(4) NOT NULL
+  `order_status` tinyint(4) NOT NULL DEFAULT 1 COMMENT 'pending'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`id`, `user_id`, `order_date`, `customer_name`, `customer_email`, `customer_phone`, `customer_address`, `payment_mode`, `total_amount`, `order_status`) VALUES
+(5, 1225, '2023-03-05 07:03:44', 'abyjose', 'jose@gmail.com', '1234567899', 'qwertyuiop', 1, '3366.00', 0),
+(8, 1252, '2023-03-07 08:18:28', 'god', 'god@gmail.com', '9876567577', 'god at heaven', 1, '1850.00', 0),
+(9, 1248, '2023-03-13 09:54:29', 'shino', 'shino@gmail.com', '9854372371', 'karnadaka', 1, '460.00', 0),
+(10, 1248, '2023-03-13 10:41:35', 'shino', 'shino@gmail.com', '9854372371', 'karnadaka', 1, '350.00', 0),
+(15, 1252, '2023-03-13 17:17:24', 'god', 'god@gmail.com', '9876567577', 'god at heaven', 1, '2294.00', 0),
+(16, 1248, '2023-03-16 08:32:37', 'shino', 'shino@gmail.com', '9854372371', 'karnadaka', 1, '944.00', 0),
+(17, 1254, '2023-03-29 12:54:05', 'geya', 'geya@gmail.com', '9207459933', 'mavelimattam h', 1, '460.00', 0),
+(18, 1248, '2023-04-01 12:40:29', 'shino', 'shino@gmail.com', '9854372371', 'karnadaka', 1, '444.00', 0),
+(19, 1254, '2023-04-12 13:02:17', 'geya', 'geya@gmail.com', '9207459933', 'mavelimattam h', 1, '444.00', 0);
 
 -- --------------------------------------------------------
 
@@ -88,6 +254,25 @@ CREATE TABLE `order_items` (
   `price` decimal(10,2) NOT NULL DEFAULT 0.00,
   `total_price` decimal(10,2) NOT NULL DEFAULT 0.00
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `order_items`
+--
+
+INSERT INTO `order_items` (`id`, `order_id`, `product_id`, `quantity`, `price`, `total_price`) VALUES
+(14, 5, 1158, '1.00', '350.00', '350.00'),
+(17, 8, 1159, '1.00', '500.00', '500.00'),
+(18, 8, 1162, '1.00', '350.00', '350.00'),
+(20, 9, 1161, '1.00', '460.00', '460.00'),
+(21, 10, 1162, '1.00', '350.00', '350.00'),
+(23, 15, 1159, '1.00', '500.00', '500.00'),
+(24, 15, 1162, '1.00', '350.00', '350.00'),
+(26, 15, 1155, '1.00', '444.00', '444.00'),
+(27, 16, 1159, '1.00', '500.00', '500.00'),
+(28, 16, 1155, '1.00', '444.00', '444.00'),
+(29, 17, 1161, '1.00', '460.00', '460.00'),
+(30, 18, 1155, '1.00', '444.00', '444.00'),
+(31, 19, 1155, '1.00', '444.00', '444.00');
 
 -- --------------------------------------------------------
 
@@ -113,19 +298,23 @@ CREATE TABLE `tblcart` (
   `cart_id` int(20) NOT NULL,
   `accessories_id` int(20) NOT NULL,
   `user_id` varchar(20) NOT NULL,
-  `quantity` int(20) NOT NULL
+  `quantity` int(20) NOT NULL,
+  `price` int(20) NOT NULL,
+  `is_checked_out` int(5) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tblcart`
 --
 
-INSERT INTO `tblcart` (`cart_id`, `accessories_id`, `user_id`, `quantity`) VALUES
-(7, 1145, 'admin@gmail.com', 1),
-(8, 1146, 'jose@gmail.com', 1),
-(9, 1147, '', 1),
-(11, 1149, '', 1),
-(12, 1151, '', 1);
+INSERT INTO `tblcart` (`cart_id`, `accessories_id`, `user_id`, `quantity`, `price`, `is_checked_out`) VALUES
+(61, 1159, 'god@gmail.com', 1, 500, 1),
+(62, 1162, 'god@gmail.com', 1, 350, 1),
+(63, 1160, 'god@gmail.com', 1, 1000, 1),
+(66, 1155, 'god@gmail.com', 1, 444, 1),
+(81, 1155, 'shino@gmail.com', 1, 444, 1),
+(82, 1156, 'shino@gmail.com', 1, 350, 0),
+(88, 1155, 'geya@gmail.com', 1, 444, 1);
 
 -- --------------------------------------------------------
 
@@ -139,17 +328,20 @@ CREATE TABLE `tbloutlet` (
   `address` varchar(50) NOT NULL,
   `city_location` varchar(200) NOT NULL,
   `phone` varchar(20) NOT NULL,
-  `image` varchar(200) NOT NULL
+  `image` varchar(200) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tbloutlet`
 --
 
-INSERT INTO `tbloutlet` (`outlet_id`, `name`, `address`, `city_location`, `phone`, `image`) VALUES
-(3, ' kottayam bikes', 'kottayam bikes kottayam', 'near private bus stand ', '5435464652', '../uploads/9.jpg'),
-(4, ' erumely automobiles', 'erumely po erumely', 'near erumely temble', '6646774356', '../uploads/6.jpg'),
-(5, ' pathanamthitta bike hub', 'pathanamthitta po', ' near private bus stand road', '9535794171', '../uploads/');
+INSERT INTO `tbloutlet` (`outlet_id`, `name`, `address`, `city_location`, `phone`, `image`, `email`, `password`) VALUES
+(13, 'bikehub', 'kanjirappally', 'near private bus stand ', '9076898070', '../uploads/', 'bikehub@gmail.com', 'c234166ffe669c5f8d0966e1c262f1d7'),
+(14, 'bikers', 'kottyam ', 'old harbor', '8987657887', '../uploads/', 'bikers@gmail.com', '2a09790efaff5dd082b9b0c0d5ed40bd'),
+(15, 'bikeworld', 'pathanamthitta ', 'near muncipal-cooperation', '9876578900', '../uploads/', 'bikeworld@gmail.com', 'ade9dd3688766459f288aab82a0e5fb7'),
+(16, 'riders', 'ernakulam', 'near private bus stand ', '9123009879', '../uploads/1.jpeg', 'riders@gmail.com', '9b420bdde119988cb2c2bcb3cb8b08db');
 
 -- --------------------------------------------------------
 
@@ -164,7 +356,7 @@ CREATE TABLE `tbluser_registration` (
   `phone` varchar(13) NOT NULL,
   `address` varchar(50) NOT NULL,
   `email` varchar(20) NOT NULL,
-  `password` varchar(20) NOT NULL,
+  `password` varchar(250) NOT NULL,
   `role` varchar(20) NOT NULL,
   `status` int(20) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -174,18 +366,11 @@ CREATE TABLE `tbluser_registration` (
 --
 
 INSERT INTO `tbluser_registration` (`registration_id`, `name`, `gender`, `phone`, `address`, `email`, `password`, `role`, `status`) VALUES
-(1206, 'aby', 'male', '1234567891', 'vadassery', 'aby@mca.ajce.in', '123', 'customer', 1),
-(1207, 'sherwin', 'male', '2147483647', 'puthettuputhuparambil', 'sherwin@gmail.com', '1234', 'customer', 1),
-(1215, 'abinmon bousally', 'male', '1234567890', 'qwertyuiop', 'abinmonbousally@gmai', '11111', 'customer', 1),
-(1225, 'abyjose', 'male', '1234567899', 'qwertyuiop', 'jose@gmail.com', 'zzz', 'customer', 0),
-(1230, 'admin', 'male', '1234567891', 'admin', 'admin@gmail.com', '111', 'admin', 0),
-(1235, 'Korangan', 'male', '1234567890', 'korangan', 'korangan@gmail', '123', 'customer', 1),
-(1236, 'leo', 'other', '2147483647', 'kadamkannunnal', 'leo@gmail.com', 'leo', 'customer', 0),
-(1238, 'jeril k joly', 'other', '9999999999', 'qwertyuiopert', 'jeril@gmail.com', 'jeril', 'customer', 0),
-(1239, 'milan rj', 'male', '9847648131', 'asdfghjkllkjhgfdsa', 'milan@gmail.com', 'milan', 'customer', 0),
-(1240, 'anu john', 'female', '9495822439', 'abcdefghijklmnop', 'anu@gmail.com', 'Anu@123', 'customer', 0),
-(1247, 'jerin', 'male', '1234567890', 'kavungal', 'jerin@gmail.com', '1234567890', 'customer', 0),
-(1248, 'shino', 'male', '9854372371', 'karnadaka', 'shino@gmail.com', 'shino', 'customer', 0);
+(1225, 'abyjose', 'male', '9095466783', 'vadashari (H)', 'jose@gmail.com', 'db0aaca49f19e0a5856169a727c5e480', 'customer', 0),
+(1230, 'admin', 'male', '9112367904', 'admin', 'admin@gmail.com', '698d51a19d8a121ce581499d7b701668', 'admin', 1),
+(1248, 'shino', 'male', '9854372371', 'karnadaka', 'shino@gmail.com', '8899525b8f602633d780411d3ec97be2', 'customer', 0),
+(1252, 'god', 'male', '9876567577', 'god at heaven', 'god@gmail.com', 'd6300ccbe743fcc2ee43c5c3613fd743', 'customer', 0),
+(1254, 'geya', 'female', '9207459933', 'mavelimattam h', 'geya@gmail.com', '45968aca330161d0a61c9f647cc4d887', 'customer', 0);
 
 -- --------------------------------------------------------
 
@@ -216,14 +401,14 @@ CREATE TABLE `tbl_accessories` (
 --
 
 INSERT INTO `tbl_accessories` (`accessories_id`, `category_id`, `name`, `size`, `description`, `price`, `specification`, `company`, `second_id`, `color`, `date`, `quantity`, `year`, `month`, `image`) VALUES
-(1145, 1, ' oil', '900ml', 'loose', '350', 'Full-Synthetic Engine Oil For Bikes\r\nSuitable For: 4 Stroke Engine\r\nVehicle Brand - Universal For Bike\r\nVehicle Model Name - Universal For Bike\r\nPerformance Levels - High speed\r\nOther Features - Synthetic Base Engine Oil', 'uk', 1, 'gold\r\n', '2021/01/04', '3', '2020', 'january', '../uploads/j.jpg'),
-(1146, 2, ' headlight', 'L', 'short and long visible', '600', 'Light Bulb Included- LED Light\r\nVehicle Model Name - bikes with round head\r\nHigh Beam, Low Beam\r\nInstallation Position: Right, Center, Left\r\nHousing Color: Black\r\n', 'chat', 3, 'black', '2021/08/20', '11', '2020', 'march', '../uploads/2.jpg'),
-(1147, 3, ' jacket', 'XL', 'good', '5000', 'Riding Protective Jacket\r\nProtective Features: Back Support Pad, Padded Elbows, Shoulder Pads\r\nFabric: MaxTec 600-D and High Tenacity Mesh Fabric\r\nForMen and Women\r\n2 Waterproof Pockets, Double Stitch for Durability, \r\nNeoprene Collar and Cuff, Girth', 'chathenthara', 7, 'black', '2022/03/15', '8', '2021', 'january', '../uploads/8.jpg'),
-(1149, 3, ' gloves', 'L', 'strong & waterproof', '350', 'Bike Riding Gloves\r\nFull Fingered - Yes\r\nWith Touch Screen Sensitivity at Thumb\r\nLeft and Right Gloves\r\nFor Men & Women\r\nWeight: 150 g\r\nMaterial: 100% polyester', 'uk', 9, 'brown', '2023/02/13', '1', '2022', 'april', '7.jpg'),
-(1150, 2, ' fog light', 'medium', 'bright', '500', 'fog light Shape - Square\r\nHigh Beam\r\nInstallation Position: Right, Center, Left\r\nLight Bulb Included & LED Light\r\nHousing Color: Black\r\nVehicle Brand - Universal For Bike, Universal For Car\r\nLight Color - White\r\nPower Consumption- 96 W', 'canada', 6, 'black', '2023/02/13', '10', '2022', 'april', '1.jpg'),
-(1151, 2, ' fog light', 'medium', 'bright', '500', 'fog light Shape - Square\r\nHigh Beam\r\nInstallation Position: Right, Center, Left\r\nLight Bulb Included & LED Light\r\nHousing Color: Black\r\nVehicle Brand - Universal For Bike, Universal For Car\r\nLight Color - White\r\nPower Consumption- 96 W', 'canada', 6, 'black', '2023/02/13', '15', '2022', 'may', '1.jpg'),
-(1152, 3, ' helmet', 'XL', 'hard fiber', '3000', 'OFF ROAD Motorsports Helmet\r\nSport Type- Off Road Motorsports\r\nWashable Interior\r\nStraps - Yes\r\nAdjustments - Rear Mounted, Traction Plates on,\r\nSides for Goggle Strap Retention\r\n', 'india limited', 8, 'black', '2023/02/13', '12', '2022', 'may', '11.jpg'),
-(1153, 1, ' oil', '1 liter', 'engine oil', '320', 'High Performance Engine Oil For Bike\r\nSuitable For: 4 Stroke Engine\r\nViscosity Index - 20W-40\r\nPerformance Levels - High speed, Premium 4-Stroke Motorcycle Oil', 'kerala po', 1, 'red', '2023/02/13', '9', '2023', 'may', '13.jpg');
+(1155, 3, ' Helmet', 'L', 'Strong', '444', 'OFF ROAD Motorsports Helmet\r\nSport Type- Off Road Motorsports\r\nWashable Interior\r\nStraps - Yes\r\nAdjustments - Rear Mounted, Traction Plates on,\r\nSides for Goggle Strap Retention\r\n', 'Chatanthara', 8, 'black', '2023/02/17', '1', '2022', 'July', '12.jpg'),
+(1156, 1, ' Oil', '1 liter', 'Milage', '350', 'Full-Synthetic Engine Oil For Bikes\r\nSuitable For: 4 Stroke Engine\r\nVehicle Model Name - Universal For Bike\r\nPerformance Levels - High speed', 'Mundakayam', 1, 'gold\r\n', '2023/02/17', '7', '2023', 'April', '13.jpg'),
+(1159, 1, ' Engine oil', '1 liter', 'hard', '500', 'High Performance Engine Oil For Bike\r\nSuitable For: 4 Stroke Engine\r\nViscosity Index - 20W-40\r\nPerformance Levels - High speed, Premium 4-Stroke Motorcycle Oil', 'india', 1, 'black', '2023/03/06', '0', '2023', 'January', '162.jfif'),
+(1160, 2, ' headlight', 'medium', 'round', '1000', 'Light Bulb Included- LED Light\r\nVehicle Model Name - bikes with round head\r\nHigh Beam, Low Beam\r\nHousing Color: Black\r\n', 'karnadaka po', 3, 'black', '2023/03/07', '8', '2023', 'april', '107.jfif'),
+(1161, 2, ' fog light', 'large', 'high beem', '460', 'fog light Shape - Square\r\nHigh Beam\r\nInstallation Position: Right, Center, Left\r\nLight Bulb Included & LED Light\r\nHousing Color: Black\r\nVehicle Brand - Universal For Bike, Universal For Car\r\nLight Color - White\r\nPower Consumption- 96 W', 'tamil nadu , kottat village', 4, 'black', '2023/03/07', '2', '2023', 'july', '101.jfif'),
+(1162, 2, ' fog light for bike', 'medium', 'round', '350', 'Fog light Shape - Round\r\nLight Bulb Included & LED Light\r\nInstallation Position: Left, Right\r\nSales Package - 2 pcs fog lamps\r\nVehicle Brand - Universal For Bike, Universal For Car\r\nFinish - glass\r\nPower Consumption - 18 W', 'kozhikode ', 4, 'black', '2023/03/07', '10', '2023', 'may', '100.jfif'),
+(1163, 3, ' Jacket for girls', 'XL', 'black', '5000', 'Riding Protective Jacket\r\nFor Men and Women\r\n2 Waterproof Pockets, Double Stitch for Durability \r\nAdjusters at Sleeve and Waist for a Snug Fit.', 'delhi po delhi', 7, 'black', '2023/03/14', '18', '2023', 'January', '145.jfif'),
+(1164, 1, ' ii', 'medium', 'i', '-67', 'Light Bulb Included- LED Light\r\nVehicle Model Name - bikes with round head\r\nHigh Beam, Low Beam\r\nHousing Color: Black\r\n', ',kkk', 1, 'red', '2023/03/16', '9', '2023', 'January', '5.jpg');
 
 -- --------------------------------------------------------
 
@@ -236,23 +421,6 @@ CREATE TABLE `tbl_admin` (
   `usertype_id` int(20) NOT NULL,
   `email` varchar(20) NOT NULL,
   `password` int(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tbl_cart`
---
-
-CREATE TABLE `tbl_cart` (
-  `entry_id` int(20) NOT NULL,
-  `user_id` int(20) NOT NULL,
-  `product_id` int(20) NOT NULL,
-  `size` int(20) NOT NULL,
-  `price` int(10) NOT NULL,
-  `cart_qty` int(20) NOT NULL,
-  `net_total` int(20) NOT NULL,
-  `is_checked_out` int(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -273,7 +441,8 @@ CREATE TABLE `tbl_category` (
 INSERT INTO `tbl_category` (`category_id`, `category_name`) VALUES
 (1, 'Oil'),
 (2, 'Basics'),
-(3, 'Wearables');
+(3, 'Wearables'),
+(4, 'engine');
 
 -- --------------------------------------------------------
 
@@ -316,7 +485,7 @@ CREATE TABLE `tbl_contact` (
   `contact_id` int(20) NOT NULL,
   `name` varchar(20) NOT NULL,
   `email` varchar(50) NOT NULL,
-  `phone` int(20) NOT NULL,
+  `phone` varchar(13) NOT NULL,
   `message` varchar(150) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -325,8 +494,8 @@ CREATE TABLE `tbl_contact` (
 --
 
 INSERT INTO `tbl_contact` (`contact_id`, `name`, `email`, `phone`, `message`) VALUES
-(3, 'jai', 'jai@gmail.com', 515563256, 'cant connect'),
-(4, 'abin', 'abc@gmail.com', 1234567899, 'hiiii');
+(18, 'biffin', 'b@gmail.com', '9099887760', 'good'),
+(19, 'abin', 'abc@gmail.com', '9759793479', 'excellent');
 
 -- --------------------------------------------------------
 
@@ -337,46 +506,25 @@ INSERT INTO `tbl_contact` (`contact_id`, `name`, `email`, `phone`, `message`) VA
 CREATE TABLE `tbl_login` (
   `login_id` int(20) NOT NULL,
   `email` varchar(20) NOT NULL,
-  `password` varchar(20) NOT NULL,
-  `role` varchar(20) NOT NULL DEFAULT 'customer'
+  `password` varchar(200) NOT NULL,
+  `role` varchar(20) NOT NULL DEFAULT 'customer',
+  `verify_token` varchar(250) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tbl_login`
 --
 
-INSERT INTO `tbl_login` (`login_id`, `email`, `password`, `role`) VALUES
-(201, 'sherwin@gmail.com', '1234', 'customer'),
-(202, 'abinmon@gmail.com', '12345', 'customer'),
-(205, 'abc@gmail.com', '11', 'customer'),
-(206, 'ab@gmail.com', '0', 'customer'),
-(209, 'abinmonbousally@gmai', '11111', 'customer'),
-(210, 'admin111@gmail.com', '111', 'admin'),
-(211, 'qwertyuiop@gmail.com', 'qwertyuiop', 'customer'),
-(212, 'qwe@gmail.com', '111111', 'customer'),
-(213, 'z@gmail.com', '222', 'customer'),
-(214, 's@gmail.com', '10', 'customer'),
-(220, 'jose@gmail.com', 'zzz', 'customer'),
-(221, 'alan@gmail.com', 'aa', 'customer'),
-(225, 'admin@gmail.com', '111', 'admin'),
-(226, 'subin@gmail.com', 'qqq', 'customer'),
-(227, 'alby@gmail.com', 'alby', 'customer'),
-(228, 'navya@gmail.com', '123', 'customer'),
-(229, 'andavan@gmail.com', '222', 'customer'),
-(230, 'korangan@gmail', '123', 'customer'),
-(231, 'leo@gmail.com', 'leo', 'customer'),
-(232, 'jubin@gmail.com', 'jubin', 'customer'),
-(233, 'jeril@gmail.com', 'jeril', 'customer'),
-(234, 'milan@gmail.com', 'milan', 'customer'),
-(235, 'anu@gmail.com', 'Anu@123', 'customer'),
-(239, 'abyjose123@gmail.com', '123', 'customer'),
-(240, 'abyjose1234@gmail.co', '123', 'customer'),
-(241, 'abin@gmail.com', '123', 'customer'),
-(242, 'jerin@gmail.com', '1234567890', 'customer'),
-(243, 'shino@gmail.com', 'shino', 'customer'),
-(244, 'jai@gmail.com', 'jai', 'customer'),
-(245, 'a@gmail.com', 'a', 'customer'),
-(246, 'aaaa@gmail.com', 'aaaa', 'customer');
+INSERT INTO `tbl_login` (`login_id`, `email`, `password`, `role`, `verify_token`) VALUES
+(220, 'jose@gmail.com', 'e11170b8cbd2d74102651cb967fa28e5', 'customer', '312e56bbef3d6d244d21a8321ae68fd2'),
+(225, 'admin@gmail.com', '698d51a19d8a121ce581499d7b701668', 'admin', '698d51a19d8a121ce581499d7b701668'),
+(256, 'bikehub@gmail.com', 'c234166ffe669c5f8d0966e1c262f1d7', 'shop', 'c234166ffe669c5f8d0966e1c262f1d7'),
+(257, 'bikers@gmail.com', '2a09790efaff5dd082b9b0c0d5ed40bd', 'shop', '2a09790efaff5dd082b9b0c0d5ed40bd'),
+(258, 'bikeworld@gmail.com', 'ade9dd3688766459f288aab82a0e5fb7', 'shop', 'ade9dd3688766459f288aab82a0e5fb7'),
+(259, 'riders@gmail.com', '9b420bdde119988cb2c2bcb3cb8b08db', 'shop', '9b420bdde119988cb2c2bcb3cb8b08db'),
+(260, 'god@gmail.com', 'd6300ccbe743fcc2ee43c5c3613fd743', 'customer', 'd6300ccbe743fcc2ee43c5c3613fd743'),
+(261, 'shino@gmail.com', '8899525b8f602633d780411d3ec97be2', 'customer', '8899525b8f602633d780411d3ec97be2'),
+(262, 'geya@gmail.com', '45968aca330161d0a61c9f647cc4d887', 'customer', '');
 
 -- --------------------------------------------------------
 
@@ -449,17 +597,17 @@ CREATE TABLE `tbl_postjobs` (
   `phone` varchar(20) NOT NULL,
   `salary` varchar(20) NOT NULL,
   `jobtype` varchar(20) NOT NULL,
-  `image` varchar(250) NOT NULL
+  `recruit_status` int(5) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tbl_postjobs`
 --
 
-INSERT INTO `tbl_postjobs` (`job_id`, `name`, `address`, `location`, `phone`, `salary`, `jobtype`, `image`) VALUES
-(1, ' mechanic worker', 'purickhal honda kanjirappaly', 'kanjirappally', '5000000000', '20000 - 25000', 'full time', '../uploads/2.jpg'),
-(2, ' consultent', 'kottyam po kottyam', ' near private bus stand', '5435563444', '12000 - 20000', 'part time', '../uploads/5.jpg'),
-(4, ' mechanic worker', 'kanjirappally po kanjirappally', 'Near mosque', '9752579864', '12000 - 20000', 'part time', '../uploads/');
+INSERT INTO `tbl_postjobs` (`job_id`, `name`, `address`, `location`, `phone`, `salary`, `jobtype`, `recruit_status`) VALUES
+(1, ' mechanic worker', 'purickhal honda kanjirappaly', 'kanjirappally', '9657904320', '20000 - 25000', 'full time', 0),
+(2, ' consultent', 'kottyam po kottyam', ' near private bus stand', '9677789011', '12000 - 20000', 'part time', 0),
+(4, ' mechanic worker', 'kanjirappally po kanjirappally', 'Near mosque', '9752579864', '12000 - 20000', 'part time', 0);
 
 -- --------------------------------------------------------
 
@@ -540,6 +688,31 @@ INSERT INTO `tbl_size` (`size_id`, `category_id`, `size_name`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tbl_slots`
+--
+
+CREATE TABLE `tbl_slots` (
+  `slot_id` int(11) NOT NULL,
+  `outlet_id` int(20) NOT NULL,
+  `date` date NOT NULL,
+  `slot_num` int(20) NOT NULL,
+  `slot_status` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tbl_slots`
+--
+
+INSERT INTO `tbl_slots` (`slot_id`, `outlet_id`, `date`, `slot_num`, `slot_status`) VALUES
+(1, 13, '2023-04-11', 3, 1),
+(2, 13, '2023-04-12', 3, 2),
+(8, 14, '2023-04-11', 3, 1),
+(9, 13, '2023-04-12', 1, 1),
+(10, 13, '2023-04-14', 5, 1);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tbl_spec`
 --
 
@@ -614,10 +787,42 @@ INSERT INTO `tbl_year` (`year_id`, `year`) VALUES
 --
 
 --
+-- Indexes for table `address`
+--
+ALTER TABLE `address`
+  ADD PRIMARY KEY (`customer_id`),
+  ADD KEY `fk` (`login_id`);
+
+--
+-- Indexes for table `bills_paid`
+--
+ALTER TABLE `bills_paid`
+  ADD PRIMARY KEY (`payment_id`);
+
+--
+-- Indexes for table `bill_services`
+--
+ALTER TABLE `bill_services`
+  ADD PRIMARY KEY (`bill_id`);
+
+--
 -- Indexes for table `booking`
 --
 ALTER TABLE `booking`
-  ADD PRIMARY KEY (`booking_id`);
+  ADD PRIMARY KEY (`booking_id`),
+  ADD KEY `df` (`login_id`);
+
+--
+-- Indexes for table `doorstep_booking`
+--
+ALTER TABLE `doorstep_booking`
+  ADD PRIMARY KEY (`d_id`);
+
+--
+-- Indexes for table `jobers`
+--
+ALTER TABLE `jobers`
+  ADD PRIMARY KEY (`jobers_id`);
 
 --
 -- Indexes for table `orders`
@@ -669,15 +874,6 @@ ALTER TABLE `tbl_accessories`
 --
 ALTER TABLE `tbl_admin`
   ADD PRIMARY KEY (`admin_id`);
-
---
--- Indexes for table `tbl_cart`
---
-ALTER TABLE `tbl_cart`
-  ADD PRIMARY KEY (`entry_id`),
-  ADD KEY `fkuser` (`user_id`),
-  ADD KEY `fkproduct` (`product_id`),
-  ADD KEY `fksize` (`size`);
 
 --
 -- Indexes for table `tbl_category`
@@ -746,6 +942,12 @@ ALTER TABLE `tbl_size`
   ADD PRIMARY KEY (`size_id`);
 
 --
+-- Indexes for table `tbl_slots`
+--
+ALTER TABLE `tbl_slots`
+  ADD PRIMARY KEY (`slot_id`);
+
+--
 -- Indexes for table `tbl_spec`
 --
 ALTER TABLE `tbl_spec`
@@ -768,22 +970,52 @@ ALTER TABLE `tbl_year`
 --
 
 --
+-- AUTO_INCREMENT for table `address`
+--
+ALTER TABLE `address`
+  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `bills_paid`
+--
+ALTER TABLE `bills_paid`
+  MODIFY `payment_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `bill_services`
+--
+ALTER TABLE `bill_services`
+  MODIFY `bill_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
 -- AUTO_INCREMENT for table `booking`
 --
 ALTER TABLE `booking`
-  MODIFY `booking_id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `booking_id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+
+--
+-- AUTO_INCREMENT for table `doorstep_booking`
+--
+ALTER TABLE `doorstep_booking`
+  MODIFY `d_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `jobers`
+--
+ALTER TABLE `jobers`
+  MODIFY `jobers_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `payment_details`
@@ -795,25 +1027,25 @@ ALTER TABLE `payment_details`
 -- AUTO_INCREMENT for table `tblcart`
 --
 ALTER TABLE `tblcart`
-  MODIFY `cart_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `cart_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
 
 --
 -- AUTO_INCREMENT for table `tbloutlet`
 --
 ALTER TABLE `tbloutlet`
-  MODIFY `outlet_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `outlet_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `tbluser_registration`
 --
 ALTER TABLE `tbluser_registration`
-  MODIFY `registration_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1252;
+  MODIFY `registration_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1255;
 
 --
 -- AUTO_INCREMENT for table `tbl_accessories`
 --
 ALTER TABLE `tbl_accessories`
-  MODIFY `accessories_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1154;
+  MODIFY `accessories_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1165;
 
 --
 -- AUTO_INCREMENT for table `tbl_admin`
@@ -822,16 +1054,10 @@ ALTER TABLE `tbl_admin`
   MODIFY `admin_id` int(20) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `tbl_cart`
---
-ALTER TABLE `tbl_cart`
-  MODIFY `entry_id` int(20) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `tbl_category`
 --
 ALTER TABLE `tbl_category`
-  MODIFY `category_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `category_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tbl_color`
@@ -843,13 +1069,13 @@ ALTER TABLE `tbl_color`
 -- AUTO_INCREMENT for table `tbl_contact`
 --
 ALTER TABLE `tbl_contact`
-  MODIFY `contact_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `contact_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `tbl_login`
 --
 ALTER TABLE `tbl_login`
-  MODIFY `login_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=247;
+  MODIFY `login_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=263;
 
 --
 -- AUTO_INCREMENT for table `tbl_month`
@@ -873,7 +1099,7 @@ ALTER TABLE `tbl_payment`
 -- AUTO_INCREMENT for table `tbl_postjobs`
 --
 ALTER TABLE `tbl_postjobs`
-  MODIFY `job_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `job_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tbl_report_type`
@@ -892,6 +1118,12 @@ ALTER TABLE `tbl_second`
 --
 ALTER TABLE `tbl_size`
   MODIFY `size_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `tbl_slots`
+--
+ALTER TABLE `tbl_slots`
+  MODIFY `slot_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `tbl_spec`
@@ -916,6 +1148,12 @@ ALTER TABLE `tbl_year`
 --
 
 --
+-- Constraints for table `address`
+--
+ALTER TABLE `address`
+  ADD CONSTRAINT `address_ibfk_1` FOREIGN KEY (`login_id`) REFERENCES `tbl_login` (`login_id`);
+
+--
 -- Constraints for table `orders`
 --
 ALTER TABLE `orders`
@@ -932,14 +1170,6 @@ ALTER TABLE `order_items`
 --
 ALTER TABLE `tblcart`
   ADD CONSTRAINT `tblcart_ibfk_1` FOREIGN KEY (`accessories_id`) REFERENCES `tbl_accessories` (`accessories_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `tbl_cart`
---
-ALTER TABLE `tbl_cart`
-  ADD CONSTRAINT `fkproduct` FOREIGN KEY (`product_id`) REFERENCES `tbl_accessories` (`accessories_id`),
-  ADD CONSTRAINT `fksize` FOREIGN KEY (`size`) REFERENCES `tbl_size` (`size_id`),
-  ADD CONSTRAINT `fkuser` FOREIGN KEY (`user_id`) REFERENCES `tbluser_registration` (`registration_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

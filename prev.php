@@ -210,26 +210,26 @@ img {
                         </ul>
                         </li>
                             <li>
-                                <a href="registeruser.php">Registered Users</a>
+                                <a href="sidebar-01\registeruser.php">Registered Users</a>
                             </li>
                         
                             <li>
-                                <a href="productdetails.php">Product Details</a>
+                                <a href="sidebar-01\productdetails.php">Product Details</a>
                             </li>
                             <li>
-                                <a href="bookingdetails.php">Booking Details</a>
+                                <a href="sidebar-01\bookingdetails.php">Booking Details</a>
                             </li>
                             <li>
-                                <a href="contactdetails.php">Complaint Details</a>
+                                <a href="sidebar-01\contactdetails.php">Complaint Details</a>
                             </li>
                             <li>
-                           <a href="outlet_insert.php">Add outlets</a>
+                           <a href="sidebar-01\outlet_insert.php">Add outlets</a>
                           </li>
                              <li>
-                           <a href="pro.php">Add Product</a>
+                           <a href="sidebar-01\pro.php">Add Product</a>
                           </li>
                           <li>
-                           <a href="jobentering.php">Enter jobs</a>
+                           <a href="sidebar-01\jobentering.php">Enter jobs</a>
                           </li>
                           <li>
                            <a href="bill.php">Generate bill</a>
@@ -250,7 +250,7 @@ img {
                          <a href="\sample\bb\qu.php">insert quantity</a>
                          </li>
                          <li>
-                         <a href="../prev.php">Report generation</a>
+                         <a href="prev.php">Report generation</a>
                          </li>
 
                          <li>
